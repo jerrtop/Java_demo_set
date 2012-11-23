@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig template="com.bstek.demo.ims.business.TemplateView">
+  <Arguments>
+    <Argument name="dataSet">
+      <Property name="value">dsCustomer</Property>
+    </Argument>
+    <Argument name="updateAction">
+      <Property name="value">updateAction</Property>
+    </Argument>
+  </Arguments>
+  <Context/>
+  <Model>
+    <DataType name="Customer" parent="global:Customer"/>
+  </Model>
+  <View>
+    <GroupStart id="dataControlObject"/>
+    <DataSet id="dsCustomer">
+      <Property name="dataType">[Customer]</Property>
+      <Property name="dataProvider">customerPR#getCustomer</Property>
+    </DataSet>
+    <UpdateAction id="updateAction">
+      <Property name="confirmMessage">保存所有编辑过的数据吗？</Property>
+      <Property name="successMessage">数据保存完成！</Property>
+      <Property name="dataResolver">customerPR#saveAll</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsCustomer</Property>
+      </UpdateItem>
+    </UpdateAction>
+    <GroupEnd/>
+    <GroupStart id="dataGridObject"/>
+    <DataGrid id="tableProducers">
+      <Property name="dataSet">dsCustomer</Property>
+      <Property name="readOnly">true</Property>
+      <Property name="showFilterBar">true</Property>
+      <Property name="filterMode">serverSide</Property>
+      <IndicatorColumn/>
+      <RowNumColumn/>
+      <DataColumn>
+        <Property name="name">companyName</Property>
+        <Editor/>
+      </DataColumn>
+    </DataGrid>
+    <GroupEnd/>
+    <GroupStart id="autoFormObject"/>
+    <AutoForm>
+      <Property name="dataSet">dsCustomer</Property>
+      <Property name="cols">*</Property>
+      <Property name="dataType">Customer</Property>
+      <AutoFormElement>
+        <Property name="name">companyName</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">contactName</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">phone</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">fax</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">contactPhone</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">email</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">address</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">postalCode</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">comment</Property>
+        <Editor/>
+      </AutoFormElement>
+    </AutoForm>
+    <GroupEnd/>
+  </View>
+</ViewConfig>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="Customer">
+      <Property name="creationType">com.bstek.demo.ims.entity.Customer</Property>
+      <Property name="autoCreatePropertyDefs">true</Property>
+      <PropertyDef name="id">
+        <Property name="dataType">Integer</Property>
+      </PropertyDef>
+      <PropertyDef name="companyName">
+        <Property name="dataType">String</Property>
+      </PropertyDef>
+      <PropertyDef name="address">
+        <Property name="dataType">String</Property>
+      </PropertyDef>
+      <PropertyDef name="postal_code">
+        <Property name="dataType">String</Property>
+      </PropertyDef>
+      <PropertyDef name="phone">
+        <Property name="dataType">String</Property>
+      </PropertyDef>
+      <PropertyDef name="fax">
+        <Property name="dataType">String</Property>
+      </PropertyDef>
+      <PropertyDef name="email">
+        <Property name="dataType">String</Property>
+      </PropertyDef>
+      <PropertyDef name="contact_name">
+        <Property name="dataType">String</Property>
+      </PropertyDef>
+      <PropertyDef name="contact_phone">
+        <Property name="dataType">String</Property>
+      </PropertyDef>
+      <PropertyDef name="comment">
+        <Property name="dataType">String</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View/>
+</ViewConfig>

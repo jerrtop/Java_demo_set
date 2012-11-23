@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model/>
+  <View>
+    <ToolBar>
+      <DataPilot>
+        <Property name="dataSet">${argument.dataSet}</Property>
+        <Property name="itemCodes">pages</Property>
+      </DataPilot>
+      <ToolBarButton>
+        <ClientEvent name="onClick">this.get(&quot;#dialogEdit&quot;).show(function(){&#xD;
+&#xD;
+    var dataSet= '${argument.dataSet}';&#xD;
+&#xD;
+    view.get(&quot;#&quot; + dataSet+ &quot;.data&quot;).insert({});&#xD;
+&#xD;
+})</ClientEvent>
+        <Property name="caption">添加</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -120px 0px</Property>
+      </ToolBarButton>
+      <ToolBarButton>
+        <ClientEvent name="onClick">this.get(&quot;#dialogEdit&quot;).show();</ClientEvent>
+        <Property name="caption">修改</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -100px -20px</Property>
+      </ToolBarButton>
+    </ToolBar>
+    <PlaceHolder id="dataGridObject"/>
+    <Dialog id="dialogEdit">
+      <Property name="caption">数据维护</Property>
+      <Property name="center">true</Property>
+      <Property name="width">400</Property>
+      <Property name="height">500</Property>
+      <Buttons>
+        <Button>
+          <ClientEvent name="onClick">var dialog = self.get(&quot;parent&quot;);&#xD;
+&#xD;
+var action= '${argument.UpdateAction}';&#xD;
+&#xD;
+this.get(&quot;#&quot; +action).execute(function(){&#xD;
+&#xD;
+    dialog.hide();&#xD;
+&#xD;
+})</ClientEvent>
+          <Property name="caption">保存</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -20px 0px</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">var dataSet = '${argument.dataSet}';&#xD;
+&#xD;
+this.get(&quot;#&quot; + dataSet +&quot;.data&quot;).cancel();&#xD;
+&#xD;
+this.get(&quot;parent&quot;).hide();</ClientEvent>
+          <Property name="caption">取消</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -40px 0px</Property>
+        </Button>
+      </Buttons>
+      <Children>
+        <PlaceHolder id="autoFormObject"/>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <PlaceHolder id="dataControlObject"/>
+  </View>
+</ViewConfig>
