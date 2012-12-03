@@ -1,0 +1,24 @@
+{
+ "id":"http://www.books.com",
+ "title":"Collection of Books",
+ "authors":[{
+   "name":"BookStore Management Company"
+  }
+ ],
+ "entries":[{
+   "id":"123",
+   "title":"CXF in Action",
+   "content":{
+    "attributes":{
+     "type":"application/xml"
+    },
+    "children":["<Book><id>123<\/id><name>CXF in Action<\/name><\/Book>"
+    ]
+   }
+  }
+ ],
+ "attributes":{
+  "xml:base":"http://localhost:9080/bookstore/bookstore/books/feed"
+ }
+}
+

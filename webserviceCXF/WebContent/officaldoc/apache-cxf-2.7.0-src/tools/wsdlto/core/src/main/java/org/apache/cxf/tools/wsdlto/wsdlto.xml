@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements. See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership. The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied. See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<toolspec xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:xhtml="http://www.w3.org/TR/xhtml1/strict"
+      xsi:schemaLocation="http://cxf.apache.org/Xutil/ToolSpecification http://cxf.apache.org/schema/xutil/tool-specification.xsd"
+      xmlns="http://cxf.apache.org/Xutil/ToolSpecification"
+      xmlns:ts="http://cxf.apache.org/Xutil/ToolSpecification">
+
+    <annotation>
+        Examples :
+
+        wsdl2java HelloWorld.wsdl
+        wsdl2java -p com.iona.greeting Greeting.wsdl
+        wsdl2java -client HelloWorld.wsdl
+    </annotation>
+
+    <usage>
+        <optionGroup id="options">
+            <option id="frontend" maxOccurs="1">
+                <annotation>Specifies the front end. (default use jaxws)</annotation>
+                <switch>fe</switch>
+                <switch>frontend</switch>
+                <associatedArgument placement="afterSpace">
+                    <annotation>front-end-name</annotation>
+                </associatedArgument>
+            </option>
+
+            <option id="databinding" maxOccurs="1">
+                <annotation>Specify the databinding name.  (default use jaxb)</annotation>
+                <switch>db</switch>
+                <switch>databinding</switch>
+                <associatedArgument placement="afterSpace">
+                    <annotation>data-binding-name</annotation>
+                </associatedArgument>
+            </option>
+
+            <option id="packagename" maxOccurs="unbounded">
+                <annotation>
+                    Specifies the java package name to use for the generated code.
+                    Optionally  specify a WSDL namespace to Java package name
+                    mapping.
+                </annotation>
+                <switch>p</switch>
+                <associatedArgument placement="afterSpace">
+                    <valuetype>NamingSpacePackageString</valuetype>
+                    <annotation>[wsdl-namespace =]package-name</annotation>
+                </associatedArgument>
+            </option>
+
+            <!--
+            <option id="binding" maxOccurs="unbounded">
+            <annotation>
+                Specify external jaxws or jaxb binding files, (Each 
+                file must have its own -b)
+            </annotation>
+            <switch>b</switch>
+            <associatedArgument placement="afterSpace">
+                <annotation>binding-name</annotation>
+            </associatedArgument>
+            </option>
+            -->
+
+            <option id="outputdir" maxOccurs="1">
+                <annotation>Specify the directory into which the code is placed.</annotation>
+                <switch>d</switch>
+                <associatedArgument placement="afterSpace">
+                    <annotation>output-directory</annotation>
+                </associatedArgument>
+            </option>
+
+            <option id="compile" maxOccurs="1">
+                <annotation>Specifies that the generated code is compiled by the tool.</annotation>
+                <switch>compile</switch>
+            </option>
+
+            <option id="classdir" maxOccurs="1">
+                <annotation>Specifies the directory into which compiled class files are placed.</annotation>
+                <switch>classdir</switch>
+                <associatedArgument placement="afterSpace">
+                    <annotation>compile-classes-directory</annotation>
+                </associatedArgument>
+            </option>
+
+            <!--
+            <option id="impl" maxOccurs="1">
+            <annotation>
+            Generate the dummy service implementation.</annotation>
+            <switch>impl</switch>
+            </option>
+    
+            <option id="server" maxOccurs="1">
+            <annotation>
+            Generates the server code</annotation>
+            <switch>server</switch>
+            </option>
+    
+            <option id="client" maxOccurs="1">
+            <annotation>
+            Generates the client code.</annotation>
+            <switch>client</switch>
+            </option>
+    
+            <option id="all" maxOccurs="1">
+            <annotation>
+                Generates interfaces,types,service,server,impl,client
+                and ant script.
+            </annotation>
+            <switch>all</switch>
+            </option>
+            
+            <option id="ant" maxOccurs="1">
+            <annotation>
+                ant script generation.
+            </annotation>
+            <switch>ant</switch>
+            </option>
+            -->
+
+            <option id="nexclude" maxOccurs="unbounded">
+                <annotation>
+                    Specifies a WSDL namespace to exclude when generating code. This
+                    option can be specified multiple times. Optionally
+                    specify the Java package name to use for the WSDL namespace.
+                </annotation>
+                <switch>nexclude</switch>
+                <associatedArgument placement="afterSpace">
+                    <annotation>schema-namespace [= java-package-name]</annotation>
+                </associatedArgument>
+            </option>
+
+            <option id="exsoapheader" maxOccurs="1">
+                <annotation>Enables the processing of extended SOAP header message binding.
+                </annotation>
+                <switch>exsh</switch>
+                <associatedArgument placement="afterSpace">
+                    <annotation>(true, false)</annotation>
+                    <valueenum>true|false</valueenum>
+                </associatedArgument>
+            </option>
+
+            <option id="defaultns" maxOccurs="1">
+                <annotation>Enables loading the default namespace package name mapping. The default is true.
+                </annotation>
+                <switch>dns</switch>
+                <associatedArgument placement="afterSpace">
+                    <annotation>(true, false)</annotation>
+                    <valueenum>true|false</valueenum>
+                </associatedArgument>
+            </option>
+
+            <option id="defaultex" maxOccurs="1">
+                <annotation> Enable loading the default excludes namespace mapping. The default is true.</annotation>
+                <switch>dex</switch>
+                <associatedArgument placement="afterSpace">
+                    <annotation>(true, false)</annotation>
+                    <valueenum>true|false</valueenum>
+                </associatedArgument>
+            </option>
+            
+            <option id="notypes" maxOccurs="1">
+                <annotation>Turns off generating types</annotation>
+                <switch>noTypes</switch>
+            </option>
+
+            <option id="validate" maxOccurs="1">
+                <annotation>
+                    Specifies that the WSDL is validated before generating the code. Using 
+                    this option is highly recommended.
+                </annotation>
+                <switch>validate</switch>
+            </option>
+
+            <option id="wsdlLocation" maxOccurs="1">
+                <annotation>
+                    Specifies the value of the @WebServiceClient annotation's wsdlLocation property.
+                </annotation>
+                <associatedArgument placement="afterSpace">
+                    <annotation>wsdlLocation</annotation>
+                </associatedArgument>
+            </option>
+
+            <option id="faultSerialVersionUID" maxOccurs="1">
+                <annotation>
+                    Specifies how to generate fault Exception's SUID, can use NONE|TIMESTAMP|FQCN|####", the default is NONE.
+                    FQCN uses a hash of the fully qualified class name.   #### would be any valid Long to
+                    use as the SUID. 
+                </annotation>
+                <switch>faultSerialVersionUID</switch>
+                <associatedArgument placement="afterSpace">
+                    <annotation>fault-serialVersionUID</annotation>
+                </associatedArgument>
+            </option>
+
+            <option id="exceptionSuper" maxOccurs="1">
+                <annotation>
+                    Specifies the superclass to use for generated exceptions, the default is java.lang.Exception.
+                </annotation>
+                <switch>exceptionSuper</switch>
+                <associatedArgument placement="afterSpace">
+                    <annotation>exceptionSuper</annotation>
+                </associatedArgument>
+            </option>
+
+        </optionGroup>
+        <optionGroup id="common_options">
+            <option id="help" maxOccurs="1">
+                <annotation>Display detailed information for options.</annotation>
+                <switch>h</switch>
+                <switch>?</switch>
+                <switch>help</switch>
+            </option>
+
+            <option id="version">
+                <annotation>Display the version of the tool.</annotation>
+                <switch>version</switch>
+                <switch>v</switch>
+            </option>
+
+            <option id="verbose">
+                <annotation>Verbose mode</annotation>
+                <switch>verbose</switch>
+                <switch>V</switch>
+            </option>
+
+            <option id="quiet">
+                <annotation>Quiet mode</annotation>
+                <switch>quiet</switch>
+                <switch>q</switch>
+                <switch>Q</switch>
+            </option>
+
+        </optionGroup>
+        <argument id="wsdlurl" minOccurs="1" maxOccurs="1">
+            <annotation>wsdl-url</annotation>
+        </argument>
+    </usage>
+</toolspec>

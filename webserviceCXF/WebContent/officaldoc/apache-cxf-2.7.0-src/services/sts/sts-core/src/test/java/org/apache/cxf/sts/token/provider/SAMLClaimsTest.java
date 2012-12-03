@@ -1,0 +1,344 @@
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements. See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership. The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+package org.apache.cxf.sts.token.provider;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import org.w3c.dom.Element;
+
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+import org.apache.cxf.jaxws.context.WrappedMessageContext;
+import org.apache.cxf.message.MessageImpl;
+import org.apache.cxf.sts.STSConstants;
+import org.apache.cxf.sts.StaticSTSProperties;
+import org.apache.cxf.sts.claims.ClaimTypes;
+import org.apache.cxf.sts.claims.ClaimsAttributeStatementProvider;
+import org.apache.cxf.sts.claims.ClaimsHandler;
+import org.apache.cxf.sts.claims.ClaimsManager;
+import org.apache.cxf.sts.claims.RequestClaim;
+import org.apache.cxf.sts.claims.RequestClaimCollection;
+import org.apache.cxf.sts.claims.StaticClaimsHandler;
+import org.apache.cxf.sts.claims.StaticEndpointClaimsHandler;
+import org.apache.cxf.sts.common.CustomAttributeProvider;
+import org.apache.cxf.sts.common.CustomClaimsHandler;
+import org.apache.cxf.sts.common.PasswordCallbackHandler;
+import org.apache.cxf.sts.request.KeyRequirements;
+import org.apache.cxf.sts.request.TokenRequirements;
+import org.apache.cxf.sts.service.EncryptionProperties;
+import org.apache.ws.security.CustomTokenPrincipal;
+import org.apache.ws.security.WSConstants;
+import org.apache.ws.security.WSSecurityException;
+import org.apache.ws.security.components.crypto.Crypto;
+import org.apache.ws.security.components.crypto.CryptoFactory;
+import org.apache.ws.security.saml.ext.AssertionWrapper;
+import org.apache.ws.security.saml.ext.builder.SAML2Constants;
+import org.apache.ws.security.util.DOM2Writer;
+
+import org.opensaml.saml2.core.Attribute;
+import org.opensaml.xml.XMLObject;
+
+/**
+ * A unit test for creating a SAML Tokens with various Attributes populated by a ClaimsHandler.
+ */
+public class SAMLClaimsTest extends org.junit.Assert {
+    
+    public static final URI CLAIM_STATIC_COMPANY = 
+        URI.create("http://apache.org/claims/test/company");
+    
+    public static final URI CLAIM_APPLICATION = 
+        URI.create("http://apache.org/claims/test/applicationId");
+    
+    private static final String CLAIM_STATIC_COMPANY_VALUE = "myc@mpany";
+    
+    private static final String CLAIM_APPLICATION_VALUE = "my@pplic@tion";
+    
+    private static final String APPLICATION_APPLIES_TO = "http://dummy-service.com/dummy";
+    
+    /**
+     * Test the creation of a SAML2 Assertion with various Attributes set by a ClaimsHandler.
+     */
+    @org.junit.Test
+    public void testSaml2Claims() throws Exception {
+        TokenProvider samlTokenProvider = new SAMLTokenProvider();
+        TokenProviderParameters providerParameters = 
+            createProviderParameters(WSConstants.WSS_SAML2_TOKEN_TYPE, STSConstants.BEARER_KEY_KEYTYPE, null);
+        
+        ClaimsManager claimsManager = new ClaimsManager();
+        ClaimsHandler claimsHandler = new CustomClaimsHandler();
+        claimsManager.setClaimHandlers(Collections.singletonList(claimsHandler));
+        providerParameters.setClaimsManager(claimsManager);
+        
+        RequestClaimCollection claims = createClaims();
+        providerParameters.setRequestedClaims(claims);
+        
+        List<AttributeStatementProvider> customProviderList = new ArrayList<AttributeStatementProvider>();
+        customProviderList.add(new CustomAttributeProvider());
+        ((SAMLTokenProvider)samlTokenProvider).setAttributeStatementProviders(customProviderList);
+        
+        assertTrue(samlTokenProvider.canHandleToken(WSConstants.WSS_SAML2_TOKEN_TYPE));
+        TokenProviderResponse providerResponse = samlTokenProvider.createToken(providerParameters);
+        assertTrue(providerResponse != null);
+        assertTrue(providerResponse.getToken() != null && providerResponse.getTokenId() != null);
+        
+        Element token = providerResponse.getToken();
+        String tokenString = DOM2Writer.nodeToString(token);
+        assertTrue(tokenString.contains(providerResponse.getTokenId()));
+        assertTrue(tokenString.contains("AttributeStatement"));
+        assertTrue(tokenString.contains("alice"));
+        assertTrue(tokenString.contains(SAML2Constants.CONF_BEARER));
+        assertTrue(tokenString.contains(ClaimTypes.EMAILADDRESS.toString()));
+        assertTrue(tokenString.contains(ClaimTypes.FIRSTNAME.toString()));
+        assertTrue(tokenString.contains(ClaimTypes.LASTNAME.toString()));
+    }
+    
+    /**
+     * Test the creation of a SAML2 Assertion with StaticClaimsHandler
+     */
+    @org.junit.Test
+    public void testSaml2StaticClaims() throws Exception {
+        TokenProvider samlTokenProvider = new SAMLTokenProvider();
+        TokenProviderParameters providerParameters = 
+            createProviderParameters(WSConstants.WSS_SAML2_TOKEN_TYPE, STSConstants.BEARER_KEY_KEYTYPE, null);
+        
+        ClaimsManager claimsManager = new ClaimsManager();
+        StaticClaimsHandler claimsHandler = new StaticClaimsHandler();
+        Map<String, String> staticClaimsMap = new HashMap<String, String>();
+        staticClaimsMap.put(CLAIM_STATIC_COMPANY.toString(), CLAIM_STATIC_COMPANY_VALUE);
+        claimsHandler.setGlobalClaims(staticClaimsMap);
+        claimsManager.setClaimHandlers(Collections.singletonList((ClaimsHandler)claimsHandler));
+        providerParameters.setClaimsManager(claimsManager);
+        
+        RequestClaimCollection claims = new RequestClaimCollection();
+        RequestClaim claim = new RequestClaim();
+        claim.setClaimType(CLAIM_STATIC_COMPANY);
+        claims.add(claim);
+        providerParameters.setRequestedClaims(claims);
+        
+        List<AttributeStatementProvider> customProviderList = new ArrayList<AttributeStatementProvider>();
+        customProviderList.add(new ClaimsAttributeStatementProvider());
+        ((SAMLTokenProvider)samlTokenProvider).setAttributeStatementProviders(customProviderList);
+        
+        assertTrue(samlTokenProvider.canHandleToken(WSConstants.WSS_SAML2_TOKEN_TYPE));
+        TokenProviderResponse providerResponse = samlTokenProvider.createToken(providerParameters);
+        assertTrue(providerResponse != null);
+        assertTrue(providerResponse.getToken() != null && providerResponse.getTokenId() != null);
+        
+        Element token = providerResponse.getToken();
+        String tokenString = DOM2Writer.nodeToString(token);
+        assertTrue(tokenString.contains(providerResponse.getTokenId()));
+        assertTrue(tokenString.contains("AttributeStatement"));
+        assertTrue(tokenString.contains("alice"));
+        assertTrue(tokenString.contains(SAML2Constants.CONF_BEARER));
+        
+        AssertionWrapper assertion = new AssertionWrapper(token);
+        List<Attribute> attributes = assertion.getSaml2().getAttributeStatements().get(0).getAttributes();
+        assertEquals(attributes.size(), 1);
+        assertEquals(attributes.get(0).getName(), CLAIM_STATIC_COMPANY.toString());
+        XMLObject valueObj = attributes.get(0).getAttributeValues().get(0);
+        assertEquals(valueObj.getDOM().getTextContent(), CLAIM_STATIC_COMPANY_VALUE);      
+    }
+    
+    /**
+     * Test the creation of a SAML2 Assertion with StaticEndpointClaimsHandler
+     */
+    @org.junit.Test
+    public void testSaml2StaticEndpointClaims() throws Exception {
+        TokenProvider samlTokenProvider = new SAMLTokenProvider();
+        TokenProviderParameters providerParameters = 
+            createProviderParameters(WSConstants.WSS_SAML2_TOKEN_TYPE, STSConstants.BEARER_KEY_KEYTYPE, null);
+        
+        ClaimsManager claimsManager = new ClaimsManager();
+        StaticEndpointClaimsHandler claimsHandler = new StaticEndpointClaimsHandler();
+        
+        // Create claims map for specific application
+        Map<String, String> endpointClaimsMap = new HashMap<String, String>();
+        endpointClaimsMap.put(CLAIM_APPLICATION.toString(), CLAIM_APPLICATION_VALUE);
+        
+        Map<String, Map<String, String>> staticClaims = new HashMap<String, Map<String, String>>();
+        staticClaims.put(APPLICATION_APPLIES_TO, endpointClaimsMap);
+        claimsHandler.setEndpointClaims(staticClaims);
+        
+        List<URI> supportedClaims = new ArrayList<URI>();
+        supportedClaims.add(CLAIM_APPLICATION);
+        claimsHandler.setSupportedClaims(supportedClaims);
+        
+        claimsManager.setClaimHandlers(Collections.singletonList((ClaimsHandler)claimsHandler));
+        providerParameters.setClaimsManager(claimsManager);
+        
+        RequestClaimCollection claims = new RequestClaimCollection();
+        RequestClaim claim = new RequestClaim();
+        claim.setClaimType(CLAIM_APPLICATION);
+        claims.add(claim);
+        providerParameters.setRequestedClaims(claims);
+        
+        List<AttributeStatementProvider> customProviderList = new ArrayList<AttributeStatementProvider>();
+        customProviderList.add(new ClaimsAttributeStatementProvider());
+        ((SAMLTokenProvider)samlTokenProvider).setAttributeStatementProviders(customProviderList);
+        
+        assertTrue(samlTokenProvider.canHandleToken(WSConstants.WSS_SAML2_TOKEN_TYPE));
+        TokenProviderResponse providerResponse = samlTokenProvider.createToken(providerParameters);
+        assertTrue(providerResponse != null);
+        assertTrue(providerResponse.getToken() != null && providerResponse.getTokenId() != null);
+        
+        Element token = providerResponse.getToken();
+        String tokenString = DOM2Writer.nodeToString(token);
+        assertTrue(tokenString.contains(providerResponse.getTokenId()));
+        assertTrue(tokenString.contains("AttributeStatement"));
+        assertTrue(tokenString.contains("alice"));
+        assertTrue(tokenString.contains(SAML2Constants.CONF_BEARER));
+        
+        AssertionWrapper assertion = new AssertionWrapper(token);
+        List<Attribute> attributes = assertion.getSaml2().getAttributeStatements().get(0).getAttributes();
+        assertEquals(attributes.size(), 1);
+        assertEquals(attributes.get(0).getName(), CLAIM_APPLICATION.toString());
+        XMLObject valueObj = attributes.get(0).getAttributeValues().get(0);
+        assertEquals(valueObj.getDOM().getTextContent(), CLAIM_APPLICATION_VALUE);      
+    }
+    
+    /**
+     * Test the creation of a SAML2 Assertion with StaticEndpointClaimsHandler
+     * but unknown AppliesTo value
+     */
+    @org.junit.Test
+    public void testSaml2StaticEndpointClaimsUnknownAppliesTo() throws Exception {
+        TokenProvider samlTokenProvider = new SAMLTokenProvider();
+        TokenProviderParameters providerParameters = 
+            createProviderParameters(WSConstants.WSS_SAML2_TOKEN_TYPE, 
+                    STSConstants.BEARER_KEY_KEYTYPE, APPLICATION_APPLIES_TO + "UNKNOWN");
+        
+        ClaimsManager claimsManager = new ClaimsManager();
+        StaticEndpointClaimsHandler claimsHandler = new StaticEndpointClaimsHandler();
+        
+        // Create claims map for specific application
+        Map<String, String> endpointClaimsMap = new HashMap<String, String>();
+        endpointClaimsMap.put(CLAIM_APPLICATION.toString(), CLAIM_APPLICATION_VALUE);
+        
+        Map<String, Map<String, String>> staticClaims = new HashMap<String, Map<String, String>>();
+        staticClaims.put(APPLICATION_APPLIES_TO, endpointClaimsMap);
+        claimsHandler.setEndpointClaims(staticClaims);
+        
+        List<URI> supportedClaims = new ArrayList<URI>();
+        supportedClaims.add(CLAIM_APPLICATION);
+        claimsHandler.setSupportedClaims(supportedClaims);
+        
+        claimsManager.setClaimHandlers(Collections.singletonList((ClaimsHandler)claimsHandler));
+        providerParameters.setClaimsManager(claimsManager);
+        
+        RequestClaimCollection claims = new RequestClaimCollection();
+        RequestClaim claim = new RequestClaim();
+        claim.setClaimType(CLAIM_APPLICATION);
+        claims.add(claim);
+        providerParameters.setRequestedClaims(claims);
+        
+        List<AttributeStatementProvider> customProviderList = new ArrayList<AttributeStatementProvider>();
+        customProviderList.add(new ClaimsAttributeStatementProvider());
+        ((SAMLTokenProvider)samlTokenProvider).setAttributeStatementProviders(customProviderList);
+        assertTrue(samlTokenProvider.canHandleToken(WSConstants.WSS_SAML2_TOKEN_TYPE));
+        
+        try {
+            samlTokenProvider.createToken(providerParameters);
+            fail("Failure expected as the claim for the application can't be found due to unknown AppliesTo");
+        } catch (Exception ex) {
+            // expected on the wrong attribute provider
+        }        
+    }
+    
+    private TokenProviderParameters createProviderParameters(
+        String tokenType, String keyType, String appliesTo
+    ) throws WSSecurityException {
+        TokenProviderParameters parameters = new TokenProviderParameters();
+        
+        TokenRequirements tokenRequirements = new TokenRequirements();
+        tokenRequirements.setTokenType(tokenType);
+        parameters.setTokenRequirements(tokenRequirements);
+        
+        KeyRequirements keyRequirements = new KeyRequirements();
+        keyRequirements.setKeyType(keyType);
+        parameters.setKeyRequirements(keyRequirements);
+        
+        parameters.setPrincipal(new CustomTokenPrincipal("alice"));
+        // Mock up message context
+        MessageImpl msg = new MessageImpl();
+        WrappedMessageContext msgCtx = new WrappedMessageContext(msg);
+        WebServiceContextImpl webServiceContext = new WebServiceContextImpl(msgCtx);
+        parameters.setWebServiceContext(webServiceContext);
+        
+        if (appliesTo != null) {
+            parameters.setAppliesToAddress(appliesTo);
+        } else {
+            parameters.setAppliesToAddress(APPLICATION_APPLIES_TO);
+        }
+        
+        // Add STSProperties object
+        StaticSTSProperties stsProperties = new StaticSTSProperties();
+        Crypto crypto = CryptoFactory.getInstance(getEncryptionProperties());
+        stsProperties.setEncryptionCrypto(crypto);
+        stsProperties.setSignatureCrypto(crypto);
+        stsProperties.setEncryptionUsername("myservicekey");
+        stsProperties.setSignatureUsername("mystskey");
+        stsProperties.setCallbackHandler(new PasswordCallbackHandler());
+        stsProperties.setIssuer("STS");
+        parameters.setStsProperties(stsProperties);
+        
+        parameters.setEncryptionProperties(new EncryptionProperties());
+        
+
+        
+        return parameters;
+    }
+    
+    private Properties getEncryptionProperties() {
+        Properties properties = new Properties();
+        properties.put(
+            "org.apache.ws.security.crypto.provider", "org.apache.ws.security.components.crypto.Merlin"
+        );
+        properties.put("org.apache.ws.security.crypto.merlin.keystore.password", "stsspass");
+        properties.put("org.apache.ws.security.crypto.merlin.keystore.file", "stsstore.jks");
+        
+        return properties;
+    }
+    
+    /**
+     * Create a set of parsed Claims
+     */
+    private RequestClaimCollection createClaims() {
+        RequestClaimCollection claims = new RequestClaimCollection();
+        
+        RequestClaim claim = new RequestClaim();
+        claim.setClaimType(ClaimTypes.FIRSTNAME);
+        claims.add(claim);
+        
+        claim = new RequestClaim();
+        claim.setClaimType(ClaimTypes.LASTNAME);
+        claims.add(claim);
+        
+        claim = new RequestClaim();
+        claim.setClaimType(ClaimTypes.EMAILADDRESS);
+        claims.add(claim);
+        
+        return claims;
+    }
+    
+}

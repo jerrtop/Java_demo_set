@@ -1,0 +1,15 @@
+<xs:schema xmlns="http://service.jaxws.cxf.apache.org/"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  attributeFormDefault="unqualified" elementFormDefault="unqualified"
+  targetNamespace="http://service.jaxws.cxf.apache.org/fooStuff">
+  <xs:complexType name="foo">
+    <xs:annotation>
+        <xs:documentation>
+      bibbity bob
+      <!-- foo bar -->
+        </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
