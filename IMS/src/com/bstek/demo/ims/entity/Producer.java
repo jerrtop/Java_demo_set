@@ -8,22 +8,24 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-public class Customer {
+public class Producer {
 
 	private Integer id;
 	private String companyName;
+	private String phone;
 	private String address;
 	private String postalCode;
-	private String phone;
 	private String fax;
 	private String contactName;
 	private String contactPhone;
 	private String email;
 	private String comment;
+	private String bank;
+	private String acctNo;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ID")
-	@SequenceGenerator(name = "SEQ_ID", sequenceName = "SEQ_CUSTOMER_ID")
+	@SequenceGenerator(name = "SEQ_ID", sequenceName = "SEQ_PRODUCER_ID")
 	public Integer getId() {
 		return id;
 	}
@@ -40,12 +42,36 @@ public class Customer {
 		this.fax = fax;
 	}
 
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	@Column(name = "company_name")
@@ -74,14 +100,6 @@ public class Customer {
 		this.postalCode = postalCode;
 	}
 
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
 	@Column(name = "contact_name")
 	public String getContactName() {
 		return contactName;
@@ -100,11 +118,12 @@ public class Customer {
 		this.contactPhone = contactPhone;
 	}
 
-	public String getComment() {
-		return comment;
+	@Column(name = "acct_no")
+	public String getAcctNo() {
+		return acctNo;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setAcctNo(String acctNo) {
+		this.acctNo = acctNo;
 	}
 }

@@ -10,7 +10,26 @@
   </Arguments>
   <Context/>
   <Model>
-    <DataType name="Customer" parent="global:Customer"/>
+    <DataType name="Customer" parent="global:Customer">
+      <PropertyDef name="companyName">
+        <Property name="required">true</Property>
+        <Validator type="ajax">
+          <Property name="service">customerPR#validatorCompanyName</Property>
+        </Validator>
+      </PropertyDef>
+      <PropertyDef name="address">
+        <Property name="required">true</Property>
+      </PropertyDef>
+      <PropertyDef name="postalCode">
+        <Property name="required">true</Property>
+      </PropertyDef>
+      <PropertyDef name="contactName">
+        <Property name="required">true</Property>
+      </PropertyDef>
+      <PropertyDef name="contactPhone">
+        <Property name="required">true</Property>
+      </PropertyDef>
+    </DataType>
   </Model>
   <View>
     <GroupStart id="dataControlObject"/>
@@ -29,15 +48,36 @@
     <GroupEnd/>
     <GroupStart id="dataGridObject"/>
     <DataGrid id="tableProducers">
-      <Property name="dataSet">dsCustomer</Property>
       <Property name="readOnly">true</Property>
-      <Property name="showFilterBar">true</Property>
       <Property name="filterMode">serverSide</Property>
-      <IndicatorColumn/>
-      <RowNumColumn/>
-      <DataColumn>
-        <Property name="name">companyName</Property>
-        <Editor/>
+      <Property name="showFilterBar">true</Property>
+      <Property name="dataSet">dsCustomer</Property>
+      <DataColumn name="companyName">
+        <Property name="property">companyName</Property>
+      </DataColumn>
+      <DataColumn name="address">
+        <Property name="property">address</Property>
+      </DataColumn>
+      <DataColumn name="postalCode">
+        <Property name="property">postalCode</Property>
+      </DataColumn>
+      <DataColumn name="contactName">
+        <Property name="property">contactName</Property>
+      </DataColumn>
+      <DataColumn name="contactPhone">
+        <Property name="property">contactPhone</Property>
+      </DataColumn>
+      <DataColumn name="phone">
+        <Property name="property">phone</Property>
+      </DataColumn>
+      <DataColumn name="fax">
+        <Property name="property">fax</Property>
+      </DataColumn>
+      <DataColumn name="email">
+        <Property name="property">email</Property>
+      </DataColumn>
+      <DataColumn name="comment">
+        <Property name="property">comment</Property>
       </DataColumn>
     </DataGrid>
     <GroupEnd/>
@@ -48,38 +88,47 @@
       <Property name="dataType">Customer</Property>
       <AutoFormElement>
         <Property name="name">companyName</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">contactName</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">phone</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">fax</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">contactPhone</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">email</Property>
+        <Property name="property">companyName</Property>
         <Editor/>
       </AutoFormElement>
       <AutoFormElement>
         <Property name="name">address</Property>
+        <Property name="property">address</Property>
         <Editor/>
       </AutoFormElement>
       <AutoFormElement>
         <Property name="name">postalCode</Property>
+        <Property name="property">postalCode</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">contactName</Property>
+        <Property name="property">contactName</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">contactPhone</Property>
+        <Property name="property">contactPhone</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">phone</Property>
+        <Property name="property">phone</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">fax</Property>
+        <Property name="property">fax</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">email</Property>
+        <Property name="property">email</Property>
         <Editor/>
       </AutoFormElement>
       <AutoFormElement>
         <Property name="name">comment</Property>
+        <Property name="property">comment</Property>
         <Editor/>
       </AutoFormElement>
     </AutoForm>

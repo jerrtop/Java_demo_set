@@ -4,6 +4,7 @@
   <Context/>
   <Model/>
   <View>
+    <PlaceHolder id="dataControlObject"/>
     <ToolBar>
       <DataPilot>
         <Property name="dataSet">${argument.dataSet}</Property>
@@ -36,7 +37,7 @@
         <Button>
           <ClientEvent name="onClick">var dialog = self.get(&quot;parent&quot;);&#xD;
 &#xD;
-var action= '${argument.UpdateAction}';&#xD;
+var action= '${argument.updateAction}';&#xD;
 &#xD;
 this.get(&quot;#&quot; +action).execute(function(){&#xD;
 &#xD;
@@ -61,6 +62,5 @@ this.get(&quot;parent&quot;).hide();</ClientEvent>
       </Children>
       <Tools/>
     </Dialog>
-    <PlaceHolder id="dataControlObject"/>
   </View>
 </ViewConfig>
