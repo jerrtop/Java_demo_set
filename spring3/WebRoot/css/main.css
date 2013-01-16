@@ -1,0 +1,24 @@
+body {
+	font: 12px/20px "微软雅黑", "宋体", Arial, sans-serif, Verdana, Tahoma;
+	padding: 0;
+	margin: 0;
+}
+
+.td_title{
+	padding-left:15px;
+	background-color: #1078b5;
+}
+.td_title_content {
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+}
+.td_litter_bg {
+	background-image: url("../img/litter_bg.gif");
+	text-align: center;
+}
+.sp_font_b12 {
+	color: #666666;
+	font-weight: bold;
+	font-size: 14px;
+}

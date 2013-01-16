@@ -1,21 +1,30 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ include file="/taglibs.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>relogin</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
+    <title>管理系统登录</title>
   </head>
   
-  <body>
-    ${message}
-    <form action="<%=request.getContextPath()%>/welcome" method="post">
-    	姓名：<input name="name"><br/>
-    	密码：<input type="password" name="password"><br/>
-    	<input type="submit" value="登陆">
-    </form>
+  <body bgcolor="#1078b5">
+    <table width="100%" height="100%" border="0" cellSpacing="0" cellPadding="0">
+    	<tr>
+    		<td align="center">
+    			<p>
+    				<span style="font-size:17px;padding-left:10px;color:white;font-weight:bold;"></span>
+    			</p>
+    			<p>
+		    		 <form action="${ctx}/welcome" method="post">
+				    	<span class="td_title_content" style="font-size:17px">账  号：</span><input name="suUsername" />
+				    	&nbsp;&nbsp;&nbsp;&nbsp;
+				    	<span class="td_title_content" style="font-size:17px">密  码：</span><input type="password" name="suPassword" />
+				    	<input type="submit"  style="font-size:13px;" value="登 录" />
+				    </form>
+				    <span class="td_title_content">${message}</span>
+			    </p>
+    		</td>
+    	</tr>
+    </table>
+   
   </body>
 </html>

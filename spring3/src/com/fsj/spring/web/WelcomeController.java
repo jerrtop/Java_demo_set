@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.fsj.spring.model.TUser;
+import com.fsj.spring.model.sys.SysUser;
 import com.fsj.spring.service.IUserService;
 import com.fsj.spring.util.Constants;
 
@@ -30,17 +30,17 @@ public class WelcomeController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String helloWorld(TUser user,Model model) throws Exception {
-		TUser user1 = userService.getUserByName(user.getName());
+	public String checkUser(SysUser user,Model model) throws Exception {
+		SysUser user1 = userService.getUserByName(user.getSuUsername());
 		if(user1 == null) {
-			model.addAttribute("message", "用户不存在");
+			model.addAttribute("message", "账号不存在");
 			return "relogin";
-		}else if(user.getPassword() == null || !user.getPassword().equals(user1.getPassword()) ){
+		}else if(user.getSuPassword() == null || !user.getSuPassword().equals(user1.getSuPassword()) ){
 			model.addAttribute("message", "密码错误");
 			return "relogin";
 		}else {
 			model.addAttribute(Constants.USER_INFO_SESSION, user1); //名为Constants.USER_INFO_SESSION的属性放到Session属性列表中
-			return "welcome";
+			return "main";
 		}
 	}
 }
