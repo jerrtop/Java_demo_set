@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="categoryGoods" parent="global:Category">
+      <Reference name="goods">
+        <Property name="dataType">[Goods]</Property>
+        <Property name="dataProvider">categoryGoodsPR#getGoods</Property>
+        <Property name="pageSize">20</Property>
+        <Property name="parameter">$${this.id}</Property>
+      </Reference>
+    </DataType>
+  </Model>
+  <View>
+    <ClientEvent name="onCreate">this.$dataSet = '${argument.dataSet}';&#xD;
+this.$updateAction = '${argument.updateAction}';&#xD;
+&#xD;
+//&#xD;
+this.$dirtyEntityNum = 0;&#xD;
+// 刷新按钮状态&#xD;
+this.$refreshActions = function(){&#xD;
+    var entityList = self.get(&quot;#&quot; + self.$dataSet + &quot;.data&quot;);&#xD;
+    // 无脏记录&#xD;
+    $tag(&quot;STATE_NONE&quot;).set(&quot;disabled&quot;, !self.$dirtyEntityNum == 0);&#xD;
+    // 又脏记录&#xD;
+    $tag(&quot;STATE_DIRTY&quot;).set(&quot;disabled&quot;, self.$dirtyEntityNum == 0);&#xD;
+	// 有记录&#xD;
+    $tag(&quot;STATE_ALL&quot;).set(&quot;disabled&quot;, entityList.toArray().length == 0);&#xD;
+}&#xD;
+</ClientEvent>
+    <PlaceHolder id="dataControlObject"/>
+    <DataSet id="dsCategoryGoods">
+      <Property name="dataType">[categoryGoods]</Property>
+      <Property name="dataProvider">categoryGoodsPR#getAllCategories</Property>
+    </DataSet>
+    <Dialog id="dialogGoods">
+      <Property name="center">true</Property>
+      <Property name="width">600</Property>
+      <Property name="height">400</Property>
+      <Property name="caption">商品选择</Property>
+      <Buttons>
+        <Button>
+          <ClientEvent name="onClick">// 获取选择的记录&#xD;
+var selection = this.get(&quot;#tableGoods.selection&quot;);&#xD;
+// 添加记录&#xD;
+this.get(&quot;#&quot; +this.$dataSet + &quot;.data&quot;).createChild({&#xD;
+	&quot;goods&quot;: selection.toJSON()&#xD;
+});&#xD;
+&#xD;
+// 关闭窗口&#xD;
+self.get(&quot;parent&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">确定</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">// 关闭窗口&#xD;
+self.get(&quot;parent&quot;).hide();</ClientEvent>
+          <Property name="caption">取消</Property>
+        </Button>
+      </Buttons>
+      <Children>
+        <SplitPanel>
+          <Property name="position">200</Property>
+          <MainControl>
+            <Container>
+              <ToolBar>
+                <DataPilot>
+                  <Property name="itemCodes">pages</Property>
+                  <Property name="dataSet">dsCategoryGoods</Property>
+                  <Property name="dataPath">#.goods</Property>
+                </DataPilot>
+              </ToolBar>
+              <DataGrid id="tableGoods">
+                <Property name="dataSet">dsCategoryGoods</Property>
+                <Property name="dataPath">#.goods</Property>
+                <Property name="dataType">Goods</Property>
+                <Property name="readOnly">true</Property>
+                <Property name="selectionMode">singleRow</Property>
+                <RowSelectorColumn/>
+                <DataColumn name="name">
+                  <Property name="property">name</Property>
+                </DataColumn>
+                <DataColumn name="birthplace">
+                  <Property name="property">birthplace</Property>
+                </DataColumn>
+                <DataColumn name="specification">
+                  <Property name="property">specification</Property>
+                </DataColumn>
+                <DataColumn name="packaging">
+                  <Property name="property">packaging</Property>
+                </DataColumn>
+                <DataColumn name="storage">
+                  <Property name="property">storage</Property>
+                </DataColumn>
+                <DataColumn name="totalStorage">
+                  <Property name="property">totalStorage</Property>
+                </DataColumn>
+                <DataColumn name="sales">
+                  <Property name="property">sales</Property>
+                </DataColumn>
+                <DataColumn name="comment">
+                  <Property name="property">comment</Property>
+                </DataColumn>
+              </DataGrid>
+            </Container>
+          </MainControl>
+          <SideControl>
+            <DataGrid>
+              <Property name="dataSet">dsCategoryGoods</Property>
+              <Property name="dataType">categoryGoods</Property>
+              <Property name="selectionMode">singleRow</Property>
+              <DataColumn name="name">
+                <Property name="property">name</Property>
+              </DataColumn>
+            </DataGrid>
+          </SideControl>
+        </SplitPanel>
+      </Children>
+      <Tools/>
+    </Dialog>
+    <ToolBar>
+      <ToolBarButton>
+        <ClientEvent name="onClick">this.get(&quot;#dialogGoods&quot;).show();&#xD;
+</ClientEvent>
+        <Property name="caption">添加</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -120px 0px</Property>
+        <Property name="tags">STATE_NONE</Property>
+      </ToolBarButton>
+      <Separator/>
+      <ToolBarButton>
+        <ClientEvent name="onClick">var view = this;&#xD;
+var datSet = this.$dataSet;&#xD;
+var action = this.$updateAction;&#xD;
+&#xD;
+dorado.MessageBox.confirm(&quot;确认删除当前的记录吗？&quot;, function(){&#xD;
+    view.get(&quot;#&quot; + datSet + &quot;.data&quot;).remove();&#xD;
+    view.get(&quot;#&quot; + action).execute();&#xD;
+})&#xD;
+</ClientEvent>
+        <Property name="caption">删除</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -140px 0px</Property>
+        <Property name="tags">STATE_ALL</Property>
+        <Property name="disabled">true</Property>
+      </ToolBarButton>
+      <Separator/>
+      <ToolBarButton>
+        <ClientEvent name="onClick">var view =this;&#xD;
+dorado.MessageBox.confirm(&quot;要放弃当前的操作吗？&quot;, function(){&#xD;
+    view.get(&quot;#&quot; + view.$dataSet + &quot;.data&quot;).cancel();&#xD;
+})&#xD;
+&#xD;
+</ClientEvent>
+        <Property name="caption">放弃</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -280px -220px</Property>
+        <Property name="tags">STATE_DIRTY</Property>
+        <Property name="disabled">true</Property>
+      </ToolBarButton>
+      <Separator/>
+      <ToolBarButton>
+        <ClientEvent name="onClick">var view = this;&#xD;
+this.get(&quot;#&quot; + this.$updateAction).execute(function(){&#xD;
+    view.$dirtyEntityNum = 0;&#xD;
+    view.$refreshActions();&#xD;
+});&#xD;
+</ClientEvent>
+        <Property name="caption">保存</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -60px 0px</Property>
+        <Property name="tags">STATE_DIRTY</Property>
+        <Property name="disabled">true</Property>
+      </ToolBarButton>
+      <Separator/>
+      <ToolBarButton>
+        <ClientEvent name="onClick">this.get(&quot;#dialogQueryCondition&quot;).show();&#xD;
+</ClientEvent>
+        <Property name="caption">查询</Property>
+        <Property name="icon">url(>skin>common/icons.gif) -20px -40px</Property>
+        <Property name="tags">STATE_NONE</Property>
+      </ToolBarButton>
+    </ToolBar>
+    <PlaceHolder id="formObject"/>
+    <GroupBox>
+      <Property name="caption">明细信息</Property>
+      <Property name="collapseable">false</Property>
+      <Buttons/>
+      <Children>
+        <ToolBar>
+          <DataPilot>
+            <Property name="dataSet">${argument.dataSet}</Property>
+            <Property name="itemCodes">pages</Property>
+          </DataPilot>
+        </ToolBar>
+        <PlaceHolder id="dataGridObject"/>
+      </Children>
+    </GroupBox>
+    <Dialog id="dialogQueryCondition">
+      <Property name="caption">查询条件</Property>
+      <Property name="center">true</Property>
+      <Property name="width">480</Property>
+      <Property name="height">300</Property>
+      <Buttons>
+        <Button>
+          <ClientEvent name="onClick">var dataSet = this.get(&quot;#&quot; + this.$dataSet);&#xD;
+var condtion = this.get(&quot;#formQueryCondition.entity&quot;);&#xD;
+dataSet.set(&quot;parameter&quot;, condtion).flushAsync();&#xD;
+self.get(&quot;parent&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">查询</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">this.get(&quot;parent&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">关闭</Property>
+        </Button>
+      </Buttons>
+      <Children>
+        <PlaceHolder id="formQueryConditionObject"/>
+      </Children>
+      <Tools/>
+    </Dialog>
+  </View>
+</ViewConfig>

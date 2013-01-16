@@ -2,7 +2,7 @@
 <ViewConfig template="com.bstek.demo.ims.business.TemplateView">
   <Arguments>
     <Argument name="dataSet">
-      <Property name="value">dsCustomer</Property>
+      <Property name="value">dsCustomers</Property>
     </Argument>
     <Argument name="updateAction">
       <Property name="value">updateAction</Property>
@@ -11,104 +11,59 @@
   <Context/>
   <Model>
     <DataType name="Customer" parent="global:Customer">
+      <Property name="matchType">com.bstek.demo.ims.entity.Customer</Property>
+      <Property name="creationType">com.bstek.demo.ims.entity.Customer</Property>
       <PropertyDef name="companyName">
+        <Property name="dataType">String</Property>
         <Property name="required">true</Property>
         <Validator type="ajax">
           <Property name="service">customerPR#validatorCompanyName</Property>
         </Validator>
       </PropertyDef>
       <PropertyDef name="address">
+        <Property name="dataType">String</Property>
         <Property name="required">true</Property>
       </PropertyDef>
       <PropertyDef name="postalCode">
+        <Property name="dataType">String</Property>
         <Property name="required">true</Property>
       </PropertyDef>
       <PropertyDef name="contactName">
+        <Property name="dataType">String</Property>
         <Property name="required">true</Property>
       </PropertyDef>
       <PropertyDef name="contactPhone">
+        <Property name="dataType">String</Property>
         <Property name="required">true</Property>
       </PropertyDef>
     </DataType>
   </Model>
   <View>
     <GroupStart id="dataControlObject"/>
-    <DataSet id="dsCustomer">
+    <DataSet id="dsCustomers">
       <Property name="dataType">[Customer]</Property>
+      <Property name="pageSize">20</Property>
       <Property name="dataProvider">customerPR#getCustomer</Property>
     </DataSet>
     <UpdateAction id="updateAction">
-      <Property name="confirmMessage">保存所有编辑过的数据吗？</Property>
-      <Property name="successMessage">数据保存完成！</Property>
       <Property name="dataResolver">customerPR#saveAll</Property>
+      <Property name="modal">false</Property>
+      <Property name="successMessage">数据保存成功!</Property>
+      <Property name="confirmMessage">保存所有编辑过的数据吗？</Property>
       <UpdateItem>
-        <Property name="dataSet">dsCustomer</Property>
+        <Property name="dataSet">dsCustomers</Property>
+        <Property name="submitOldData">true</Property>
       </UpdateItem>
     </UpdateAction>
     <GroupEnd/>
-    <GroupStart id="dataGridObject"/>
-    <DataGrid id="tableProducers">
-      <Property name="readOnly">true</Property>
-      <Property name="filterMode">serverSide</Property>
-      <Property name="showFilterBar">true</Property>
-      <Property name="dataSet">dsCustomer</Property>
-      <DataColumn name="companyName">
-        <Property name="property">companyName</Property>
-      </DataColumn>
-      <DataColumn name="address">
-        <Property name="property">address</Property>
-      </DataColumn>
-      <DataColumn name="postalCode">
-        <Property name="property">postalCode</Property>
-      </DataColumn>
-      <DataColumn name="contactName">
-        <Property name="property">contactName</Property>
-      </DataColumn>
-      <DataColumn name="contactPhone">
-        <Property name="property">contactPhone</Property>
-      </DataColumn>
-      <DataColumn name="phone">
-        <Property name="property">phone</Property>
-      </DataColumn>
-      <DataColumn name="fax">
-        <Property name="property">fax</Property>
-      </DataColumn>
-      <DataColumn name="email">
-        <Property name="property">email</Property>
-      </DataColumn>
-      <DataColumn name="comment">
-        <Property name="property">comment</Property>
-      </DataColumn>
-    </DataGrid>
-    <GroupEnd/>
     <GroupStart id="autoFormObject"/>
     <AutoForm>
-      <Property name="dataSet">dsCustomer</Property>
-      <Property name="cols">*</Property>
+      <Property name="dataSet">dsCustomers</Property>
       <Property name="dataType">Customer</Property>
+      <Property name="cols">*</Property>
       <AutoFormElement>
         <Property name="name">companyName</Property>
         <Property name="property">companyName</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">address</Property>
-        <Property name="property">address</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">postalCode</Property>
-        <Property name="property">postalCode</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">contactName</Property>
-        <Property name="property">contactName</Property>
-        <Editor/>
-      </AutoFormElement>
-      <AutoFormElement>
-        <Property name="name">contactPhone</Property>
-        <Property name="property">contactPhone</Property>
         <Editor/>
       </AutoFormElement>
       <AutoFormElement>
@@ -122,16 +77,74 @@
         <Editor/>
       </AutoFormElement>
       <AutoFormElement>
+        <Property name="name">contactName</Property>
+        <Property name="property">contactName</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">contactPhone</Property>
+        <Property name="property">contactPhone</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
         <Property name="name">email</Property>
         <Property name="property">email</Property>
         <Editor/>
       </AutoFormElement>
       <AutoFormElement>
+        <Property name="name">address</Property>
+        <Property name="property">address</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">postalCode</Property>
+        <Property name="property">postalCode</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
         <Property name="name">comment</Property>
         <Property name="property">comment</Property>
+        <Property name="editorType">TextArea</Property>
         <Editor/>
       </AutoFormElement>
     </AutoForm>
+    <GroupEnd/>
+    <GroupStart id="dataGridObject"/>
+    <DataGrid id="tableProducers">
+      <Property name="dataSet">dsCustomers</Property>
+      <Property name="readOnly">true</Property>
+      <Property name="filterMode">serverSide</Property>
+      <Property name="showFilterBar">true</Property>
+      <IndicatorColumn/>
+      <RowNumColumn/>
+      <DataColumn name="companyName">
+        <Property name="property">companyName</Property>
+      </DataColumn>
+      <DataColumn name="phone">
+        <Property name="property">phone</Property>
+      </DataColumn>
+      <DataColumn name="fax">
+        <Property name="property">fax</Property>
+      </DataColumn>
+      <DataColumn name="contactName">
+        <Property name="property">contactName</Property>
+      </DataColumn>
+      <DataColumn name="contactPhone">
+        <Property name="property">contactPhone</Property>
+      </DataColumn>
+      <DataColumn name="email">
+        <Property name="property">email</Property>
+      </DataColumn>
+      <DataColumn name="address">
+        <Property name="property">address</Property>
+      </DataColumn>
+      <DataColumn name="postalCode">
+        <Property name="property">postalCode</Property>
+      </DataColumn>
+      <DataColumn name="comment">
+        <Property name="property">comment</Property>
+      </DataColumn>
+    </DataGrid>
     <GroupEnd/>
   </View>
 </ViewConfig>

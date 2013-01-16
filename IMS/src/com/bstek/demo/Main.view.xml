@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model/>
+  <View>
+    <ClientEvent name="onCreate">//&#xD;
+self.$initTreeMenu = function(parentKey){&#xD;
+	self.get(&quot;#splitPanel&quot;).set(&quot;position&quot;,200)&#xD;
+    self.get(&quot;#treeMenu&quot;).set(&quot;nodes&quot;, self.$menu[parentKey]);&#xD;
+}&#xD;
+&#xD;
+//菜单项定义&#xD;
+self.$menu = {&#xD;
+    base: [{&#xD;
+        label: &quot;供应商信息维护&quot;,&#xD;
+        userData: {&#xD;
+            url: &quot;com.bstek.demo.ims.business.Producer.d&quot;&#xD;
+        },&#xD;
+        icon: &quot;url(>skin>common/icons.gif) -140px -100px&quot;&#xD;
+    }, {&#xD;
+        label: &quot;客户信息维护&quot;,&#xD;
+        userData: {&#xD;
+            url: &quot;com.bstek.demo.ims.business.Customer.d&quot;&#xD;
+        },&#xD;
+        icon: &quot;url(>skin>common/icons.gif) -140px -100px&quot;&#xD;
+    }, {&#xD;
+        label: &quot;产品维护&quot;,&#xD;
+        userData: {&#xD;
+            url: &quot;com.bstek.demo.ims.business.Goods.d&quot;&#xD;
+        },&#xD;
+        icon: &quot;url(>skin>common/icons.gif) -180px -40px&quot;&#xD;
+    }],&#xD;
+    purchasing: [{&#xD;
+        label: &quot;商品采购入库&quot;,&#xD;
+        userData: {&#xD;
+            url: &quot;com.bstek.demo.ims.business.Purchasing.d&quot;&#xD;
+        },&#xD;
+        icon: &quot;url(>skin>common/icons.gif) -260px -20px&quot;&#xD;
+    }],&#xD;
+    sell: [{&#xD;
+        label: &quot;商品销售出库&quot;,&#xD;
+        userData: {&#xD;
+            url: &quot;com.bstek.demo.ims.business.Sell.d&quot;&#xD;
+        },&#xD;
+        icon: &quot;url(>skin>common/icons.gif) 0px -80px&quot;&#xD;
+    }],&#xD;
+    stock: [{&#xD;
+        label: &quot;商品库存统计&quot;,&#xD;
+        userData: {&#xD;
+            url: &quot;com.bstek.demo.ims.business.Stock.d&quot;&#xD;
+        },&#xD;
+        icon: &quot;url(>skin>common/icons.gif) -240px -40px&quot;&#xD;
+    }, {&#xD;
+        label: &quot;库存调整&quot;,&#xD;
+        userData: {&#xD;
+            url: &quot;com.bstek.demo.ims.business.StockAdjusting.d&quot;&#xD;
+        },&#xD;
+        icon: &quot;url(>skin>common/icons.gif) -300px -60px&quot;&#xD;
+    }]&#xD;
+}</ClientEvent>
+    <HtmlContainer layout="anchor">
+      <Property name="style">
+        <Property name="background">url(images/page-banner-bg.gif)</Property>
+      </Property>
+      <Property name="height">40</Property>
+      <Label layoutConstraint="top:10;left:10">
+        <Property name="style">
+          <Property name="color">#345666</Property>
+          <Property name="font-style">italic</Property>
+          <Property name="font-size">12pt</Property>
+          <Property name="white-space">noWrap</Property>
+          <Property name="font-weight">bold</Property>
+        </Property>
+        <Property name="text">进销存管理</Property>
+      </Label>
+    </HtmlContainer>
+    <Container>
+      <ToolBar>
+        <ToolBarButton>
+          <ClientEvent name="onClick">this.$initTreeMenu(&quot;base&quot;);&#xD;
+&#xD;
+</ClientEvent>
+          <Property name="caption">基础信息</Property>
+          <Property name="toggleOnShowMenu">true</Property>
+          <Property name="showTrigger">false</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -260px -20px</Property>
+        </ToolBarButton>
+        <ToolBarButton>
+          <ClientEvent name="onClick">this.$initTreeMenu(&quot;purchasing&quot;);</ClientEvent>
+          <Property name="caption">商品采购</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -260px -20px</Property>
+        </ToolBarButton>
+        <ToolBarButton>
+          <ClientEvent name="onClick">this.$initTreeMenu(&quot;sell&quot;);</ClientEvent>
+          <Property name="caption">商品销售</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -260px -20px</Property>
+        </ToolBarButton>
+        <ToolBarButton>
+          <ClientEvent name="onClick">this.$initTreeMenu(&quot;stock&quot;);</ClientEvent>
+          <Property name="caption">库存管理</Property>
+          <Property name="icon">url(>skin>common/icons.gif) -260px -20px</Property>
+        </ToolBarButton>
+      </ToolBar>
+      <SplitPanel id="splitPanel">
+        <Property name="position">200</Property>
+        <MainControl>
+          <Panel id="workspace">
+            <Property name="caption">工作区</Property>
+            <Buttons/>
+            <Children>
+              <IFrame id="iframe"/>
+            </Children>
+            <Tools/>
+          </Panel>
+        </MainControl>
+        <SideControl>
+          <Tree id="treeMenu">
+            <ClientEvent name="onDataRowClick">var node = self.get(&quot;currentNode&quot;);&#xD;
+var workspace = this.get(&quot;#workspace&quot;);&#xD;
+// 菜单名称&#xD;
+workspace.set(&quot;caption&quot;,node.get(&quot;label&quot;));&#xD;
+// 加载业务页面&#xD;
+this.set(&quot;#iframe.path&quot;,node.get(&quot;userData.url&quot;));</ClientEvent>
+          </Tree>
+        </SideControl>
+      </SplitPanel>
+    </Container>
+  </View>
+</ViewConfig>

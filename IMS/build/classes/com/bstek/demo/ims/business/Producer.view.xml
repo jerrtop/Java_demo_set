@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig template="com.bstek.demo.ims.business.TemplateView">
+  <Arguments>
+    <Argument name="dataSet">
+      <Property name="value">dsProducer</Property>
+    </Argument>
+    <Argument name="updateAction">
+      <Property name="value">updateAction</Property>
+    </Argument>
+  </Arguments>
+  <Context/>
+  <Model>
+    <DataType name="Producer" parent="global:Producer">
+      <Property name="matchType">com.bstek.demo.ims.entity.Producer</Property>
+      <Property name="creationType">com.bstek.demo.ims.entity.Producer</Property>
+      <PropertyDef name="companyName">
+        <Property name="dataType">String</Property>
+        <Property name="required">true</Property>
+        <Validator type="ajax">
+          <Property name="service">producerPR#validatorCompanyName</Property>
+        </Validator>
+      </PropertyDef>
+      <PropertyDef name="address">
+        <Property name="dataType">String</Property>
+        <Property name="required">true</Property>
+      </PropertyDef>
+      <PropertyDef name="postalCode">
+        <Property name="dataType">String</Property>
+        <Property name="required">true</Property>
+      </PropertyDef>
+      <PropertyDef name="contactName">
+        <Property name="dataType">String</Property>
+        <Property name="required">true</Property>
+      </PropertyDef>
+      <PropertyDef name="contactPhone">
+        <Property name="dataType">String</Property>
+        <Property name="required">true</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View>
+    <GroupStart id="dataControlObject"/>
+    <DataSet id="dsProducer">
+      <Property name="dataType">[Producer]</Property>
+      <Property name="dataProvider">producerPR#getProducer</Property>
+      <Property name="pageSize">20</Property>
+    </DataSet>
+    <UpdateAction id="updateAction">
+      <Property name="dataResolver">producerPR#saveAll</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsProducer</Property>
+      </UpdateItem>
+    </UpdateAction>
+    <GroupEnd/>
+    <GroupStart id="dataGridObject"/>
+    <DataGrid id="tableProducer">
+      <Property name="dataSet">dsProducer</Property>
+      <Property name="dataType">Producer</Property>
+      <Property name="readOnly">true</Property>
+      <Property name="showFilterBar">true</Property>
+      <Property name="filterMode">serverSide</Property>
+      <RowNumColumn/>
+      <IndicatorColumn/>
+      <DataColumn name="companyName">
+        <Property name="property">companyName</Property>
+      </DataColumn>
+      <DataColumn name="phone">
+        <Property name="property">phone</Property>
+      </DataColumn>
+      <DataColumn name="fax">
+        <Property name="property">fax</Property>
+      </DataColumn>
+      <DataColumn name="contactName">
+        <Property name="property">contactName</Property>
+      </DataColumn>
+      <DataColumn name="contactPhone">
+        <Property name="property">contactPhone</Property>
+      </DataColumn>
+      <DataColumn name="address">
+        <Property name="property">address</Property>
+      </DataColumn>
+      <DataColumn name="postalCode">
+        <Property name="property">postalCode</Property>
+      </DataColumn>
+      <DataColumn name="email">
+        <Property name="property">email</Property>
+      </DataColumn>
+      <DataColumn name="bank">
+        <Property name="property">bank</Property>
+      </DataColumn>
+      <DataColumn name="acctNo">
+        <Property name="property">acctNo</Property>
+      </DataColumn>
+      <DataColumn name="comment">
+        <Property name="property">comment</Property>
+      </DataColumn>
+    </DataGrid>
+    <GroupEnd/>
+    <GroupStart id="autoFormObject"/>
+    <AutoForm>
+      <Property name="dataSet">dsProducer</Property>
+      <Property name="dataType">Producer</Property>
+      <Property name="cols">*</Property>
+      <AutoFormElement>
+        <Property name="name">companyName</Property>
+        <Property name="property">companyName</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">phone</Property>
+        <Property name="property">phone</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">fax</Property>
+        <Property name="property">fax</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">contactName</Property>
+        <Property name="property">contactName</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">contactPhone</Property>
+        <Property name="property">contactPhone</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">email</Property>
+        <Property name="property">email</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">address</Property>
+        <Property name="property">address</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">postalCode</Property>
+        <Property name="property">postalCode</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">bank</Property>
+        <Property name="property">bank</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">acctNo</Property>
+        <Property name="property">acctNo</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">comment</Property>
+        <Property name="property">comment</Property>
+        <Editor/>
+      </AutoFormElement>
+    </AutoForm>
+    <GroupEnd/>
+  </View>
+</ViewConfig>

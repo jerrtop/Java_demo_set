@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig template="com.bstek.demo.ims.business.TemplateView2">
+  <Arguments>
+    <Argument name="dataSet">
+      <Property name="value">dsPurchasing</Property>
+    </Argument>
+    <Argument name="updateAction">
+      <Property name="value">updateAction</Property>
+    </Argument>
+  </Arguments>
+  <Context/>
+  <Model>
+    <DataType name="Purchasing" parent="global:Purchasing">
+      <ClientEvent name="onStateChange">if (arg.oldState == dorado.Entity.STATE_NONE) {&#xD;
+	this.$dirtyEntityNum++;&#xD;
+}&#xD;
+else if (arg.newState == dorado.Entity.STATE_NONE) {&#xD;
+	this.$dirtyEntityNum--;&#xD;
+}&#xD;
+else if (arg.oldState == dorado.Entity.STATE_NEW &amp;&amp; arg.newState == dorado.Entity.STATE_DELETED) {&#xD;
+	this.$dirtyEntityNum--;&#xD;
+}&#xD;
+this.$refreshActions(arg.entity);&#xD;
+&#xD;
+arg.processDefault = true;&#xD;
+</ClientEvent>
+      <ClientEvent name="onDataChange">var prop = arg.property;&#xD;
+var entity = arg.entity;&#xD;
+var view = this;&#xD;
+switch (prop) {&#xD;
+    case &quot;totalnumber&quot;:&#xD;
+    case &quot;unitPrice&quot;:&#xD;
+        with (entity) {&#xD;
+            var totalnumber = get(&quot;totalnumber&quot;) || 0;&#xD;
+            var unitPrice = get(&quot;unitPrice&quot;) || 0;&#xD;
+            var totalPrice = unitPrice * totalnumber;&#xD;
+            entity.set(&quot;totalPrice&quot;, totalPrice.toFixed(2));&#xD;
+        }&#xD;
+        break;&#xD;
+    case &quot;totalPrice&quot;:&#xD;
+    case &quot;payout&quot;:&#xD;
+        var totalPrice = entity.get(&quot;totalPrice&quot;) || 0;&#xD;
+        var payout = entity.get(&quot;payout&quot;) || 0;&#xD;
+        var arrears = totalPrice - payout;&#xD;
+        view.get(&quot;#arrearsLabel&quot;).set({&#xD;
+            text: arrears,&#xD;
+            style: {&#xD;
+                &quot;color&quot;: (arrears &lt;= 0 ? &quot;blue&quot; : &quot;red&quot;)&#xD;
+            }&#xD;
+        });&#xD;
+        break;&#xD;
+}&#xD;
+</ClientEvent>
+      <Property name="matchType">com.bstek.demo.ims.entity.Purchasing</Property>
+      <Property name="creationType">com.bstek.demo.ims.entity.Purchasing</Property>
+      <PropertyDef name="producerId">
+        <Property name="dataType">Integer</Property>
+        <Property name="mapping">
+          <Property name="mapValues">${dorado.getDataProvider(&quot;producerPR#getAllProducer&quot;).getResult()}</Property>
+          <Property name="keyProperty">id</Property>
+          <Property name="valueProperty">companyName</Property>
+        </Property>
+      </PropertyDef>
+      <PropertyDef name="goods">
+        <Property name="dataType">Goods</Property>
+        <Property name="label">商品</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View>
+    <GroupStart id="dataControlObject"/>
+    <DataSet id="dsPurchasing">
+      <ClientEvent name="onDataLoad">this.$refreshActions();</ClientEvent>
+      <Property name="dataType">[Purchasing]</Property>
+      <Property name="pageSize">20</Property>
+      <Property name="dataProvider">purchasingPR#getPurchasing</Property>
+    </DataSet>
+    <UpdateAction id="updateAction">
+      <Property name="dataResolver">purchasingPR#updateAll</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsPurchasing</Property>
+      </UpdateItem>
+    </UpdateAction>
+    <GroupEnd/>
+    <GroupStart id="formObject"/>
+    <AutoForm layoutConstraint="right:1;left:50%">
+      <Property name="dataSet">dsPurchasing</Property>
+      <Property name="cols">160,160,160,160</Property>
+      <Property name="showHint">false</Property>
+      <Property name="dataType">Purchasing</Property>
+      <Property name="labelWidth">60</Property>
+      <AutoFormElement>
+        <Property name="name">goods</Property>
+        <Property name="property">goods</Property>
+        <Property name="hideMode">display</Property>
+        <Property name="labelSpacing">1</Property>
+        <Property name="readOnly">true</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">unitPrice</Property>
+        <Property name="property">unitPrice</Property>
+        <Property name="hideMode">display</Property>
+        <Property name="hintSpacing">1</Property>
+        <Property name="labelSpacing">1</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">totalnumber</Property>
+        <Property name="property">totalnumber</Property>
+        <Property name="hideMode">display</Property>
+        <Property name="hintSpacing">1</Property>
+        <Property name="labelSpacing">1</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">producerId</Property>
+        <Property name="property">producerId</Property>
+        <Property name="labelSpacing">1</Property>
+        <Property name="hideMode">display</Property>
+        <Property name="hintSpacing">1</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">storeTime</Property>
+        <Property name="property">storeTime</Property>
+        <Property name="labelSpacing">1</Property>
+        <Property name="hideMode">display</Property>
+        <Property name="hintSpacing">1</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">payout</Property>
+        <Property name="property">payout</Property>
+        <Property name="labelSpacing">1</Property>
+        <Property name="hideMode">display</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">totalPrice</Property>
+        <Property name="property">totalPrice</Property>
+        <Property name="labelSpacing">1</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">arrears</Property>
+        <Property name="label">差额</Property>
+        <Editor>
+          <Label id="arrearsLabel">
+            <Property name="text">0</Property>
+          </Label>
+        </Editor>
+      </AutoFormElement>
+      <AutoFormElement layoutConstraint="colSpan:4;rowSpan:1">
+        <Property name="name">comment</Property>
+        <Property name="property">comment</Property>
+        <Property name="labelSpacing">1</Property>
+        <Property name="hintSpacing">0</Property>
+        <Property name="hideMode">display</Property>
+        <Property name="editorType">TextArea</Property>
+        <Editor>
+          <TextArea>
+            <Property name="height">40</Property>
+            <Property name="blankText">最多100个字</Property>
+          </TextArea>
+        </Editor>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">storage</Property>
+        <Property name="property">goods.storage</Property>
+        <Property name="hideMode">display</Property>
+        <Property name="readOnly">true</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">sales</Property>
+        <Property name="property">goods.sales</Property>
+        <Property name="hideMode">display</Property>
+        <Property name="readOnly">true</Property>
+        <Editor/>
+      </AutoFormElement>
+    </AutoForm>
+    <GroupEnd/>
+    <GroupStart id="dataGridObject"/>
+    <DataGrid>
+      <Property name="dataSet">dsPurchasing</Property>
+      <DataColumn name="producerId">
+        <Property name="property">producerId</Property>
+      </DataColumn>
+      <DataColumn name="storeTime">
+        <Property name="property">storeTime</Property>
+      </DataColumn>
+      <DataColumn name="name">
+        <Property name="property">goods.name</Property>
+        <Property name="readOnly">true</Property>
+      </DataColumn>
+      <DataColumn name="birthplace">
+        <Property name="property">goods.birthplace</Property>
+        <Property name="readOnly">true</Property>
+      </DataColumn>
+      <DataColumn name="specification">
+        <Property name="property">goods.specification</Property>
+        <Property name="readOnly">true</Property>
+      </DataColumn>
+      <DataColumn name="packaging">
+        <Property name="property">goods.packaging</Property>
+        <Property name="readOnly">true</Property>
+      </DataColumn>
+      <DataColumn name="storage">
+        <Property name="property">goods.storage</Property>
+        <Property name="readOnly">true</Property>
+      </DataColumn>
+      <DataColumn name="totalStorage">
+        <Property name="property">goods.totalStorage</Property>
+        <Property name="readOnly">true</Property>
+      </DataColumn>
+      <DataColumn name="sales">
+        <Property name="property">goods.sales</Property>
+        <Property name="readOnly">true</Property>
+      </DataColumn>
+    </DataGrid>
+    <GroupEnd/>
+    <GroupStart id="formQueryConditionObject"/>
+    <AutoForm id="formQueryCondition">
+      <GroupBox layout="anchor" layoutConstraint="colSpan:2">
+        <Property name="caption">时间选择</Property>
+        <Property name="collapseable">false</Property>
+        <Buttons/>
+        <Children/>
+      </GroupBox>
+      <AutoFormElement>
+        <Property name="label">开始时间</Property>
+        <Property name="trigger">defaultDateDropDown</Property>
+        <Property name="property">beginTime</Property>
+        <Editor>
+          <TextEditor>
+            <Property name="dataType">Date</Property>
+          </TextEditor>
+        </Editor>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="label">结束时间</Property>
+        <Property name="trigger">defaultDateDropDown</Property>
+        <Property name="property">endTime</Property>
+        <Editor>
+          <TextEditor>
+            <Property name="dataType">Date</Property>
+          </TextEditor>
+        </Editor>
+      </AutoFormElement>
+      <GroupBox layoutConstraint="colSpan:2">
+        <Property name="caption">商品相关</Property>
+        <Property name="collapseable">false</Property>
+        <Buttons/>
+        <Children/>
+      </GroupBox>
+      <AutoFormElement>
+        <Property name="name">name</Property>
+        <Property name="property">goods.name</Property>
+        <Property name="hideMode">display</Property>
+        <Property name="label">名称</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">shortName</Property>
+        <Property name="property">shortName</Property>
+        <Property name="label">简称</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">birthplace</Property>
+        <Property name="property">birthplace</Property>
+        <Property name="label">产地</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">specification</Property>
+        <Property name="property">specification</Property>
+        <Property name="label">规格</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">packaging</Property>
+        <Property name="property">packaging</Property>
+        <Property name="label">包装</Property>
+        <Editor/>
+      </AutoFormElement>
+      <AutoFormElement>
+        <Property name="name">producer</Property>
+        <Property name="property">producer</Property>
+        <Property name="trigger">dpProducers</Property>
+        <Property name="label">供应商</Property>
+        <Editor>
+          <TextEditor>
+            <Property name="mapping">
+              <Property name="mapValues">${dorado.getDataProvider(&quot;producerPR#getAllProducer&quot;).getResult()}</Property>
+              <Property name="keyProperty">id</Property>
+              <Property name="valueProperty">companyName</Property>
+            </Property>
+            <Property name="trigger">autoMappingDropDown2</Property>
+          </TextEditor>
+        </Editor>
+      </AutoFormElement>
+    </AutoForm>
+    <GroupEnd/>
+  </View>
+</ViewConfig>

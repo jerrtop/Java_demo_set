@@ -4,55 +4,67 @@
   <Context/>
   <Model/>
   <View>
+    <ClientEvent name="onCreate">self.$dataSet = '${argument.dataSet}'&#xD;
+self.$updateAction = '${argument.updateAction}'&#xD;
+</ClientEvent>
     <PlaceHolder id="dataControlObject"/>
     <ToolBar>
       <DataPilot>
         <Property name="dataSet">${argument.dataSet}</Property>
         <Property name="itemCodes">pages</Property>
       </DataPilot>
+      <Separator/>
       <ToolBarButton>
-        <ClientEvent name="onClick">this.get(&quot;#dialogEdit&quot;).show(function(){&#xD;
+        <ClientEvent name="onClick">var view = this;&#xD;
+this.get(&quot;#dialogEdit&quot;).show(function(){&#xD;
+    view.get(&quot;#&quot; + view.$dataSet + &quot;.data&quot;).insert({});&#xD;
+})&#xD;
 &#xD;
-    var dataSet= '${argument.dataSet}';&#xD;
-&#xD;
-    view.get(&quot;#&quot; + dataSet+ &quot;.data&quot;).insert({});&#xD;
-&#xD;
-})</ClientEvent>
+</ClientEvent>
         <Property name="caption">添加</Property>
         <Property name="icon">url(>skin>common/icons.gif) -120px 0px</Property>
       </ToolBarButton>
       <ToolBarButton>
-        <ClientEvent name="onClick">this.get(&quot;#dialogEdit&quot;).show();</ClientEvent>
+        <ClientEvent name="onClick">this.get(&quot;#dialogEdit&quot;).show();&#xD;
+</ClientEvent>
         <Property name="caption">修改</Property>
         <Property name="icon">url(>skin>common/icons.gif) -100px -20px</Property>
       </ToolBarButton>
     </ToolBar>
     <PlaceHolder id="dataGridObject"/>
     <Dialog id="dialogEdit">
-      <Property name="caption">数据维护</Property>
-      <Property name="center">true</Property>
+      <ClientEvent name="onReady">var view = this;&#xD;
+&#xD;
+self.$hideDialog = function(persisted){&#xD;
+    if (persisted) {&#xD;
+        view.get(&quot;#&quot; + view.$updateAction).execute(function(){&#xD;
+            self.hide();&#xD;
+        });&#xD;
+    }&#xD;
+    else {&#xD;
+        view.get(&quot;#&quot; + view.$dataSet +&quot;.data&quot;).cancel();&#xD;
+        if (self.get(&quot;visible&quot;) == true) {&#xD;
+			self.hide();&#xD;
+		}&#xD;
+    }&#xD;
+}&#xD;
+</ClientEvent>
+      <ClientEvent name="onHide">self.$hideDialog();&#xD;
+</ClientEvent>
       <Property name="width">400</Property>
-      <Property name="height">500</Property>
+      <Property name="height">400</Property>
+      <Property name="caption">数据处理</Property>
+      <Property name="center">true</Property>
       <Buttons>
         <Button>
-          <ClientEvent name="onClick">var dialog = self.get(&quot;parent&quot;);&#xD;
-&#xD;
-var action= '${argument.updateAction}';&#xD;
-&#xD;
-this.get(&quot;#&quot; +action).execute(function(){&#xD;
-&#xD;
-    dialog.hide();&#xD;
-&#xD;
-})</ClientEvent>
+          <ClientEvent name="onClick">this.get(&quot;#dialogEdit&quot;).$hideDialog(true);&#xD;
+</ClientEvent>
           <Property name="caption">保存</Property>
           <Property name="icon">url(>skin>common/icons.gif) -20px 0px</Property>
         </Button>
         <Button>
-          <ClientEvent name="onClick">var dataSet = '${argument.dataSet}';&#xD;
-&#xD;
-this.get(&quot;#&quot; + dataSet +&quot;.data&quot;).cancel();&#xD;
-&#xD;
-this.get(&quot;parent&quot;).hide();</ClientEvent>
+          <ClientEvent name="onClick">this.get(&quot;#dialogEdit&quot;).$hideDialog(false);&#xD;
+</ClientEvent>
           <Property name="caption">取消</Property>
           <Property name="icon">url(>skin>common/icons.gif) -40px 0px</Property>
         </Button>

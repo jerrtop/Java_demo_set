@@ -16,19 +16,18 @@
 <Prop name="listener"/>
 <Prop name="overwrite" type="boolean"/>
 <Prop name="name"/></PrimitiveProps><Props>
-<Prop name="interceptor"/><Prop name="metaData" type="java.util.Map" compositeType="Open"></Prop>
-<Prop name="parameter" editor="pojo" type="java.lang.Object"/></Props></Rule><Rule name="AbstractDataResolver" abstract="true" nodeName="DataResolver" type="com.bstek.dorado.data.resolver.AbstractDataResolver" scope="public"><PrimitiveProps>
+<Prop name="interceptor"/>
+<Prop name="parameter" type="java.lang.Object"/></Props></Rule><Rule name="AbstractDataResolver" abstract="true" nodeName="DataResolver" type="com.bstek.dorado.data.resolver.AbstractDataResolver" scope="public"><PrimitiveProps>
 <Prop name="impl"/>
 <Prop name="parent"/>
 <Prop name="scope" enumValues="instant,singleton,session,request"/>
 <Prop name="listener"/>
 <Prop name="overwrite" type="boolean"/>
 <Prop name="name"/></PrimitiveProps><Props>
-<Prop name="interceptor"/><Prop name="metaData" type="java.util.Map" compositeType="Open"></Prop>
+<Prop name="interceptor"/>
 <Prop name="parameter" type="java.lang.Object"/></Props></Rule><Rule name="ViewConfig" type="com.bstek.dorado.view.manager.ViewConfig" scope="public"><PrimitiveProps>
 <Prop name="listener"/>
-<Prop name="template"/></PrimitiveProps><Props><Prop name="metaData" type="java.util.Map" compositeType="Open"></Prop>
-<Prop name="scope" defaultValue="request" enumValues="instant,singleton,session,request"/></Props><Children><Child name="Arguments"><Rule name="Arguments" nodeName="Arguments" scope="public"><Children><Child name="Argument" aggregated="true"><Rule name="Argument" nodeName="Argument" scope="public"><PrimitiveProps>
+<Prop name="template"/></PrimitiveProps><Props><Prop name="metaData" type="java.util.Map" compositeType="Open"></Prop></Props><Children><Child name="Arguments"><Rule name="Arguments" nodeName="Arguments" scope="public"><Children><Child name="Argument" aggregated="true"><Rule name="Argument" nodeName="Argument" scope="public"><PrimitiveProps>
 <Prop name="name"/></PrimitiveProps><Props>
 <Prop name="value" type="java.lang.Object"/></Props></Rule></Child></Children></Rule></Child><Child name="Context"><Rule name="Context" nodeName="Context" scope="public"><Children><Child name="Attribute" aggregated="true"><Rule name="Attribute" nodeName="Attribute" scope="public"><PrimitiveProps>
 <Prop name="name"/></PrimitiveProps><Props>
@@ -40,6 +39,7 @@
 <Prop name="packages"/>
 <Prop name="pageTemplate"/>
 <Prop name="pageUri"/>
+<Prop name="scope" enumValues="instant,singleton,session,request"/>
 <Prop name="styleSheetFile"/>
 <Prop name="title" highlight="1"/></Props><ClientEvents>
 <ClientEvent name="onComponentUnregistered" parameters="self,arg"/>
@@ -47,6 +47,7 @@
 <ClientEvent name="onComponentRegistered" parameters="self,arg"/></ClientEvents><Children><Child rule="Component" name="Children" aggregated="true"></Child></Children></Rule><Rule name="DataType" parents="EntityDataTypeSupport" label="DataType" type="com.bstek.dorado.data.type.DefaultEntityDataType" scope="public" robots="datatype-reflection|自动创建PropertyDefs"></Rule><Rule name="NonAggregationDataType" parents="AbstractDataType" label="NonAggregationDataType" abstract="true" type="com.bstek.dorado.data.type.NonAggregationDataType" scope="public"></Rule><Rule name="EntityDataTypeSupport" parents="NonAggregationDataType" label="EntityDataTypeSupport" abstract="true" nodeName="DataType" type="com.bstek.dorado.data.type.EntityDataTypeSupport" scope="public"><PrimitiveProps>
 <Prop name="impl"/>
 <Prop name="parent"/>
+<Prop name="scope" enumValues="instant,singleton,session,request"/>
 <Prop name="listener"/>
 <Prop name="overwrite" type="boolean"/></PrimitiveProps><Props>
 <Prop name="acceptUnknownProperty" type="boolean"/>
@@ -86,23 +87,30 @@
 <ClientEvent name="onGetText" parameters="self,arg"/>
 <ClientEvent name="onGet" parameters="self,arg"/>
 <ClientEvent name="onSet" parameters="self,arg"/>
-<ClientEvent name="onValidate" parameters="self,arg"/></ClientEvents><Children><Child rule="Validator" name="Validators" aggregated="true"></Child></Children></Rule><Rule name="Validator" label="Validator" abstract="true" nodeName="Validator" type="com.bstek.dorado.data.type.validator.Validator" scope="public"></Rule><Rule name="Reference" parents="LazyPropertyDef" label="Reference" type="com.bstek.dorado.data.type.property.Reference" scope="public"><Props>
+<ClientEvent name="onValidate" parameters="self,arg"/></ClientEvents><Children><Child rule="Validator" name="Validators" aggregated="true"></Child></Children></Rule><Rule name="Validator" label="Validator" abstract="true" nodeName="Validator" type="com.bstek.dorado.data.type.validator.Validator" scope="public"></Rule><Rule name="LazyPropertyDef" parents="PropertyDefSupport" label="LazyPropertyDef" abstract="true" type="com.bstek.dorado.data.type.property.LazyPropertyDef" scope="public"><Props>
+<Prop name="activeAtClient" defaultValue="true" type="boolean"/>
+<Prop name="cacheMode" defaultValue="bothSides" enumValues="noCache,serverSide,clientSide,bothSides"/></Props></Rule><Rule name="PropertyDefSupport" parents="PropertyDef" label="PropertyDefSupport" abstract="true" type="com.bstek.dorado.data.type.property.PropertyDefSupport" scope="public"></Rule><Rule name="Reference" parents="LazyPropertyDef" label="Reference" type="com.bstek.dorado.data.type.property.Reference" scope="public"><Props>
 <Prop name="activeOnNewEntity" type="boolean"/>
 <Prop name="dataProvider" highlight="1" type="com.bstek.dorado.data.provider.DataProvider"/>
 <Prop name="pageSize" type="int"/>
 <Prop name="parameter" highlight="1" editor="pojo" type="java.lang.Object"/></Props><ClientEvents>
 <ClientEvent name="onLoadData" parameters="self,arg"/>
-<ClientEvent name="beforeLoadData" parameters="self,arg"/></ClientEvents></Rule><Rule name="PropertyDefSupport" parents="PropertyDef" label="PropertyDefSupport" abstract="true" type="com.bstek.dorado.data.type.property.PropertyDefSupport" scope="public"></Rule><Rule name="LazyPropertyDef" parents="PropertyDefSupport" label="LazyPropertyDef" abstract="true" type="com.bstek.dorado.data.type.property.LazyPropertyDef" scope="public"><Props>
-<Prop name="activeAtClient" defaultValue="true" type="boolean"/>
-<Prop name="cacheMode" defaultValue="bothSides" enumValues="noCache,serverSide,clientSide,bothSides"/></Props></Rule><Rule name="BasePropertyDef" parents="PropertyDefSupport" label="BasePropertyDef" nodeName="PropertyDef" type="com.bstek.dorado.data.type.property.BasePropertyDef" scope="public"><Props>
-<Prop name="propertyPath"/></Props></Rule><Rule name="DirectDataProvider" parents="AbstractDataProvider" label="DirectDataProvider" type="com.bstek.dorado.data.provider.DirectDataProvider" scope="public" sortFactor="1"><PrimitiveProps>
+<ClientEvent name="beforeLoadData" parameters="self,arg"/></ClientEvents></Rule><Rule name="BasePropertyDef" parents="PropertyDefSupport" label="BasePropertyDef" nodeName="PropertyDef" type="com.bstek.dorado.data.type.property.BasePropertyDef" scope="public"><Props>
+<Prop name="propertyPath"/></Props></Rule><Rule name="Lookup" parents="LazyPropertyDef" label="Lookup" type="com.bstek.dorado.data.type.property.Lookup" scope="public"><Props>
+<Prop name="cacheTimeToIdleSeconds" type="int"/>
+<Prop name="cacheTimeToLiveSeconds" type="int"/>
+<Prop name="dataProvider" type="com.bstek.dorado.data.provider.DataProvider"/>
+<Prop name="dataSet"/>
+<Prop name="lookupProperty"/></Props><Children><Child rule="LookupConstraint" name="Constraints" aggregated="true"></Child></Children></Rule><Rule name="LookupConstraint" label="LookupConstraint" nodeName="Constraint" type="com.bstek.dorado.data.type.property.LookupConstraint" scope="public"><Props>
+<Prop name="keyProperty"/>
+<Prop name="lookupKeyProperty"/></Props></Rule><Rule name="DirectDataProvider" parents="AbstractDataProvider" type="com.bstek.dorado.data.provider.DirectDataProvider" scope="public" sortFactor="1"><PrimitiveProps>
 <Prop name="type" defaultValue="direct" fixed="true" visible="false"/></PrimitiveProps><Props>
-<Prop name="result" editor="pojo" type="java.lang.Object"/></Props></Rule><Rule name="HqlDataProvider" parents="AbstractDataProvider" label="HqlDataProvider" type="com.bstek.dorado.hibernate.provider.HqlDataProvider" scope="public" sortFactor="2"><PrimitiveProps>
+<Prop name="result"/></Props></Rule><Rule name="HqlDataProvider" parents="AbstractDataProvider" type="com.bstek.dorado.hibernate.provider.HqlDataProvider" scope="public" sortFactor="2"><PrimitiveProps>
 <Prop name="type" defaultValue="hibernateHql" fixed="true" visible="false"/></PrimitiveProps><Props>
 <Prop name="hql" editor="multiLines"/>
 <Prop name="resultTransformer" enumValues="ALIAS_TO_ENTITY_MAP,ROOT_ENTITY,DISTINCT_ROOT_ENTITY,PROJECTION" type="org.hibernate.transform.ResultTransformer"/>
 <Prop name="sessionFactory"/>
-<Prop name="unique" defaultValue="false" type="boolean"/></Props></Rule><Rule name="CriteriaDataProvider" parents="AbstractDataProvider" label="CriteriaDataProvider" type="com.bstek.dorado.hibernate.provider.CriteriaDataProvider" scope="public" sortFactor="3"><PrimitiveProps>
+<Prop name="unique" defaultValue="false" type="boolean"/></Props></Rule><Rule name="CriteriaDataProvider" parents="AbstractDataProvider" type="com.bstek.dorado.hibernate.provider.CriteriaDataProvider" scope="public" sortFactor="3"><PrimitiveProps>
 <Prop name="type" defaultValue="hibernateCriteria" fixed="true" visible="false"/></PrimitiveProps><Props>
 <Prop name="autoFilter" defaultValue="false" type="boolean"/>
 <Prop name="resultTransformer" enumValues="ALIAS_TO_ENTITY_MAP,ROOT_ENTITY,DISTINCT_ROOT_ENTITY,PROJECTION" type="org.hibernate.transform.ResultTransformer"/>
@@ -116,31 +124,31 @@
 <Prop name="available" defaultValue="true" type="boolean"/>
 <Prop name="joinType" enumValues="INNER_JOIN,FULL_JOIN,LEFT_JOIN,RIGHT_JOIN"/></Props><Children><Child name="Criterions"><Rule nodeName="Criterions" scope="public"><Children><Child rule="BaseCriterion" name="Criterions" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="BaseCriterion" label="BaseCriterion" abstract="true" type="com.bstek.dorado.hibernate.criteria.criterion.BaseCriterion" scope="public"><Props>
 <Prop name="available" defaultValue="true" type="boolean"/>
-<Prop name="not" defaultValue="false" type="boolean"/></Props></Rule><Rule name="InCriterion" parents="SingleProperyCriterion" label="InCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.InCriterion" scope="public"><Props>
+<Prop name="not" defaultValue="false" type="boolean"/></Props></Rule><Rule name="SubQueryPropertyCriterion" parents="SingleProperyCriterion" label="SubQueryPropertyCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SubQueryPropertyCriterion" scope="public"><Props>
+<Prop name="op" enumValues="=,=all,&gt;=,&gt;=all,&gt;=some,&gt;,&gt;all,&gt;some,in,&lt;=,&lt;=all,&lt;=some,&lt;,&lt;all,&lt;some,&lt;&gt;,!in"/></Props><Children><Child rule="TopCriteria" name="Criteria" fixed="true"></Child></Children></Rule><Rule name="SingleProperyCriterion" parents="BaseCriterion" label="SingleProperyCriterion" abstract="true" type="com.bstek.dorado.hibernate.criteria.criterion.SingleProperyCriterion" scope="public"><Props>
+<Prop name="propertyName"/></Props></Rule><Rule name="SingleCriterion" parents="SingleProperyCriterion" label="SingleCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SingleCriterion" scope="public"><Props>
 <Prop name="dataType"/>
-<Prop name="value" type="java.lang.Object"/></Props></Rule><Rule name="SingleProperyCriterion" parents="BaseCriterion" label="SingleProperyCriterion" abstract="true" type="com.bstek.dorado.hibernate.criteria.criterion.SingleProperyCriterion" scope="public"><Props>
-<Prop name="propertyName"/></Props></Rule><Rule name="JunctionCriterion" parents="BaseCriterion" label="JunctionCriterion" abstract="true" type="com.bstek.dorado.hibernate.criteria.criterion.JunctionCriterion" scope="public"><Children><Child rule="BaseCriterion" name="Criterions" aggregated="true"></Child></Children></Rule><Rule name="AndCriterion" parents="JunctionCriterion" label="AndCriterion" nodeName="And" type="com.bstek.dorado.hibernate.criteria.criterion.AndCriterion" scope="public"></Rule><Rule name="DoublePropertyCriterion" parents="BaseCriterion" label="DoublePropertyCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.DoublePropertyCriterion" scope="public"><Props>
+<Prop name="op" enumValues="=,&lt;&gt;,&gt;,&lt;,&lt;=,&gt;=,like,like%,%like,%like%,ilike,ilike%,%ilike,%ilike%"/>
+<Prop name="value" type="java.lang.Object"/></Props></Rule><Rule name="AndCriterion" parents="JunctionCriterion" label="AndCriterion" nodeName="And" type="com.bstek.dorado.hibernate.criteria.criterion.AndCriterion" scope="public"></Rule><Rule name="JunctionCriterion" parents="BaseCriterion" label="JunctionCriterion" abstract="true" type="com.bstek.dorado.hibernate.criteria.criterion.JunctionCriterion" scope="public"><Children><Child rule="BaseCriterion" name="Criterions" aggregated="true"></Child></Children></Rule><Rule name="BetweenCriterion" parents="SingleProperyCriterion" label="BetweenCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.BetweenCriterion" scope="public"><Props>
+<Prop name="dataType"/>
+<Prop name="value1" type="java.lang.Object"/>
+<Prop name="value2" type="java.lang.Object"/></Props></Rule><Rule name="SizeCriterion" parents="SingleProperyCriterion" label="SizeCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SizeCriterion" scope="public"><Props>
+<Prop name="op" enumValues="=,&lt;&gt;,&gt;,&lt;,&gt;=,&lt;="/></Props></Rule><Rule name="OrCriterion" parents="JunctionCriterion" label="OrCriterion" nodeName="Or" type="com.bstek.dorado.hibernate.criteria.criterion.OrCriterion" scope="public"></Rule><Rule name="IdEqCriterion" parents="BaseCriterion" label="IdEqCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.IdEqCriterion" scope="public"><Props>
+<Prop name="dataType"/>
+<Prop name="value" type="java.lang.Object"/></Props></Rule><Rule name="DoublePropertyCriterion" parents="BaseCriterion" label="DoublePropertyCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.DoublePropertyCriterion" scope="public"><Props>
 <Prop name="op" enumValues="=,&lt;&gt;,&gt;,&lt;,&lt;=,&gt;="/>
 <Prop name="propertyName1"/>
 <Prop name="propertyName2"/></Props></Rule><Rule name="SubQueryNoValueCriterion" parents="BaseCriterion" label="SubQueryNoValueCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SubQueryNoValueCriterion" scope="public"><Props>
-<Prop name="op" enumValues="exists,!exists"/></Props><Children><Child rule="TopCriteria" name="Criteria" fixed="true"></Child></Children></Rule><Rule name="SubQueryValueCriterion" parents="BaseCriterion" label="SubQueryValueCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SubQueryValueCriterion" scope="public"><Props>
+<Prop name="op" enumValues="exists,!exists"/></Props><Children><Child rule="TopCriteria" name="Criteria" fixed="true"></Child></Children></Rule><Rule name="NonValueCriterion" parents="SingleProperyCriterion" label="NonValueCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.NonValueCriterion" scope="public"><PrimitiveProps>
+<Prop name="op" enumValues="null,!null,empty,!empty"/></PrimitiveProps></Rule><Rule name="SubQueryValueCriterion" parents="BaseCriterion" label="SubQueryValueCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SubQueryValueCriterion" scope="public"><Props>
 <Prop name="dataType"/>
-<Prop name="op" enumValues="=,=all,&gt;=,&gt;=all,&gt;=some,&gt;,&gt;all,&gt;some,in,&lt;=,&lt;=all,&lt;=some,&lt;,&lt;all,&lt;some,&lt;&gt;,!in"/></Props><Children><Child rule="TopCriteria" name="Criteria" fixed="true"></Child></Children></Rule><Rule name="SingleCriterion" parents="SingleProperyCriterion" label="SingleCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SingleCriterion" scope="public"><Props>
-<Prop name="dataType"/>
-<Prop name="op" enumValues="=,&lt;&gt;,&gt;,&lt;,&lt;=,&gt;=,like,like%,%like,%like%,ilike,ilike%,%ilike,%ilike%"/>
-<Prop name="value" type="java.lang.Object"/></Props></Rule><Rule name="OrCriterion" parents="JunctionCriterion" label="OrCriterion" nodeName="Or" type="com.bstek.dorado.hibernate.criteria.criterion.OrCriterion" scope="public"></Rule><Rule name="SizeCriterion" parents="SingleProperyCriterion" label="SizeCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SizeCriterion" scope="public"><Props>
-<Prop name="op" enumValues="=,&lt;&gt;,&gt;,&lt;,&gt;=,&lt;="/></Props></Rule><Rule name="SqlCriterion" parents="BaseCriterion" label="SqlCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SqlCriterion" scope="public"><Props>
+<Prop name="op" enumValues="=,=all,&gt;=,&gt;=all,&gt;=some,&gt;,&gt;all,&gt;some,in,&lt;=,&lt;=all,&lt;=some,&lt;,&lt;all,&lt;some,&lt;&gt;,!in"/></Props><Children><Child rule="TopCriteria" name="Criteria" fixed="true"></Child></Children></Rule><Rule name="SqlCriterion" parents="BaseCriterion" label="SqlCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SqlCriterion" scope="public"><Props>
 <Prop name="clause"/></Props><Children><Child name="Parameters" fixed="true"><Rule nodeName="Parameters" scope="public"><Children><Child rule="Parameter" name="Parameters" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="Parameter" label="Parameter" type="com.bstek.dorado.hibernate.criteria.criterion.SqlCriterion$Parameter" scope="public"><Props>
 <Prop name="dataType"/>
 <Prop name="hibernateType" enumValues="integer,long,short,float,double,character,byte,boolean,yes_no,true_false,string,date,time,timestamp,calendar,calendar_date,big_decimal,big_integer"/>
-<Prop name="value" type="java.lang.Object"/></Props></Rule><Rule name="IdEqCriterion" parents="BaseCriterion" label="IdEqCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.IdEqCriterion" scope="public"><Props>
+<Prop name="value" type="java.lang.Object"/></Props></Rule><Rule name="InCriterion" parents="SingleProperyCriterion" label="InCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.InCriterion" scope="public"><Props>
 <Prop name="dataType"/>
-<Prop name="value" type="java.lang.Object"/></Props></Rule><Rule name="NonValueCriterion" parents="SingleProperyCriterion" label="NonValueCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.NonValueCriterion" scope="public"><PrimitiveProps>
-<Prop name="op" enumValues="null,!null,empty,!empty"/></PrimitiveProps></Rule><Rule name="BetweenCriterion" parents="SingleProperyCriterion" label="BetweenCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.BetweenCriterion" scope="public"><Props>
-<Prop name="dataType"/>
-<Prop name="value1" type="java.lang.Object"/>
-<Prop name="value2" type="java.lang.Object"/></Props></Rule><Rule name="SubQueryPropertyCriterion" parents="SingleProperyCriterion" label="SubQueryPropertyCriterion" type="com.bstek.dorado.hibernate.criteria.criterion.SubQueryPropertyCriterion" scope="public"><Props>
-<Prop name="op" enumValues="=,=all,&gt;=,&gt;=all,&gt;=some,&gt;,&gt;all,&gt;some,in,&lt;=,&lt;=all,&lt;=some,&lt;,&lt;all,&lt;some,&lt;&gt;,!in"/></Props><Children><Child rule="TopCriteria" name="Criteria" fixed="true"></Child></Children></Rule><Rule name="FetchMode" label="FetchMode" type="com.bstek.dorado.hibernate.criteria.FetchMode" scope="public"><Props>
+<Prop name="value" type="java.lang.Object"/></Props></Rule><Rule name="FetchMode" label="FetchMode" type="com.bstek.dorado.hibernate.criteria.FetchMode" scope="public"><Props>
 <Prop name="associationPath"/>
 <Prop name="available" defaultValue="true" type="boolean"/>
 <Prop name="mode" enumValues="DEFAULT,JOIN,SELECT"/></Props></Rule><Rule name="Order" label="Order" type="com.bstek.dorado.hibernate.criteria.order.Order" scope="public"><Props>
@@ -149,16 +157,16 @@
 <Prop name="ignoreCase" type="boolean"/>
 <Prop name="propertyName"/></Props></Rule><Rule name="BaseProjection" label="BaseProjection" abstract="true" type="com.bstek.dorado.hibernate.criteria.projection.BaseProjection" scope="public"><Props>
 <Prop name="alias"/>
-<Prop name="available" defaultValue="true" type="boolean"/></Props></Rule><Rule name="RowCountProjection" parents="BaseProjection" label="RowCountProjection" type="com.bstek.dorado.hibernate.criteria.projection.RowCountProjection" scope="public"></Rule><Rule name="MinProjection" parents="SinglePropertyProjection" label="MinProjection" type="com.bstek.dorado.hibernate.criteria.projection.MinProjection" scope="public"></Rule><Rule name="SinglePropertyProjection" parents="BaseProjection" label="SinglePropertyProjection" abstract="true" type="com.bstek.dorado.hibernate.criteria.projection.SinglePropertyProjection" scope="public"><Props>
-<Prop name="propertyName"/></Props></Rule><Rule name="MaxProjection" parents="SinglePropertyProjection" label="MaxProjection" type="com.bstek.dorado.hibernate.criteria.projection.MaxProjection" scope="public"></Rule><Rule name="SqlProjection" parents="BaseProjection" label="SqlProjection" type="com.bstek.dorado.hibernate.criteria.projection.SqlProjection" scope="public"><Props>
+<Prop name="available" defaultValue="true" type="boolean"/></Props></Rule><Rule name="SqlProjection" parents="BaseProjection" label="SqlProjection" type="com.bstek.dorado.hibernate.criteria.projection.SqlProjection" scope="public"><Props>
 <Prop name="clause"/>
 <Prop name="groupBy"/></Props><Children><Child name="Columns" fixed="true"><Rule nodeName="Columns" scope="public"><Children><Child rule="Column" name="Columns" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="Column" label="Column" type="com.bstek.dorado.hibernate.criteria.projection.SqlProjection$Column" scope="public"><Props>
 <Prop name="columanAlias"/>
-<Prop name="hibernateType" enumValues="integer,long,short,float,double,character,byte,boolean,yes_no,true_false,string,date,time,timestamp,calendar,calendar_date,big_decimal,big_integer"/></Props></Rule><Rule name="SumProjection" parents="SinglePropertyProjection" label="SumProjection" type="com.bstek.dorado.hibernate.criteria.projection.SumProjection" scope="public"></Rule><Rule name="CountProjection" parents="SinglePropertyProjection" label="CountProjection" type="com.bstek.dorado.hibernate.criteria.projection.CountProjection" scope="public"><Props>
-<Prop name="distinct" type="boolean"/></Props></Rule><Rule name="PropertyProjection" parents="SinglePropertyProjection" label="PropertyProjection" type="com.bstek.dorado.hibernate.criteria.projection.PropertyProjection" scope="public"></Rule><Rule name="GroupByProjection" parents="SinglePropertyProjection" label="GroupByProjection" type="com.bstek.dorado.hibernate.criteria.projection.GroupByProjection" scope="public"></Rule><Rule name="AvgProjection" parents="SinglePropertyProjection" label="AvgProjection" type="com.bstek.dorado.hibernate.criteria.projection.AvgProjection" scope="public"></Rule><Rule name="SubCriteria" parents="BaseCriteria" label="SubCriteria" type="com.bstek.dorado.hibernate.criteria.SubCriteria" scope="public"><Props>
+<Prop name="hibernateType" enumValues="integer,long,short,float,double,character,byte,boolean,yes_no,true_false,string,date,time,timestamp,calendar,calendar_date,big_decimal,big_integer"/></Props></Rule><Rule name="GroupByProjection" parents="SinglePropertyProjection" label="GroupByProjection" type="com.bstek.dorado.hibernate.criteria.projection.GroupByProjection" scope="public"></Rule><Rule name="SinglePropertyProjection" parents="BaseProjection" label="SinglePropertyProjection" abstract="true" type="com.bstek.dorado.hibernate.criteria.projection.SinglePropertyProjection" scope="public"><Props>
+<Prop name="propertyName"/></Props></Rule><Rule name="AvgProjection" parents="SinglePropertyProjection" label="AvgProjection" type="com.bstek.dorado.hibernate.criteria.projection.AvgProjection" scope="public"></Rule><Rule name="CountProjection" parents="SinglePropertyProjection" label="CountProjection" type="com.bstek.dorado.hibernate.criteria.projection.CountProjection" scope="public"><Props>
+<Prop name="distinct" type="boolean"/></Props></Rule><Rule name="RowCountProjection" parents="BaseProjection" label="RowCountProjection" type="com.bstek.dorado.hibernate.criteria.projection.RowCountProjection" scope="public"></Rule><Rule name="MinProjection" parents="SinglePropertyProjection" label="MinProjection" type="com.bstek.dorado.hibernate.criteria.projection.MinProjection" scope="public"></Rule><Rule name="PropertyProjection" parents="SinglePropertyProjection" label="PropertyProjection" type="com.bstek.dorado.hibernate.criteria.projection.PropertyProjection" scope="public"></Rule><Rule name="SumProjection" parents="SinglePropertyProjection" label="SumProjection" type="com.bstek.dorado.hibernate.criteria.projection.SumProjection" scope="public"></Rule><Rule name="MaxProjection" parents="SinglePropertyProjection" label="MaxProjection" type="com.bstek.dorado.hibernate.criteria.projection.MaxProjection" scope="public"></Rule><Rule name="SubCriteria" parents="BaseCriteria" label="SubCriteria" type="com.bstek.dorado.hibernate.criteria.SubCriteria" scope="public"><Props>
 <Prop name="associationPath"/>
 <Prop name="available" defaultValue="true" type="boolean"/>
-<Prop name="joinType" enumValues="INNER_JOIN,FULL_JOIN,LEFT_JOIN,RIGHT_JOIN"/></Props></Rule><Rule name="DirectDataResolver" parents="AbstractDataResolver" label="DirectDataResolver" type="com.bstek.dorado.data.resolver.DirectDataResolver" scope="public" sortFactor="4"><PrimitiveProps>
+<Prop name="joinType" enumValues="INNER_JOIN,FULL_JOIN,LEFT_JOIN,RIGHT_JOIN"/></Props></Rule><Rule name="DirectDataResolver" parents="AbstractDataResolver" type="com.bstek.dorado.data.resolver.DirectDataResolver" scope="public" sortFactor="4"><PrimitiveProps>
 <Prop name="type" defaultValue="direct" fixed="true" visible="false"/></PrimitiveProps></Rule><Rule name="AbstractValidator" parents="Validator" abstract="true" nodeName="Validator" type="com.bstek.dorado.view.type.property.validator.AbstractValidator" scope="public"><Props>
 <Prop name="defaultResultState" defaultValue="error" enumValues="info,ok,warn,error"/>
 <Prop name="revalidateOldValue" defaultValue="true" type="boolean"/>
@@ -192,13 +200,9 @@
 <Prop name="anchorRight" enumValues="auto,none,container,previous"/>
 <Prop name="anchorTop" enumValues="auto,none,container,previous"/>
 <Prop name="bottom"/>
-<Prop name="heightOffset" type="int"/>
 <Prop name="left"/>
-<Prop name="leftOffset" type="int"/>
 <Prop name="right"/>
-<Prop name="top"/>
-<Prop name="topOffset" type="int"/>
-<Prop name="widthOffset" type="int"/></Props></Rule><Rule name="LayoutConstraintSupport" label="LayoutConstraintSupport" abstract="true" type="com.bstek.dorado.view.widget.layout.LayoutConstraintSupport" scope="public"><Props>
+<Prop name="top"/></Props></Rule><Rule name="LayoutConstraintSupport" label="LayoutConstraintSupport" abstract="true" type="com.bstek.dorado.view.widget.layout.LayoutConstraintSupport" scope="public"><Props>
 <Prop name="className"/>
 <Prop name="padding" type="int"/></Props></Rule><Rule name="DockLayout" parents="Layout" nodeName="dock" type="com.bstek.dorado.view.widget.layout.DockLayout" scope="public" sortFactor="1002"><Props>
 <Prop name="regionPadding" type="int"/></Props></Rule><Rule name="DockLayoutConstraint" parents="LayoutConstraintSupport" type="com.bstek.dorado.view.widget.layout.DockLayoutConstraint" scope="public"><Props>
@@ -213,7 +217,6 @@
 <Prop name="align" defaultValue="left" enumValues="left,center,right"/></Props></Rule><Rule name="FormLayout" parents="Layout" nodeName="form" type="com.bstek.dorado.view.widget.layout.FormLayout" scope="public" sortFactor="1005"><Props>
 <Prop name="colPadding" defaultValue="6" type="int"/>
 <Prop name="cols" highlight="1"/>
-<Prop name="padding" defaultValue="8" type="int"/>
 <Prop name="rowHeight" type="int"/>
 <Prop name="rowPadding" defaultValue="6" type="int"/>
 <Prop name="stretchWidth" type="boolean"/></Props></Rule><Rule name="FormLayoutConstraint" parents="LayoutConstraintSupport" type="com.bstek.dorado.view.widget.layout.FormLayoutConstraint" scope="public"><Props>
@@ -230,13 +233,12 @@
 <Prop name="pageSize" type="int"/>
 <Prop name="parameter" highlight="1" editor="any" type="java.lang.Object"/>
 <Prop name="readOnly" type="boolean"/></Props><ClientEvents>
-<ClientEvent name="onLoadData" parameters="self,arg"/>
 <ClientEvent name="onDataLoad" parameters="self,arg"/>
 <ClientEvent name="beforeLoadData" parameters="self,arg"/></ClientEvents></Rule><Rule name="Control" parents="Control_1" label="Control" nodeName="Control" type="com.bstek.dorado.view.widget.DefaultControl" scope="public" sortFactor="2002" category="General"></Rule><Rule name="Container" parents="Control_1" label="Container" type="com.bstek.dorado.view.widget.Container" scope="public" sortFactor="2003" category="General"><PrimitiveProps>
 <Prop name="listener"/></PrimitiveProps><Props>
-<Prop name="contentOverflow" enumValues="visible,hidden,scroll,auto"/>
-<Prop name="contentOverflowX" enumValues="visible,hidden,scroll,auto"/>
-<Prop name="contentOverflowY" enumValues="visible,hidden,scroll,auto"/>
+<Prop name="contentOverflow" defaultValue="auto" enumValues="visible,hidden,scroll,auto"/>
+<Prop name="contentOverflowX" defaultValue="auto" enumValues="visible,hidden,scroll,auto"/>
+<Prop name="contentOverflowY" defaultValue="auto" enumValues="visible,hidden,scroll,auto"/>
 <Prop name="layout" visible="false" type="com.bstek.dorado.view.widget.layout.Layout"/></Props><Children><Child rule="Component" name="Children" aggregated="true"></Child></Children></Rule><Rule name="HtmlContainer" parents="Container" label="HtmlContainer" type="com.bstek.dorado.view.widget.HtmlContainer" scope="public" sortFactor="2004" category="General"><Props>
 <Prop name="containerExpression"/>
 <Prop name="content" editor="multiLines"/>
@@ -275,6 +277,7 @@
 <Prop name="caption" highlight="1"/>
 <Prop name="icon"/>
 <Prop name="iconClass"/>
+<Prop name="num" type="double"/>
 <Prop name="showTrigger" type="boolean"/>
 <Prop name="splitButton" type="boolean"/>
 <Prop name="triggerToggled" type="boolean"/></Props><ClientEvents>
@@ -294,7 +297,7 @@
 <Prop name="iconClass"/>
 <Prop name="maximizeable" type="boolean"/>
 <Prop name="maximized" type="boolean"/>
-<Prop name="showCaptionBar" type="java.lang.Boolean"/></Props><ClientEvents>
+<Prop name="showCaptionBar" defaultValue="true" type="boolean"/></Props><ClientEvents>
 <ClientEvent name="onMaximize" parameters="self,arg"/>
 <ClientEvent name="beforeMaximize" parameters="self,arg"/></ClientEvents><Children><Child name="Tools" fixed="true"><Rule nodeName="Tools" scope="public"><Children><Child rule="SimpleIconButton" name="Tools" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="GroupBox" parents="AbstractPanel" label="GroupBox" type="com.bstek.dorado.view.widget.base.GroupBox" scope="public" sortFactor="2014" category="General"></Rule><Rule name="FieldSet" parents="AbstractPanel" label="FieldSet" type="com.bstek.dorado.view.widget.base.FieldSet" scope="public" sortFactor="2015" category="General"></Rule><Rule name="IFrame" parents="Control_1" label="IFrame" type="com.bstek.dorado.view.widget.base.IFrame" scope="public" sortFactor="2016" category="General"><Props>
 <Prop name="path"/></Props><ClientEvents>
@@ -302,25 +305,15 @@
 <Prop name="currentControl" visible="false" type="int"/>
 <Prop name="currentIndex" type="int"/></Props><ClientEvents>
 <ClientEvent name="onCurrentChange" parameters="self,arg"/>
-<ClientEvent name="beforeCurrentChange" parameters="self,arg"/></ClientEvents><Children><Child rule="Control_1" name="Controls" aggregated="true"></Child></Children></Rule><Rule name="TabControl" parents="TabBar" label="TabControl" type="com.bstek.dorado.view.widget.base.tab.TabControl" scope="public" sortFactor="2018" category="General"></Rule><Rule name="VerticalTabControl" parents="TabColumn" label="VerticalTabControl" type="com.bstek.dorado.view.widget.base.tab.VerticalTabControl" scope="public" sortFactor="2019" category="General"><Props>
-<Prop name="tabColumnWidth" defaultValue="200" type="int"/></Props></Rule><Rule name="TabBar" parents="AbstractTabControl" label="TabBar" type="com.bstek.dorado.view.widget.base.tab.TabBar" scope="public" sortFactor="2020" category="General"><Props>
-<Prop name="showMenuButton" type="boolean"/>
-<Prop name="tabMinWidth" type="int"/>
-<Prop name="tabPlacement" defaultValue="top" enumValues="top,bottom"/></Props></Rule><Rule name="TabColumn" parents="AbstractTabControl" label="TabColumn" type="com.bstek.dorado.view.widget.base.tab.TabColumn" scope="public" sortFactor="2021" category="General"><Props>
-<Prop name="tabPlacement" defaultValue="left" enumValues="left,right"/></Props></Rule><Rule name="ToolBar" parents="Control_1" label="ToolBar" type="com.bstek.dorado.view.widget.base.toolbar.ToolBar" scope="public" sortFactor="2022" category="General"><Props>
-<Prop name="fixRight" type="boolean"/>
-<Prop name="showMenuOnHover" defaultValue="false" type="boolean"/></Props><Children><Child rule="Fill" name="Fill" aggregated="true"></Child><Child rule="Button_1" name="ToolBarButton" aggregated="true"></Child><Child rule="Label_1" name="ToolBarLabel" aggregated="true"></Child><Child rule="Separator" name="Separator" aggregated="true"></Child><Child rule="MenuButton" name="MenuButton" aggregated="true"></Child><Child rule="Control_1" name="Items" aggregated="true"></Child></Children></Rule><Rule name="SplitPanel" parents="Control_1" label="SplitPanel" type="com.bstek.dorado.view.widget.base.SplitPanel" scope="public" sortFactor="2023" category="General"><Props>
-<Prop name="collapseable" defaultValue="true" type="boolean"/>
+<ClientEvent name="beforeCurrentChange" parameters="self,arg"/></ClientEvents><Children><Child rule="Control_1" name="Controls" aggregated="true"></Child></Children></Rule><Rule name="TabBar" parents="AbstractTabControl" label="TabBar" type="com.bstek.dorado.view.widget.base.tab.TabBar" scope="public" sortFactor="2018" category="General"></Rule><Rule name="TabControl" parents="AbstractTabControl" label="TabControl" type="com.bstek.dorado.view.widget.base.tab.TabControl" scope="public" sortFactor="2019" category="General"></Rule><Rule name="SplitPanel" parents="Control_1" label="SplitPanel" type="com.bstek.dorado.view.widget.base.SplitPanel" scope="public" sortFactor="2020" category="General"><Props>
+<Prop name="collapsable" defaultValue="true" type="boolean"/>
 <Prop name="collapsed" type="boolean"/>
 <Prop name="direction" defaultValue="left" highlight="1" enumValues="left,top,right,bottom"/>
 <Prop name="maxPosition" type="int"/>
 <Prop name="minPosition" type="int"/>
-<Prop name="position" defaultValue="100" highlight="1"/>
+<Prop name="position" defaultValue="100" highlight="1" type="int"/>
 <Prop name="previewable" type="boolean"/>
-<Prop name="resizeable" defaultValue="true" type="boolean"/></Props><Children><Child name="MainControl" fixed="true"><Rule nodeName="MainControl" scope="public"><Children><Child rule="Control_1" name="MainControl"></Child></Children></Rule></Child><Child name="SideControl" fixed="true"><Rule nodeName="SideControl" scope="public"><Children><Child rule="Control_1" name="SideControl"></Child></Children></Rule></Child></Children></Rule><Rule name="Accordion" parents="Control_1" label="Accordion" type="com.bstek.dorado.view.widget.base.accordion.Accordion" scope="public" sortFactor="2024" category="General"><Props>
-<Prop name="animate" type="boolean"/></Props><ClientEvents>
-<ClientEvent name="beforeCurrentSectionChange" parameters="self,arg"/>
-<ClientEvent name="onCurrentSectionChange" parameters="self,arg"/></ClientEvents><Children><Child rule="Section" name="Sections" aggregated="true"></Child></Children></Rule><Rule name="Slider" parents="Control_1" label="Slider" type="com.bstek.dorado.view.widget.base.Slider" scope="public" sortFactor="2025" category="General"><Props>
+<Prop name="resizeable" defaultValue="true" type="boolean"/></Props><Children><Child name="MainControl" fixed="true"><Rule nodeName="MainControl" scope="public"><Children><Child rule="Control_1" name="MainControl"></Child></Children></Rule></Child><Child name="SideControl" fixed="true"><Rule nodeName="SideControl" scope="public"><Children><Child rule="Control_1" name="SideControl"></Child></Children></Rule></Child></Children></Rule><Rule name="Slider" parents="Control_1" label="Slider" type="com.bstek.dorado.view.widget.base.Slider" scope="public" sortFactor="2021" category="General"><Props>
 <Prop name="maxValue" defaultValue="100" type="float"/>
 <Prop name="minValue" type="float"/>
 <Prop name="orientation" defaultValue="horizental" enumValues="horizental,vertival"/>
@@ -328,13 +321,13 @@
 <Prop name="step" type="float"/>
 <Prop name="value" type="float"/></Props><ClientEvents>
 <ClientEvent name="beforeValueChange" parameters="self,arg"/>
-<ClientEvent name="onValueChange" parameters="self,arg"/></ClientEvents></Rule><Rule name="ProgressBar" parents="Control_1" label="ProgressBar" type="com.bstek.dorado.view.widget.base.ProgressBar" scope="public" sortFactor="2026" category="General"><Props>
+<ClientEvent name="onValueChange" parameters="self,arg"/></ClientEvents></Rule><Rule name="ProgressBar" parents="Control_1" label="ProgressBar" type="com.bstek.dorado.view.widget.base.ProgressBar" scope="public" sortFactor="2022" category="General"><Props>
 <Prop name="effectEnable" type="boolean"/>
 <Prop name="maxValue" defaultValue="100" type="float"/>
 <Prop name="minValue" type="float"/>
 <Prop name="showText" defaultValue="true" type="boolean"/>
 <Prop name="textPattern" defaultValue="{percent}%"/>
-<Prop name="value"/></Props></Rule><Rule name="Tip" parents="Control_1,FloatControl" label="Tip" type="com.bstek.dorado.view.widget.base.Tip" scope="public" sortFactor="2027" category="Floatable"><Props>
+<Prop name="value"/></Props></Rule><Rule name="Tip" parents="Control_1" label="Tip" type="com.bstek.dorado.view.widget.base.Tip" scope="public" sortFactor="2023" category="Floatable"><Props>
 <Prop name="align" enumValues="left,innerleft,center,innerright,top"/>
 <Prop name="anchorTarget"/>
 <Prop name="animateTarget"/>
@@ -371,7 +364,11 @@
 <ClientEvent name="beforeClose" parameters="self,arg"/>
 <ClientEvent name="onShow" parameters="self,arg"/>
 <ClientEvent name="onClose" parameters="self,arg"/>
-<ClientEvent name="onHide" parameters="self,arg"/></ClientEvents></Rule><Rule name="FloatContainer" parents="Container,FloatControl" label="FloatContainer" type="com.bstek.dorado.view.widget.base.FloatContainer" scope="public" sortFactor="2028" category="Floatable"><Props>
+<ClientEvent name="onHide" parameters="self,arg"/></ClientEvents></Rule><Rule name="ToolBar" parents="Control_1" label="ToolBar" type="com.bstek.dorado.view.widget.base.toolbar.ToolBar" scope="public" sortFactor="2024" category="General"><Props>
+<Prop name="fixRight" type="boolean"/></Props><Children><Child rule="Button_1" name="ToolBarButton" aggregated="true"></Child><Child rule="MenuButton" name="MenuButton" aggregated="true"></Child><Child rule="Label_1" name="ToolBarLabel" aggregated="true"></Child><Child rule="Fill" name="Fill" aggregated="true"></Child><Child rule="Separator_1" name="Separator" aggregated="true"></Child><Child rule="Control_1" name="Items" aggregated="true"></Child></Children></Rule><Rule name="Accordion" parents="Control_1" label="Accordion" type="com.bstek.dorado.view.widget.base.accordion.Accordion" scope="public" sortFactor="2025" category="General"><Props>
+<Prop name="animate" type="boolean"/></Props><ClientEvents>
+<ClientEvent name="beforeCurrentSectionChange" parameters="self,arg"/>
+<ClientEvent name="onCurrentSectionChange" parameters="self,arg"/></ClientEvents><Children><Child rule="Section" name="Sections" aggregated="true"></Child></Children></Rule><Rule name="FloatContainer" parents="Container" label="FloatContainer" type="com.bstek.dorado.view.widget.base.FloatContainer" scope="public" sortFactor="2026" category="Floatable"><Props>
 <Prop name="align" enumValues="left,innerleft,center,innerright,top"/>
 <Prop name="anchorTarget"/>
 <Prop name="animateTarget"/>
@@ -399,7 +396,7 @@
 <ClientEvent name="beforeClose" parameters="self,arg"/>
 <ClientEvent name="onShow" parameters="self,arg"/>
 <ClientEvent name="onClose" parameters="self,arg"/>
-<ClientEvent name="onHide" parameters="self,arg"/></ClientEvents></Rule><Rule name="FloatPanel" parents="Panel,FloatControl" label="FloatPanel" type="com.bstek.dorado.view.widget.base.FloatPanel" scope="public" sortFactor="2029" category="Floatable"><Props>
+<ClientEvent name="onHide" parameters="self,arg"/></ClientEvents></Rule><Rule name="FloatPanel" parents="Panel" label="FloatPanel" type="com.bstek.dorado.view.widget.base.FloatPanel" scope="public" sortFactor="2027" category="Floatable"><Props>
 <Prop name="align" enumValues="left,innerleft,center,innerright,top"/>
 <Prop name="anchorTarget"/>
 <Prop name="animateTarget"/>
@@ -427,7 +424,7 @@
 <ClientEvent name="beforeClose" parameters="self,arg"/>
 <ClientEvent name="onShow" parameters="self,arg"/>
 <ClientEvent name="onClose" parameters="self,arg"/>
-<ClientEvent name="onHide" parameters="self,arg"/></ClientEvents></Rule><Rule name="Dialog" parents="FloatPanel" label="Dialog" type="com.bstek.dorado.view.widget.base.Dialog" scope="public" sortFactor="2030" category="Floatable"><Props>
+<ClientEvent name="onHide" parameters="self,arg"/></ClientEvents></Rule><Rule name="Dialog" parents="FloatPanel" label="Dialog" type="com.bstek.dorado.view.widget.base.Dialog" scope="public" sortFactor="2028" category="Floatable"><Props>
 <Prop name="closeable" defaultValue="true" type="boolean"/>
 <Prop name="dragOutside" type="boolean"/>
 <Prop name="draggable" defaultValue="true" type="boolean"/>
@@ -438,7 +435,7 @@
 <Prop name="resizeable" defaultValue="true" type="boolean"/>
 <Prop name="shadowMode" defaultValue="frame" enumValues="drop,sides,frame,none"/></Props><ClientEvents>
 <ClientEvent name="onMinimize" parameters="self,arg"/>
-<ClientEvent name="beforeMinimize" parameters="self,arg"/></ClientEvents></Rule><Rule name="Menu" parents="Control_1,FloatControl" label="Menu" type="com.bstek.dorado.view.widget.base.menu.Menu" scope="public" sortFactor="2031" category="Floatable" autoGenerateId="true"><Props>
+<ClientEvent name="beforeMinimize" parameters="self,arg"/></ClientEvents></Rule><Rule name="Menu" parents="Control_1" label="Menu" type="com.bstek.dorado.view.widget.base.menu.Menu" scope="public" sortFactor="2029" category="Floatable" autoGenerateId="true"><Props>
 <Prop name="align" enumValues="left,innerleft,center,innerright,top"/>
 <Prop name="anchorTarget"/>
 <Prop name="animateTarget"/>
@@ -468,7 +465,7 @@
 <ClientEvent name="beforeClose" parameters="self,arg"/>
 <ClientEvent name="onShow" parameters="self,arg"/>
 <ClientEvent name="onClose" parameters="self,arg"/>
-<ClientEvent name="onHide" parameters="self,arg"/></ClientEvents><Children><Child rule="BaseMenuItem" name="Items" aggregated="true"></Child></Children></Rule><Rule name="DatePicker" parents="Control_1" label="DatePicker" nodeName="DatePicker" type="com.bstek.dorado.view.widget.base.DatePicker" scope="public" sortFactor="2032" category="General"><Props>
+<ClientEvent name="onHide" parameters="self,arg"/></ClientEvents><Children><Child rule="BaseMenuItem" name="Items" aggregated="true"></Child></Children></Rule><Rule name="DatePicker" parents="Control_1" label="DatePicker" nodeName="DatePicker" type="com.bstek.dorado.view.widget.base.DatePicker" scope="public" sortFactor="2030" category="General"><Props>
 <Prop name="date" type="java.util.Date"/>
 <Prop name="showClearButton" defaultValue="true" type="boolean"/>
 <Prop name="showConfirmButton" defaultValue="true" type="boolean"/>
@@ -476,36 +473,37 @@
 <Prop name="showTodayButton" defaultValue="true" type="boolean"/></Props><ClientEvents>
 <ClientEvent name="onRefreshDateCell" parameters="self,arg"/>
 <ClientEvent name="onPick" parameters="self,arg"/>
-<ClientEvent name="onCancel" parameters="self,arg"/></ClientEvents></Rule><Rule name="YearMonthPicker" parents="Control_1" label="YearMonthPicker" nodeName="YearMonthPicker" type="com.bstek.dorado.view.widget.base.YearMonthPicker" scope="public" sortFactor="2033" category="General"><Props>
+<ClientEvent name="onCancel" parameters="self,arg"/></ClientEvents></Rule><Rule name="YearMonthPicker" parents="Control_1" label="YearMonthPicker" nodeName="YearMonthPicker" type="com.bstek.dorado.view.widget.base.YearMonthPicker" scope="public" sortFactor="2031" category="General"><Props>
 <Prop name="month" type="int"/>
 <Prop name="year" type="int"/></Props><ClientEvents>
 <ClientEvent name="onPick" parameters="self,arg"/>
-<ClientEvent name="onCancel" parameters="self,arg"/></ClientEvents></Rule><Rule name="Label" parents="Control_1" label="Label" type="com.bstek.dorado.view.widget.form.Label" scope="public" sortFactor="2034" category="Form"><Props>
-<Prop name="text"/></Props></Rule><Rule name="DataLabel" parents="AbstractPropertyDataControl" label="DataLabel" type="com.bstek.dorado.view.widget.form.DataLabel" scope="public" sortFactor="2035" category="Form"></Rule><Rule name="Link" parents="Label" label="Link" type="com.bstek.dorado.view.widget.form.Link" scope="public" sortFactor="2036" category="Form"><Props>
+<ClientEvent name="onCancel" parameters="self,arg"/></ClientEvents></Rule><Rule name="Label" parents="Control_1" label="Label" type="com.bstek.dorado.view.widget.form.Label" scope="public" sortFactor="2032" category="Form"><Props>
+<Prop name="text"/></Props></Rule><Rule name="DataLabel" parents="AbstractPropertyDataControl" label="DataLabel" type="com.bstek.dorado.view.widget.form.DataLabel" scope="public" sortFactor="2033" category="Form"></Rule><Rule name="Link" parents="Label" label="Link" type="com.bstek.dorado.view.widget.form.Link" scope="public" sortFactor="2034" category="Form"><Props>
 <Prop name="href"/>
-<Prop name="target"/></Props></Rule><Rule name="TextEditor" parents="AbstractTextEditor" label="TextEditor" type="com.bstek.dorado.view.widget.form.TextEditor" scope="public" sortFactor="2037" category="Form"><Props>
+<Prop name="target"/></Props></Rule><Rule name="TextEditor" parents="AbstractTextEditor" label="TextEditor" type="com.bstek.dorado.view.widget.form.TextEditor" scope="public" sortFactor="2035" category="Form"><Props>
 <Prop name="dataType" type="com.bstek.dorado.data.type.DataType"/>
 <Prop name="displayFormat"/><Prop name="mapping" type="com.bstek.dorado.data.type.property.Mapping" compositeType="Fixed">
 <Prop name="keyProperty"/>
 <Prop name="mapValues" editor="collection[pojo]" type="java.lang.Object"/>
 <Prop name="valueProperty"/></Prop>
 <Prop name="password" visible="false" type="boolean"/>
-<Prop name="typeFormat"/></Props></Rule><Rule name="PasswordEditor" parents="AbstractTextEditor" label="PasswordEditor" type="com.bstek.dorado.view.widget.form.PasswordEditor" scope="public" sortFactor="2038" category="Form"></Rule><Rule name="TextArea" parents="AbstractTextEditor" label="TextArea" type="com.bstek.dorado.view.widget.form.TextArea" scope="public" sortFactor="2039" category="Form"><Props>
+<Prop name="typeFormat"/></Props></Rule><Rule name="PasswordEditor" parents="AbstractTextEditor" label="PasswordEditor" type="com.bstek.dorado.view.widget.form.PasswordEditor" scope="public" sortFactor="2036" category="Form"></Rule><Rule name="TextArea" parents="AbstractTextEditor" label="TextArea" type="com.bstek.dorado.view.widget.form.TextArea" scope="public" sortFactor="2037" category="Form"><Props>
 <Prop name="maxLength" type="int"/>
 <Prop name="minLength" type="int"/>
-<Prop name="required" type="boolean"/></Props></Rule><Rule name="CheckBox" parents="AbstractDataEditor" label="CheckBox" type="com.bstek.dorado.view.widget.form.CheckBox" scope="public" sortFactor="2040" category="Form"><Props>
+<Prop name="required" type="boolean"/></Props></Rule><Rule name="CheckBox" parents="AbstractDataEditor" label="CheckBox" type="com.bstek.dorado.view.widget.form.CheckBox" scope="public" sortFactor="2038" category="Form"><Props>
 <Prop name="caption"/>
-<Prop name="mixedValue" type="java.lang.Object"/>
+<Prop name="iconOnly" type="boolean"/>
 <Prop name="offValue" defaultValue="false" type="java.lang.Object"/>
 <Prop name="onValue" defaultValue="true" type="java.lang.Object"/>
+<Prop name="showCaption" defaultValue="true" type="boolean"/>
 <Prop name="triState" type="boolean"/>
 <Prop name="value" defaultValue="false" type="java.lang.Object"/></Props><ClientEvents>
-<ClientEvent name="onValueChange" parameters="self,arg"/></ClientEvents></Rule><Rule name="RadioGroup" parents="AbstractDataEditor" label="RadioGroup" type="com.bstek.dorado.view.widget.form.RadioGroup" scope="public" sortFactor="2041" category="Form"><Props>
+<ClientEvent name="onValueChange" parameters="self,arg"/></ClientEvents></Rule><Rule name="RadioGroup" parents="AbstractDataEditor" label="RadioGroup" type="com.bstek.dorado.view.widget.form.RadioGroup" scope="public" sortFactor="2039" category="Form"><Props>
 <Prop name="layout" defaultValue="flow" enumValues="vertical,flow"/>
 <Prop name="value" type="java.lang.Object"/></Props><ClientEvents>
-<ClientEvent name="onValueChange" parameters="self,arg"/></ClientEvents><Children><Child rule="RadioButton" name="RadioButtons" aggregated="true"></Child></Children></Rule><Rule name="DataMessage" parents="AbstractPropertyDataControl" label="DataMessage" type="com.bstek.dorado.view.widget.form.DataMessage" scope="public" sortFactor="2042" category="Form"><Props>
+<ClientEvent name="onValueChange" parameters="self,arg"/></ClientEvents><Children><Child rule="RadioButton" name="RadioButtons" aggregated="true"></Child></Children></Rule><Rule name="DataMessage" parents="AbstractPropertyDataControl" label="DataMessage" type="com.bstek.dorado.view.widget.form.DataMessage" scope="public" sortFactor="2040" category="Form"><Props>
 <Prop name="showIconOnly" type="boolean"/>
-<Prop name="showMultiMessage" type="boolean"/></Props></Rule><Rule name="FormProfile" parents="Component" label="FormProfile" type="com.bstek.dorado.view.widget.form.FormProfile" scope="public" sortFactor="2043" category="Form"><Props>
+<Prop name="showMultiMessage" type="boolean"/></Props></Rule><Rule name="FormProfile" parents="Component" label="FormProfile" type="com.bstek.dorado.view.widget.form.FormProfile" scope="public" sortFactor="2041" category="Form"><Props>
 <Prop name="className"/>
 <Prop name="dataPath" highlight="1"/>
 <Prop name="dataSet" highlight="1" reference="DataSet:id"/>
@@ -527,11 +525,10 @@
 <Prop name="showValidHint" defaultValue="true" type="boolean"/>
 <Prop name="trigger" enumValues="triggerClear,autoMappingDropDown1,autoMappingDropDown2,defaultDateDropDown,defaultDateTimeDropDown,defaultYearMonthDropDown" reference="Trigger:id"/>
 <Prop name="type" defaultValue="text" enumValues="text,password,textArea,checkBox,radioGroup"/>
-<Prop name="width"/></Props></Rule><Rule name="FormElement" parents="Control_1" label="FormElement" type="com.bstek.dorado.view.widget.form.FormElement" scope="public" sortFactor="2044" category="Form"><Props>
+<Prop name="width"/></Props></Rule><Rule name="FormElement" parents="Control_1" label="FormElement" type="com.bstek.dorado.view.widget.form.FormElement" scope="public" sortFactor="2042" category="Form"><Props>
 <Prop name="dataPath" highlight="1"/>
 <Prop name="dataSet" highlight="1" reference="DataSet:id"/>
-<Prop name="editable" defaultValue="true" type="boolean"/>
-<Prop name="editorType" highlight="1" enumValues="TextEditor,PasswordEditor,TextArea,CheckBox,RadioGroup,DataLabel,NumberSpinner"/>
+<Prop name="editorType" defaultValue="TextEditor" highlight="1" enumValues="TextEditor,PasswordEditor,TextArea,CheckBox,RadioGroup,DataLabel,NumberSpinner"/>
 <Prop name="editorWidth" type="int"/>
 <Prop name="formProfile" reference="FormProfile:id"/>
 <Prop name="hint"/>
@@ -552,13 +549,12 @@
 <Prop name="trigger" enumValues="triggerClear,autoMappingDropDown1,autoMappingDropDown2,defaultDateDropDown,defaultDateTimeDropDown,defaultYearMonthDropDown" reference="Trigger:id"/>
 <Prop name="type" enumValues="text,password,textArea,checkBox,radioGroup" visible="false"/></Props><ClientEvents>
 <ClientEvent name="onGetBindingDataType" parameters="self,arg"/>
-<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents><Children><Child name="Editor" fixed="true"><Rule nodeName="Editor" scope="public"><Children><Child rule="Control_1" name="Editor"></Child></Children></Rule></Child></Children></Rule><Rule name="AutoForm" parents="Control_1" label="AutoForm" type="com.bstek.dorado.view.widget.form.autoform.AutoForm" scope="public" sortFactor="2045" category="Form"><Props>
+<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents><Children><Child name="Editor" fixed="true"><Rule nodeName="Editor" scope="public"><Children><Child rule="Control_1" name="Editor"></Child></Children></Rule></Child></Children></Rule><Rule name="AutoForm" parents="Control_1" label="AutoForm" type="com.bstek.dorado.view.widget.form.autoform.AutoForm" scope="public" sortFactor="2043" category="Form"><Props>
 <Prop name="autoCreateElements" type="boolean"/>
 <Prop name="className"/>
 <Prop name="colPadding" defaultValue="6" type="int"/>
 <Prop name="cols" highlight="1"/>
 <Prop name="createOwnEntity" defaultValue="true" type="boolean"/>
-<Prop name="createPrivateDataSet" type="boolean"/>
 <Prop name="dataPath" highlight="1"/>
 <Prop name="dataSet" highlight="1" reference="DataSet:id"/>
 <Prop name="dataType" type="com.bstek.dorado.data.type.EntityDataType"/>
@@ -582,80 +578,73 @@
 <Prop name="showHintMessage" type="boolean"/>
 <Prop name="showLabel" defaultValue="true" type="boolean"/>
 <Prop name="stretchWidth" type="boolean"/>
-<Prop name="width"/></Props><Children><Child rule="AutoFormElement" name="AutoFormElement" aggregated="true"></Child><Child rule="Control_1" name="Elements" aggregated="true"></Child></Children></Rule><Rule name="NumberSpinner" parents="Spinner" label="NumberSpinner" type="com.bstek.dorado.view.widget.form.NumberSpinner" scope="public" sortFactor="2046" category="Form"><Props>
+<Prop name="width"/></Props><Children><Child rule="AutoFormElement" name="AutoFormElement" aggregated="true"></Child><Child rule="Control_1" name="Elements" aggregated="true"></Child></Children></Rule><Rule name="NumberSpinner" parents="Spinner" label="NumberSpinner" type="com.bstek.dorado.view.widget.form.NumberSpinner" scope="public" sortFactor="2044" category="Form"><Props>
 <Prop name="max" defaultValue="2147483647" type="int"/>
 <Prop name="min" defaultValue="-2147483648" type="int"/>
-<Prop name="selectTextOnFocus" defaultValue="true" type="boolean"/></Props></Rule><Rule name="DateTimeSpinner" parents="Spinner" label="DateTimeSpinner" type="com.bstek.dorado.view.widget.form.DateTimeSpinner" scope="public" sortFactor="2047" category="Form"><Props>
+<Prop name="selectTextOnFocus" defaultValue="true" type="boolean"/></Props></Rule><Rule name="DateTimeSpinner" parents="Spinner" label="DateTimeSpinner" type="com.bstek.dorado.view.widget.form.DateTimeSpinner" scope="public" sortFactor="2045" category="Form"><Props>
 <Prop name="date" type="int"/>
 <Prop name="hours" type="int"/>
 <Prop name="minutes" type="int"/>
 <Prop name="month" type="int"/>
 <Prop name="seconds" type="int"/>
 <Prop name="type" defaultValue="time" enumValues="date,time,dateTime,hours,minutes,dateHours,dateMinutes"/>
-<Prop name="year" type="int"/></Props></Rule><Rule name="CustomSpinner" parents="Spinner" label="CustomSpinner" type="com.bstek.dorado.view.widget.form.CustomSpinner" scope="public" sortFactor="2048" category="Form"><Props>
+<Prop name="year" type="int"/></Props></Rule><Rule name="CustomSpinner" parents="Spinner" label="CustomSpinner" type="com.bstek.dorado.view.widget.form.CustomSpinner" scope="public" sortFactor="2046" category="Form"><Props>
 <Prop name="pattern" highlight="1"/>
-<Prop name="text" visible="false"/>
-<Prop name="value"/></Props></Rule><Rule name="Trigger" parents="Component" label="Trigger" type="com.bstek.dorado.view.widget.form.trigger.Trigger" scope="public" sortFactor="2049" category="Trigger" autoGenerateId="true"><Props>
-<Prop name="buttonVisible" defaultValue="true" type="boolean"/>
-<Prop name="editable" defaultValue="true" type="boolean"/>
+<Prop name="value"/></Props></Rule><Rule name="Trigger" parents="Component" label="Trigger" type="com.bstek.dorado.view.widget.form.trigger.Trigger" scope="public" sortFactor="2047" category="Trigger" autoGenerateId="true"><Props>
 <Prop name="icon"/>
 <Prop name="iconClass" enumValues="d-trigger-icon-drop,d-trigger-icon-search,d-trigger-icon-date,d-trigger-icon-custom"/></Props><ClientEvents>
 <ClientEvent name="beforeExecute" parameters="self,arg"/>
-<ClientEvent name="onExecute" parameters="self,arg"/></ClientEvents></Rule><Rule name="ListDropDown" parents="RowListDropDown" label="ListDropDown" type="com.bstek.dorado.view.widget.form.trigger.ListDropDown" scope="public" sortFactor="2050" category="Trigger"><Props>
-<Prop name="items" highlight="1" editor="collection[any]" type="java.util.List"/></Props></Rule><Rule name="DataSetDropDown" parents="RowListDropDown" label="DataSetDropDown" type="com.bstek.dorado.view.widget.form.trigger.DataSetDropDown" scope="public" sortFactor="2051" category="Trigger"><Props>
+<ClientEvent name="onExecute" parameters="self,arg"/></ClientEvents></Rule><Rule name="ListDropDown" parents="RowListDropDown" label="ListDropDown" type="com.bstek.dorado.view.widget.form.trigger.ListDropDown" scope="public" sortFactor="2048" category="Trigger"><Props>
+<Prop name="items" highlight="1" editor="collection[any]" type="java.util.List"/></Props></Rule><Rule name="DataSetDropDown" parents="RowListDropDown" label="DataSetDropDown" type="com.bstek.dorado.view.widget.form.trigger.DataSetDropDown" scope="public" sortFactor="2049" category="Trigger"><Props>
 <Prop name="dataPath" highlight="1"/>
 <Prop name="dataSet" highlight="1" reference="DataSet:id"/>
-<Prop name="filterMode" defaultValue="serverSide" enumValues="clientSide,serverSide"/>
 <Prop name="filterOnTyping" type="boolean"/>
 <Prop name="property" highlight="1"/>
 <Prop name="reloadDataOnOpen" type="boolean"/>
 <Prop name="useDataBinding" defaultValue="true" type="boolean"/></Props><ClientEvents>
 <ClientEvent name="onGetBindingDataType" parameters="self,arg"/>
 <ClientEvent name="onSetFilterParameter" parameters="self,arg"/>
-<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents></Rule><Rule name="AutoMappingDropDown" parents="RowListDropDown" label="AutoMappingDropDown" type="com.bstek.dorado.view.widget.form.trigger.AutoMappingDropDown" scope="public" sortFactor="2052" category="Trigger"><Props>
+<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents></Rule><Rule name="AutoMappingDropDown" parents="RowListDropDown" label="AutoMappingDropDown" type="com.bstek.dorado.view.widget.form.trigger.AutoMappingDropDown" scope="public" sortFactor="2050" category="Trigger"><Props>
 <Prop name="autoOpen" type="boolean"/>
-<Prop name="dynaFilter" defaultValue="true" type="boolean"/>
-<Prop name="property" defaultValue="value"/></Props></Rule><Rule name="DateDropDown" parents="DropDown" label="DateDropDown" type="com.bstek.dorado.view.widget.form.trigger.DateDropDown" scope="public" sortFactor="2053" category="Trigger"><Props>
-<Prop name="showTimeSpinner" type="boolean"/></Props></Rule><Rule name="YearMonthDropDown" parents="DropDown" label="YearMonthDropDown" type="com.bstek.dorado.view.widget.form.trigger.YearMonthDropDown" scope="public" sortFactor="2054" category="Trigger"></Rule><Rule name="CustomDropDown" parents="DropDown" label="CustomDropDown" type="com.bstek.dorado.view.widget.form.trigger.CustomDropDown" scope="public" sortFactor="2055" category="Trigger"><Children><Child rule="Control_1" name="Control"></Child></Children></Rule><Rule name="DataPilot" parents="AbstractDataControl" label="DataPilot" type="com.bstek.dorado.view.widget.datacontrol.DataPilot" scope="public" sortFactor="2056" category="General"><Props>
-<Prop name="itemCodes" highlight="1" enumValues="pages,|&lt;,&lt;,&gt;,&gt;|,goto,pageSize,info,+,-,x,|"/></Props><ClientEvents>
+<Prop name="property" defaultValue="value"/>
+<Prop name="useEmptyItem" type="boolean"/></Props></Rule><Rule name="DateDropDown" parents="DropDown" label="DateDropDown" type="com.bstek.dorado.view.widget.form.trigger.DateDropDown" scope="public" sortFactor="2051" category="Trigger"><Props>
+<Prop name="showTimeSpinner" type="boolean"/></Props></Rule><Rule name="YearMonthDropDown" parents="DropDown" label="YearMonthDropDown" type="com.bstek.dorado.view.widget.form.trigger.YearMonthDropDown" scope="public" sortFactor="2052" category="Trigger"></Rule><Rule name="CustomDropDown" parents="DropDown" label="CustomDropDown" type="com.bstek.dorado.view.widget.form.trigger.CustomDropDown" scope="public" sortFactor="2053" category="Trigger"><Children><Child rule="Control_1" name="Control"></Child></Children></Rule><Rule name="DataPilot" parents="AbstractDataControl" label="DataPilot" type="com.bstek.dorado.view.widget.datacontrol.DataPilot" scope="public" sortFactor="2054" category="General"><Props>
+<Prop name="itemCodes" highlight="1" enumValues="pages,|&lt;,&lt;,&gt;,&gt;|,goto,info,+,-,x,|"/></Props><ClientEvents>
 <ClientEvent name="onSubControlAction" parameters="self,arg"/>
-<ClientEvent name="onSubControlRefresh" parameters="self,arg"/></ClientEvents></Rule><Rule name="ListBox" parents="AbstractListBox" label="ListBox" type="com.bstek.dorado.view.widget.list.ListBox" scope="public" sortFactor="2057" category="Collection"><Props>
-<Prop name="items" highlight="1" editor="collection[any]" type="java.util.List"/></Props></Rule><Rule name="DataListBox" parents="AbstractListBox" label="DataListBox" type="com.bstek.dorado.view.widget.list.DataListBox" scope="public" sortFactor="2058" category="Collection"><Props>
+<ClientEvent name="onSubControlRefresh" parameters="self,arg"/></ClientEvents></Rule><Rule name="ListBox" parents="AbstractListBox" label="ListBox" type="com.bstek.dorado.view.widget.list.ListBox" scope="public" sortFactor="2055" category="Collection"><Props>
+<Prop name="items" highlight="1" editor="collection[pojo]" type="java.util.List"/></Props></Rule><Rule name="DataListBox" parents="AbstractListBox" label="DataListBox" type="com.bstek.dorado.view.widget.list.DataListBox" scope="public" sortFactor="2056" category="Collection"><Props>
 <Prop name="dataPath" highlight="1"/>
 <Prop name="dataSet" highlight="1" reference="DataSet:id"/></Props><ClientEvents>
 <ClientEvent name="onGetBindingDataType" parameters="self,arg"/>
-<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents></Rule><Rule name="Grid" parents="AbstractGrid" label="Grid" type="com.bstek.dorado.view.widget.grid.Grid" scope="public" sortFactor="2059" category="Collection"><Props>
-<Prop name="items" highlight="1" editor="collection[pojo]" type="java.util.List"/></Props></Rule><Rule name="DataGrid" parents="AbstractGrid" label="DataGrid" type="com.bstek.dorado.view.widget.grid.DataGrid" scope="public" sortFactor="2060" category="Collection"><Props>
+<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents></Rule><Rule name="Grid" parents="AbstractGrid" label="Grid" type="com.bstek.dorado.view.widget.grid.Grid" scope="public" sortFactor="2057" category="Collection"><Props>
+<Prop name="items" highlight="1" editor="collection[pojo]" type="java.util.List"/></Props></Rule><Rule name="DataGrid" parents="AbstractGrid" label="DataGrid" type="com.bstek.dorado.view.widget.grid.DataGrid" scope="public" sortFactor="2058" category="Collection"><Props>
 <Prop name="autoCreateColumns" type="java.lang.Boolean"/>
 <Prop name="dataPath" highlight="1"/>
 <Prop name="dataSet" highlight="1" reference="DataSet:id"/>
 <Prop name="dataType" type="com.bstek.dorado.data.type.EntityDataType"/>
 <Prop name="filterMode" defaultValue="clientSide" enumValues="clientSide,serverSide"/>
-<Prop name="rowSelectionProperty"/>
 <Prop name="sortMode" defaultValue="clientSide" enumValues="clientSide,serverSide"/></Props><ClientEvents>
 <ClientEvent name="onGetBindingDataType" parameters="self,arg"/>
-<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents></Rule><Rule name="Tree" parents="AbstractTree" label="Tree" type="com.bstek.dorado.view.widget.tree.Tree" scope="public" sortFactor="2061" category="Collection"><Children><Child rule="Node" name="Nodes" aggregated="true"></Child></Children></Rule><Rule name="DataTree" parents="AbstractTree" label="DataTree" type="com.bstek.dorado.view.widget.tree.DataTree" scope="public" sortFactor="2062" category="Collection"><Props>
+<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents></Rule><Rule name="Tree" parents="AbstractTree" label="Tree" type="com.bstek.dorado.view.widget.tree.Tree" scope="public" sortFactor="2059" category="Collection"><Children><Child rule="Node" name="Nodes" aggregated="true"></Child></Children></Rule><Rule name="DataTree" parents="AbstractTree" label="DataTree" type="com.bstek.dorado.view.widget.tree.DataTree" scope="public" sortFactor="2060" category="Collection"><Props>
 <Prop name="currentNodeDataPath"/>
 <Prop name="dataPath" highlight="1"/>
 <Prop name="dataSet" highlight="1" reference="DataSet:id"/></Props><ClientEvents>
 <ClientEvent name="beforeDataNodeCreate" parameters="self,arg"/>
 <ClientEvent name="onGetBindingDataType" parameters="self,arg"/>
 <ClientEvent name="onDataNodeCreate" parameters="self,arg"/>
-<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents><Children><Child name="BindingConfigs" fixed="true"><Rule nodeName="BindingConfigs" scope="public"><Children><Child rule="BindingConfig" name="BindingConfigs" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="BlockView" parents="AbstractBlockView" label="BlockView" type="com.bstek.dorado.view.widget.blockview.BlockView" scope="public" sortFactor="2063" category="Collection"><Props>
-<Prop name="items" highlight="1" editor="collection[any]" type="java.util.List"/></Props></Rule><Rule name="DataBlockView" parents="AbstractBlockView" label="DataBlockView" type="com.bstek.dorado.view.widget.blockview.DataBlockView" scope="public" sortFactor="2064" category="Collection"><Props>
+<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents><Children><Child name="BindingConfigs" fixed="true"><Rule nodeName="BindingConfigs" scope="public"><Children><Child rule="BindingConfig" name="BindingConfigs" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="BlockView" parents="AbstractBlockView" label="BlockView" type="com.bstek.dorado.view.widget.blockview.BlockView" scope="public" sortFactor="2061" category="Collection"><Props>
+<Prop name="items" highlight="1" editor="collection[any]" type="java.util.List"/></Props></Rule><Rule name="DataBlockView" parents="AbstractBlockView" label="DataBlockView" type="com.bstek.dorado.view.widget.blockview.DataBlockView" scope="public" sortFactor="2062" category="Collection"><Props>
 <Prop name="dataPath" highlight="1"/>
 <Prop name="dataSet" highlight="1" reference="DataSet:id"/></Props><ClientEvents>
 <ClientEvent name="onGetBindingDataType" parameters="self,arg"/>
-<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents></Rule><Rule name="TreeGrid" parents="AbstractTreeGrid" label="TreeGrid" type="com.bstek.dorado.view.widget.treegrid.TreeGrid" scope="public" sortFactor="2065" category="Collection"><Children><Child name="Nodes" fixed="true"><Rule nodeName="Nodes" scope="public"><Children><Child rule="Node" name="Nodes" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="DataTreeGrid" parents="AbstractTreeGrid" label="DataTreeGrid" type="com.bstek.dorado.view.widget.treegrid.DataTreeGrid" scope="public" sortFactor="2066" category="Collection"><Props>
+<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents></Rule><Rule name="TreeGrid" parents="AbstractTreeGrid" label="TreeGrid" type="com.bstek.dorado.view.widget.treegrid.TreeGrid" scope="public" sortFactor="2063" category="Collection"><Children><Child name="Nodes" fixed="true"><Rule nodeName="Nodes" scope="public"><Children><Child rule="Node" name="Nodes" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="DataTreeGrid" parents="AbstractTreeGrid" label="DataTreeGrid" type="com.bstek.dorado.view.widget.treegrid.DataTreeGrid" scope="public" sortFactor="2064" category="Collection"><Props>
 <Prop name="autoCreateColumns" type="java.lang.Boolean"/>
 <Prop name="currentNodeDataPath"/>
 <Prop name="dataPath" highlight="1"/>
 <Prop name="dataSet" highlight="1" reference="DataSet:id"/>
 <Prop name="dataType" type="com.bstek.dorado.data.type.EntityDataType"/></Props><ClientEvents>
-<ClientEvent name="beforeDataNodeCreate" parameters="self,arg"/>
 <ClientEvent name="onGetBindingDataType" parameters="self,arg"/>
-<ClientEvent name="onDataNodeCreate" parameters="self,arg"/>
-<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents><Children><Child name="BindingConfigs" fixed="true"><Rule nodeName="BindingConfigs" scope="public"><Children><Child rule="BindingConfig" name="BindingConfigs" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="Portal" parents="Control_1" label="Portal" type="com.bstek.dorado.view.widget.portal.Portal" scope="public" sortFactor="2067" category="Advance"><Props>
+<ClientEvent name="onGetBindingData" parameters="self,arg"/></ClientEvents><Children><Child name="BindingConfigs" fixed="true"><Rule nodeName="BindingConfigs" scope="public"><Children><Child rule="BindingConfig" name="BindingConfigs" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="Portal" parents="Control_1" label="Portal" type="com.bstek.dorado.view.widget.portal.Portal" scope="public" sortFactor="2065" category="Advance"><Props>
 <Prop name="defaultPortletHeight" defaultValue="200" type="int"/>
 <Prop name="portletPadding" type="int"/></Props><ClientEvents>
 <ClientEvent name="onPortletRemove" parameters="self,arg"/>
@@ -727,7 +716,10 @@
 <ClientEvent name="onCollapsedChange" parameters="self,arg"/>
 <ClientEvent name="beforeCollapsedChange" parameters="self,arg"/></ClientEvents><Children><Child name="Buttons" fixed="true"><Rule nodeName="Buttons" scope="public"><Children><Child rule="Button" name="Buttons" aggregated="true"></Child></Children></Rule></Child><Child name="Children" fixed="true"><Rule nodeName="Children" scope="public"><Children><Child rule="Component" name="Children" aggregated="true"></Child></Children></Rule></Child></Children></Rule><Rule name="AbstractTabControl" parents="Control_1" label="AbstractTabControl" abstract="true" type="com.bstek.dorado.view.widget.base.tab.AbstractTabControl" scope="protected"><Props>
 <Prop name="alwaysShowNavButtons" type="boolean"/>
-<Prop name="currentTab" type="int"/></Props><ClientEvents>
+<Prop name="currentTab" type="int"/>
+<Prop name="showMenuButton" type="boolean"/>
+<Prop name="tabMinWidth" type="int"/>
+<Prop name="tabPlacement" defaultValue="top" enumValues="top,bottom"/></Props><ClientEvents>
 <ClientEvent name="onTabContextMenu" parameters="self,arg"/>
 <ClientEvent name="beforeTabChange" parameters="self,arg"/>
 <ClientEvent name="onTabChange" parameters="self,arg"/></ClientEvents><Children><Child rule="Tab" name="Tabs" aggregated="true"></Child></Children></Rule><Rule name="Tab" label="Tab" type="com.bstek.dorado.view.widget.base.tab.Tab" scope="public"><Props>
@@ -745,8 +737,7 @@
 <Prop name="userData" editor="any" type="java.lang.Object"/>
 <Prop name="visible" defaultValue="true" type="boolean"/>
 <Prop name="width"/></Props></Rule><Rule name="ControlTab" parents="Tab" label="ControlTab" type="com.bstek.dorado.view.widget.base.tab.ControlTab" scope="public"><Children><Child rule="Control_1" name="Control"></Child></Children></Rule><Rule name="IFrameTab" parents="Tab" label="IFrameTab" type="com.bstek.dorado.view.widget.base.tab.IFrameTab" scope="public"><Props>
-<Prop name="path" highlight="1"/></Props></Rule><Rule name="Fill" parents="Control_1" label="Fill" type="com.bstek.dorado.view.widget.base.toolbar.Fill" scope="protected" category="ToolBar"></Rule><Rule name="Button_1" parents="Button" label="ToolBarButton" nodeName="ToolBarButton" type="com.bstek.dorado.view.widget.base.toolbar.Button" scope="protected" category="ToolBar"><Props>
-<Prop name="showMenuOnHover" defaultValue="false" type="boolean"/></Props></Rule><Rule name="Label_1" parents="Label" label="ToolBarLabel" nodeName="ToolBarLabel" type="com.bstek.dorado.view.widget.base.toolbar.Label" scope="protected" category="ToolBar"></Rule><Rule name="Separator" parents="Control_1" label="Separator" type="com.bstek.dorado.view.widget.base.toolbar.Separator" scope="protected" category="ToolBar"></Rule><Rule name="MenuButton" parents="Button" label="MenuButton" nodeName="MenuButton" type="com.bstek.dorado.view.widget.base.toolbar.MenuButton" scope="protected" category="ToolBar"><Children><Child rule="BaseMenuItem" name="Items" aggregated="true"></Child></Children></Rule><Rule name="BaseMenuItem" label="BaseMenuItem" abstract="true" type="com.bstek.dorado.view.widget.base.menu.BaseMenuItem" scope="public"><Props>
+<Prop name="path" highlight="1"/></Props></Rule><Rule name="Button_1" parents="Button" label="ToolBarButton" nodeName="ToolBarButton" type="com.bstek.dorado.view.widget.base.toolbar.Button" scope="protected" category="ToolBar"></Rule><Rule name="MenuButton" parents="Button" label="MenuButton" nodeName="MenuButton" type="com.bstek.dorado.view.widget.base.toolbar.MenuButton" scope="protected" category="ToolBar"><Children><Child rule="BaseMenuItem" name="Items" aggregated="true"></Child></Children></Rule><Rule name="BaseMenuItem" label="BaseMenuItem" abstract="true" type="com.bstek.dorado.view.widget.base.menu.BaseMenuItem" scope="public"><Props>
 <Prop name="className"/>
 <Prop name="exClassName"/>
 <Prop name="height"/>
@@ -756,46 +747,26 @@
 <Prop name="tip"/>
 <Prop name="userData" type="java.lang.Object"/>
 <Prop name="visible" defaultValue="true" type="boolean"/>
-<Prop name="width"/></Props></Rule><Rule name="MenuItem" parents="TextMenuItem" label="MenuItem" type="com.bstek.dorado.view.widget.base.menu.MenuItem" scope="public"></Rule><Rule name="TextMenuItem" parents="BaseMenuItem" label="TextMenuItem" abstract="true" type="com.bstek.dorado.view.widget.base.menu.TextMenuItem" scope="public"><Props>
+<Prop name="width"/></Props></Rule><Rule name="TextMenuItem" parents="BaseMenuItem" label="TextMenuItem" abstract="true" type="com.bstek.dorado.view.widget.base.menu.TextMenuItem" scope="public"><Props>
 <Prop name="action" reference="Action:id"/>
 <Prop name="caption"/>
 <Prop name="disabled" type="boolean"/>
 <Prop name="hideOnClick" defaultValue="true" type="boolean"/>
 <Prop name="icon"/>
-<Prop name="iconClass"/></Props><ClientEvents>
-<ClientEvent name="onClick" parameters="self,arg"/></ClientEvents><Children><Child rule="BaseMenuItem" name="Items" aggregated="true"></Child></Children></Rule><Rule name="ControlMenuItem" parents="TextMenuItem" label="ControlMenuItem" type="com.bstek.dorado.view.widget.base.menu.ControlMenuItem" scope="public"><Children><Child rule="FloatControl" name="Control"></Child></Children></Rule><Rule name="FloatControl" label="FloatControl" abstract="true" type="com.bstek.dorado.view.widget.FloatControl" scope="public"><Props>
-<Prop name="align" enumValues="left,innerleft,center,innerright,top"/>
-<Prop name="anchorTarget"/>
-<Prop name="animateTarget"/>
-<Prop name="animateType" enumValues="zoom,slide,safeSlide,fade,none"/>
-<Prop name="autoAdjustPosition" type="boolean"/>
-<Prop name="center" type="boolean"/>
-<Prop name="floating" type="boolean"/>
-<Prop name="floatingClassName"/>
-<Prop name="focusAfterShow" type="boolean"/>
-<Prop name="handleOverflow" type="boolean"/>
-<Prop name="hideAnimateType" enumValues="zoom,slide,safeSlide,fade,none"/>
-<Prop name="left" type="int"/>
-<Prop name="modal" type="boolean"/>
-<Prop name="modalType" enumValues="dark,transparent"/>
-<Prop name="offsetLeft" type="int"/>
-<Prop name="offsetTop" type="int"/>
-<Prop name="renderTo"/>
-<Prop name="shadowMode" enumValues="drop,sides,frame,none"/>
-<Prop name="showAnimateType" enumValues="zoom,slide,safeSlide,fade,none"/>
-<Prop name="top" type="int"/>
-<Prop name="vAlign" enumValues="top,innertop,center,innerbottom,bottom"/></Props></Rule><Rule name="CheckableMenuItem" parents="MenuItem" label="CheckableMenuItem" type="com.bstek.dorado.view.widget.base.menu.CheckableMenuItem" scope="public"><Props>
+<Prop name="iconClass"/>
+<Prop name="iconPosition" defaultValue="left" enumValues="left,top"/>
+<Prop name="iconSize" defaultValue="normal" enumValues="normal,big"/></Props><ClientEvents>
+<ClientEvent name="onClick" parameters="self,arg"/></ClientEvents><Children><Child rule="BaseMenuItem" name="Items" aggregated="true"></Child></Children></Rule><Rule name="ControlMenuItem" parents="BaseMenuItem" label="ControlMenuItem" type="com.bstek.dorado.view.widget.base.menu.ControlMenuItem" scope="public"><Children><Child rule="Control_1" name="Control"></Child></Children></Rule><Rule name="MenuItem" parents="TextMenuItem" label="MenuItem" type="com.bstek.dorado.view.widget.base.menu.MenuItem" scope="public"></Rule><Rule name="CheckableMenuItem" parents="MenuItem" label="CheckableMenuItem" type="com.bstek.dorado.view.widget.base.menu.CheckableMenuItem" scope="public"><Props>
 <Prop name="checked" type="boolean"/>
 <Prop name="group"/></Props><ClientEvents>
-<ClientEvent name="onCheckedChange" parameters="self,arg"/></ClientEvents></Rule><Rule name="Separator_1" parents="BaseMenuItem" label="Separator" type="com.bstek.dorado.view.widget.base.menu.Separator" scope="public"></Rule><Rule name="Section" label="Section" type="com.bstek.dorado.view.widget.base.accordion.Section" scope="public"><Props>
+<ClientEvent name="onCheckedChange" parameters="self,arg"/></ClientEvents></Rule><Rule name="Separator" parents="BaseMenuItem" label="Separator" type="com.bstek.dorado.view.widget.base.menu.Separator" scope="public"></Rule><Rule name="Label_1" parents="Label" label="ToolBarLabel" nodeName="ToolBarLabel" type="com.bstek.dorado.view.widget.base.toolbar.Label" scope="protected" category="ToolBar"></Rule><Rule name="Fill" parents="Control_1" label="Fill" type="com.bstek.dorado.view.widget.base.toolbar.Fill" scope="protected" category="ToolBar"></Rule><Rule name="Separator_1" parents="Control_1" label="Separator" type="com.bstek.dorado.view.widget.base.toolbar.Separator" scope="protected" category="ToolBar"></Rule><Rule name="Section" label="Section" type="com.bstek.dorado.view.widget.base.accordion.Section" scope="public"><Props>
 <Prop name="caption"/>
 <Prop name="className"/>
 <Prop name="disabled" type="boolean"/>
 <Prop name="exClassName"/>
 <Prop name="icon"/>
 <Prop name="iconClass"/>
-<Prop name="ignored" type="boolean"/>
-<Prop name="name"/><Prop name="style" type="java.util.Map" compositeType="Open"></Prop>
+<Prop name="ignored" type="boolean"/><Prop name="style" type="java.util.Map" compositeType="Open"></Prop>
 <Prop name="tags"/>
 <Prop name="tip"/>
 <Prop name="visible" defaultValue="true" type="boolean"/></Props><ClientEvents>
@@ -852,8 +823,7 @@
 <Prop name="filterOnOpen" type="boolean"/>
 <Prop name="filterOnTyping" defaultValue="true" type="boolean"/>
 <Prop name="minFilterInterval" defaultValue="300" type="int"/>
-<Prop name="property" highlight="1"/>
-<Prop name="useEmptyItem" type="boolean"/></Props><ClientEvents>
+<Prop name="property" highlight="1"/></Props><ClientEvents>
 <ClientEvent name="onFilterItems" parameters="self,arg"/>
 <ClientEvent name="onFilterItem" parameters="self,arg"/></ClientEvents><Children><Child rule="Column_1" name="Columns" aggregated="true"></Child></Children></Rule><Rule name="Column_1" label="Column" abstract="true" type="com.bstek.dorado.view.widget.grid.Column" scope="public"><Props>
 <Prop name="align" enumValues="left,center,right"/>
@@ -868,11 +838,16 @@
 <Prop name="visible" defaultValue="true" type="boolean"/></Props><ClientEvents>
 <ClientEvent name="onRenderHeaderCell" parameters="self,arg"/>
 <ClientEvent name="onHeaderClick" parameters="self,arg"/>
-<ClientEvent name="onGetCellEditor" parameters="self,arg"/></ClientEvents></Rule><Rule name="ColumnGroup" parents="Column_1" label="ColumnGroup" type="com.bstek.dorado.view.widget.grid.ColumnGroup" scope="public"><Children><Child rule="Column_1" name="Columns" aggregated="true"></Child></Children></Rule><Rule name="DataColumn" parents="AbstractDataColumn" label="DataColumn" type="com.bstek.dorado.view.widget.grid.DataColumn" scope="public" labelProperty="name,property"><Props>
-<Prop name="align" enumValues="left,center,right"/>
+<ClientEvent name="onGetCellEditor" parameters="self,arg"/></ClientEvents></Rule><Rule name="RowNumColumn" parents="AbstractDataColumn" label="RowNumColumn" type="com.bstek.dorado.view.widget.grid.RowNumColumn" scope="public"></Rule><Rule name="AbstractDataColumn" parents="Column_1" label="AbstractDataColumn" abstract="true" type="com.bstek.dorado.view.widget.grid.AbstractDataColumn" scope="public"><Props>
+<Prop name="footerRenderer"/>
+<Prop name="renderer"/>
+<Prop name="resizeable" defaultValue="true" type="boolean"/>
+<Prop name="width"/></Props><ClientEvents>
+<ClientEvent name="onRenderFooterCell" parameters="self,arg"/>
+<ClientEvent name="onRenderCell" parameters="self,arg"/></ClientEvents></Rule><Rule name="RowSelectorColumn" parents="AbstractDataColumn" label="RowSelectorColumn" type="com.bstek.dorado.view.widget.grid.RowSelectorColumn" scope="public"></Rule><Rule name="DataColumn" parents="AbstractDataColumn" label="DataColumn" type="com.bstek.dorado.view.widget.grid.DataColumn" scope="public" labelProperty="name,property"><Props>
+<Prop name="align" defaultValue="left" enumValues="left,center,right"/>
 <Prop name="dataType" type="com.bstek.dorado.data.type.DataType"/>
 <Prop name="displayFormat"/>
-<Prop name="editable" defaultValue="true" type="boolean"/>
 <Prop name="editorType" defaultValue="TextEditor" highlight="1" enumValues="None,TextEditor,PasswordEditor,TextArea,CheckBox,RadioGroup,NumberSpinner"/>
 <Prop name="filterable" defaultValue="true" type="boolean"/>
 <Prop name="property" highlight="1"/>
@@ -883,26 +858,16 @@
 <Prop name="summaryType" enumValues="sum,average,count,max,min"/>
 <Prop name="trigger" enumValues="triggerClear,autoMappingDropDown1,autoMappingDropDown2,defaultDateDropDown,defaultDateTimeDropDown,defaultYearMonthDropDown" reference="Trigger:id"/>
 <Prop name="typeFormat"/>
-<Prop name="wrappable" type="boolean"/></Props><Children><Child name="Editor" fixed="true"><Rule nodeName="Editor" scope="public"><Children><Child rule="Control_1" name="Editor"></Child></Children></Rule></Child></Children></Rule><Rule name="AbstractDataColumn" parents="Column_1" label="AbstractDataColumn" abstract="true" type="com.bstek.dorado.view.widget.grid.AbstractDataColumn" scope="public"><Props>
-<Prop name="footerRenderer"/>
-<Prop name="renderer"/>
-<Prop name="resizeable" defaultValue="true" type="boolean"/>
-<Prop name="width"/></Props><ClientEvents>
-<ClientEvent name="onRenderFooterCell" parameters="self,arg"/>
-<ClientEvent name="onRenderCell" parameters="self,arg"/></ClientEvents></Rule><Rule name="IndicatorColumn" parents="AbstractDataColumn" label="IndicatorColumn" type="com.bstek.dorado.view.widget.grid.IndicatorColumn" scope="public"></Rule><Rule name="RowNumColumn" parents="AbstractDataColumn" label="RowNumColumn" type="com.bstek.dorado.view.widget.grid.RowNumColumn" scope="public"></Rule><Rule name="RowSelectorColumn" parents="AbstractDataColumn" label="RowSelectorColumn" type="com.bstek.dorado.view.widget.grid.RowSelectorColumn" scope="public"></Rule><Rule name="AbstractList" parents="Control_1" label="AbstractList" abstract="true" type="com.bstek.dorado.view.widget.list.AbstractList" scope="protected"><Props>
+<Prop name="wrappable" type="boolean"/></Props><Children><Child name="Editor" fixed="true"><Rule nodeName="Editor" scope="public"><Children><Child rule="Control_1" name="Editor"></Child></Children></Rule></Child></Children></Rule><Rule name="IndicatorColumn" parents="AbstractDataColumn" label="IndicatorColumn" type="com.bstek.dorado.view.widget.grid.IndicatorColumn" scope="public"></Rule><Rule name="ColumnGroup" parents="Column_1" label="ColumnGroup" type="com.bstek.dorado.view.widget.grid.ColumnGroup" scope="public"><Children><Child rule="Column_1" name="Columns" aggregated="true"></Child></Children></Rule><Rule name="AbstractList" parents="Control_1" label="AbstractList" abstract="true" type="com.bstek.dorado.view.widget.list.AbstractList" scope="protected"><Props>
 <Prop name="allowNoCurrent" type="boolean"/>
 <Prop name="dragMode" defaultValue="item" enumValues="item,control,itemOrControl"/>
 <Prop name="dropMode" defaultValue="insertItems" enumValues="onControl,onItem,insertItems,onOrInsertItems,onAnyWhere"/>
 <Prop name="scrollMode" defaultValue="lazyRender" enumValues="simple,lazyRender,viewport"/>
 <Prop name="selectionMode" defaultValue="none" enumValues="none,singleRow,multiRows"/></Props><ClientEvents>
 <ClientEvent name="onSelectionChange" parameters="self,arg"/>
-<ClientEvent name="onCurrentChange" parameters="self,arg"/>
-<ClientEvent name="beforeSelectionChange" parameters="self,arg"/>
-<ClientEvent name="onCompareItems" parameters="self,arg"/>
-<ClientEvent name="onFilterItem" parameters="self,arg"/></ClientEvents></Rule><Rule name="RowList" parents="AbstractList" label="RowList" abstract="true" type="com.bstek.dorado.view.widget.list.RowList" scope="protected"><Props>
+<ClientEvent name="onCurrentChange" parameters="self,arg"/></ClientEvents></Rule><Rule name="RowList" parents="AbstractList" label="RowList" abstract="true" type="com.bstek.dorado.view.widget.list.RowList" scope="protected"><Props>
 <Prop name="highlightCurrentRow" defaultValue="true" type="boolean"/>
 <Prop name="highlightHoverRow" defaultValue="true" type="boolean"/>
-<Prop name="highlightSelectedRow" defaultValue="true" type="boolean"/>
 <Prop name="rowHeight" type="int"/></Props><ClientEvents>
 <ClientEvent name="onDataRowClick" parameters="self,arg"/>
 <ClientEvent name="onDataRowDoubleClick" parameters="self,arg"/></ClientEvents></Rule><Rule name="AbstractListBox" parents="RowList" label="AbstractListBox" abstract="true" type="com.bstek.dorado.view.widget.list.AbstractListBox" scope="protected"><Props>
@@ -924,6 +889,7 @@
 <ClientEvent name="onRenderHeaderCell" parameters="self,arg"/>
 <ClientEvent name="onHeaderClick" parameters="self,arg"/>
 <ClientEvent name="beforeCellValueEdit" parameters="self,arg"/>
+<ClientEvent name="onGetEntityComparator" parameters="self,arg"/>
 <ClientEvent name="onRenderFooterCell" parameters="self,arg"/>
 <ClientEvent name="onRenderRow" parameters="self,arg"/>
 <ClientEvent name="onRenderCell" parameters="self,arg"/>
@@ -965,7 +931,6 @@
 <Prop name="hasChild" type="boolean"/>
 <Prop name="icon"/>
 <Prop name="iconClass"/>
-<Prop name="ignored" type="boolean"/>
 <Prop name="label"/>
 <Prop name="tags"/>
 <Prop name="tip"/>
@@ -978,7 +943,7 @@
 <Prop name="expandedIcon"/>
 <Prop name="expandedIconClass"/>
 <Prop name="expandedIconProperty"/>
-<Prop name="hasChild" type="java.lang.Boolean"/>
+<Prop name="hasChild" type="boolean"/>
 <Prop name="hasChildProperty"/>
 <Prop name="icon"/>
 <Prop name="iconClass"/>
@@ -1030,4 +995,4 @@
 <Prop name="closeAction" defaultValue="close" enumValues="hide,close"/>
 <Prop name="closeable" defaultValue="true" type="boolean"/>
 <Prop name="column" type="int"/>
-<Prop name="showCaptionBar" defaultValue="true" type="java.lang.Boolean"/></Props></Rule><Rule name="DefaultView" parents="View" label="View" nodeName="View" type="com.bstek.dorado.view.DefaultView" scope="public" category="General"></Rule></RuleSet>
+<Prop name="showCaptionBar" defaultValue="true" type="boolean"/></Props></Rule><Rule name="DefaultView" parents="View" label="View" nodeName="View" type="com.bstek.dorado.view.DefaultView" scope="public" category="General"></Rule></RuleSet>

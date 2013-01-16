@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="categoryGoods" parent="global:Category">
+      <Reference name="goods">
+        <Property name="dataType">[Goods]</Property>
+        <Property name="pageSize">20</Property>
+        <Property name="parameter">$${this.id}</Property>
+        <Property name="dataProvider">categoryGoodsPR#getGoods</Property>
+      </Reference>
+    </DataType>
+  </Model>
+  <View>
+    <DataSet id="dsCategoryGoods">
+      <Property name="dataType">[categoryGoods]</Property>
+      <Property name="dataProvider">categoryGoodsPR#getAllCategories</Property>
+    </DataSet>
+    <UpdateAction id="updateAction">
+      <Property name="dataResolver">categoryGoodsPR#updateAll</Property>
+      <Property name="successMessage">数据保存完成！</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsCategoryGoods</Property>
+        <Property name="dataPath">!CASCADE_DIRTY</Property>
+      </UpdateItem>
+    </UpdateAction>
+    <SplitPanel>
+      <Property name="position">200</Property>
+      <MainControl>
+        <Container>
+          <ToolBar>
+            <ToolBarButton>
+              <Property name="icon">url(>skin>common/icons.gif) -160px -20px</Property>
+              <Property name="caption">保存</Property>
+              <Property name="action">updateAction</Property>
+            </ToolBarButton>
+          </ToolBar>
+          <AutoForm>
+            <Property name="dataSet">dsCategoryGoods</Property>
+            <Property name="dataType">categoryGoods</Property>
+            <Property name="readOnly">true</Property>
+            <AutoFormElement>
+              <Property name="name">name</Property>
+              <Property name="property">name</Property>
+              <Editor/>
+            </AutoFormElement>
+            <AutoFormElement>
+              <Property name="name">comment</Property>
+              <Property name="property">comment</Property>
+              <Editor/>
+            </AutoFormElement>
+          </AutoForm>
+          <ToolBar>
+            <DataPilot>
+              <Property name="itemCodes">pages</Property>
+              <Property name="dataSet">dsCategoryGoods</Property>
+              <Property name="dataPath">#.goods</Property>
+            </DataPilot>
+          </ToolBar>
+          <DataGrid>
+            <Property name="dataSet">dsCategoryGoods</Property>
+            <Property name="dataPath">#.goods</Property>
+            <Property name="dataType">Goods</Property>
+            <DataColumn name="name">
+              <Property name="property">name</Property>
+              <Property name="readOnly">true</Property>
+            </DataColumn>
+            <DataColumn name="birthplace">
+              <Property name="property">birthplace</Property>
+              <Property name="readOnly">true</Property>
+            </DataColumn>
+            <DataColumn name="specification">
+              <Property name="property">specification</Property>
+              <Property name="readOnly">true</Property>
+            </DataColumn>
+            <DataColumn name="packaging">
+              <Property name="property">packaging</Property>
+              <Property name="readOnly">true</Property>
+            </DataColumn>
+            <DataColumn name="comment">
+              <Property name="property">comment</Property>
+              <Property name="readOnly">true</Property>
+            </DataColumn>
+            <DataColumn name="storage">
+              <Property name="property">storage</Property>
+            </DataColumn>
+            <DataColumn name="totalStorage">
+              <Property name="property">totalStorage</Property>
+            </DataColumn>
+            <DataColumn name="sales">
+              <Property name="property">sales</Property>
+            </DataColumn>
+          </DataGrid>
+        </Container>
+      </MainControl>
+      <SideControl>
+        <DataGrid>
+          <Property name="dataSet">dsCategoryGoods</Property>
+          <Property name="dataType">categoryGoods</Property>
+          <Property name="readOnly">true</Property>
+          <DataColumn name="name">
+            <Property name="property">name</Property>
+          </DataColumn>
+        </DataGrid>
+      </SideControl>
+    </SplitPanel>
+  </View>
+</ViewConfig>

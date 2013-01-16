@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="Goods" parent="global:Goods">
+      <Property name="matchType">com.bstek.demo.ims.entity.Goods</Property>
+      <Property name="creationType">com.bstek.demo.ims.entity.Goods</Property>
+      <PropertyDef name="name">
+        <Property name="dataType">String</Property>
+        <Property name="required">true</Property>
+      </PropertyDef>
+      <PropertyDef name="specification">
+        <Property name="dataType">String</Property>
+        <Property name="required">true</Property>
+      </PropertyDef>
+    </DataType>
+    <DataType name="categoryGoods" parent="global:Category">
+      <PropertyDef name="name">
+        <Property name="required">true</Property>
+        <Validator type="ajax">
+          <Property name="service">categoryGoodsPR#validatorCategory</Property>
+        </Validator>
+      </PropertyDef>
+      <Reference name="goods">
+        <Property name="dataType">[Goods]</Property>
+        <Property name="pageSize">20</Property>
+        <Property name="parameter">$${this.id}</Property>
+        <Property name="dataProvider">categoryGoodsPR#getGoods</Property>
+      </Reference>
+    </DataType>
+  </Model>
+  <View>
+    <DataSet id="dsCategoryGoods">
+      <Property name="dataType">[categoryGoods]</Property>
+      <Property name="dataProvider">categoryGoodsPR#getAllCategories</Property>
+    </DataSet>
+    <UpdateAction id="updateAction">
+      <Property name="dataResolver">categoryGoodsPR#updateAll</Property>
+      <Property name="successMessage">数据保存完成！</Property>
+      <UpdateItem>
+        <Property name="dataSet">dsCategoryGoods</Property>
+        <Property name="dataPath">!CASCADE_DIRTY</Property>
+      </UpdateItem>
+    </UpdateAction>
+    <SplitPanel>
+      <Property name="position">200</Property>
+      <MainControl>
+        <Container>
+          <ToolBar>
+            <DataPilot>
+              <Property name="dataSet">dsCategoryGoods</Property>
+              <Property name="itemCodes">+,-</Property>
+            </DataPilot>
+            <ToolBarButton>
+              <Property name="icon">url(>skin>common/icons.gif) -160px -20px</Property>
+              <Property name="caption">保存</Property>
+              <Property name="action">updateAction</Property>
+            </ToolBarButton>
+          </ToolBar>
+          <AutoForm>
+            <Property name="dataSet">dsCategoryGoods</Property>
+            <Property name="dataType">categoryGoods</Property>
+            <AutoFormElement>
+              <Property name="name">name</Property>
+              <Property name="property">name</Property>
+              <Editor/>
+            </AutoFormElement>
+            <AutoFormElement>
+              <Property name="name">comment</Property>
+              <Property name="property">comment</Property>
+              <Editor/>
+            </AutoFormElement>
+          </AutoForm>
+          <ToolBar>
+            <DataPilot>
+              <Property name="itemCodes">pages,+,-</Property>
+              <Property name="dataSet">dsCategoryGoods</Property>
+              <Property name="dataPath">#.goods</Property>
+            </DataPilot>
+          </ToolBar>
+          <DataGrid>
+            <Property name="dataSet">dsCategoryGoods</Property>
+            <Property name="dataPath">#.goods</Property>
+            <Property name="dataType">Goods</Property>
+            <DataColumn name="name">
+              <Property name="property">name</Property>
+            </DataColumn>
+            <DataColumn name="birthplace">
+              <Property name="property">birthplace</Property>
+            </DataColumn>
+            <DataColumn name="specification">
+              <Property name="property">specification</Property>
+            </DataColumn>
+            <DataColumn name="packaging">
+              <Property name="property">packaging</Property>
+            </DataColumn>
+            <DataColumn name="comment">
+              <Property name="property">comment</Property>
+            </DataColumn>
+          </DataGrid>
+        </Container>
+      </MainControl>
+      <SideControl>
+        <DataGrid>
+          <Property name="dataSet">dsCategoryGoods</Property>
+          <Property name="dataType">categoryGoods</Property>
+          <DataColumn name="name">
+            <Property name="property">name</Property>
+          </DataColumn>
+        </DataGrid>
+      </SideControl>
+    </SplitPanel>
+  </View>
+</ViewConfig>

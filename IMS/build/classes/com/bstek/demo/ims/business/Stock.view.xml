@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ViewConfig>
+  <Arguments/>
+  <Context/>
+  <Model>
+    <DataType name="Goods" parent="global:Goods">
+      <PropertyDef name="dynaStoreTotalnumber">
+        <Property name="label">采购量</Property>
+      </PropertyDef>
+      <PropertyDef name="dynaSaleTotalnumber">
+        <Property name="label">销售量</Property>
+      </PropertyDef>
+    </DataType>
+  </Model>
+  <View>
+    <DataSet id="dsGoods">
+      <ClientEvent name="onDataLoad">var beginTime = this.get(&quot;context.beginTime&quot;);&#xD;
+var endTime = this.get(&quot;context.endTime&quot;);&#xD;
+var columns = this.get(&quot;#tableGoods.dataColumns&quot;);&#xD;
+&#xD;
+var caption = &quot;从 &quot; + beginTime + &quot;\n至 &quot; + endTime;&#xD;
+// 刷新表格的列&#xD;
+columns.each(function(column){&#xD;
+    if (column.get(&quot;name&quot;) == &quot;dynaStoreTotalnumber&quot;) {&#xD;
+        column.set(&quot;caption&quot;, caption + &quot;\n进货量&quot;)&#xD;
+    }&#xD;
+    else &#xD;
+        if (column.get(&quot;name&quot;) == &quot;dynaSaleTotalnumber&quot;) {&#xD;
+            column.set(&quot;caption&quot;, caption + &quot;\n销售量&quot;)&#xD;
+        }&#xD;
+})&#xD;
+</ClientEvent>
+      <Property name="dataType">[Goods]</Property>
+      <Property name="pageSize">20</Property>
+      <Property name="readOnly">true</Property>
+      <Property name="dataProvider">stockPR#getStock</Property>
+    </DataSet>
+    <ToolBar>
+      <DataPilot>
+        <Property name="dataSet">dsGoods</Property>
+      </DataPilot>
+      <Separator/>
+      <ToolBarButton>
+        <ClientEvent name="onClick">this.get(&quot;#dialogQueryCondition&quot;).show();&#xD;
+</ClientEvent>
+        <Property name="icon">url(>skin>common/icons.gif) -20px -40px</Property>
+        <Property name="caption">查询</Property>
+      </ToolBarButton>
+    </ToolBar>
+    <DataGrid id="tableGoods">
+      <Property name="dataSet">dsGoods</Property>
+      <Property name="dataType">Goods</Property>
+      <Property name="showFilterBar">true</Property>
+      <Property name="filterMode">serverSide</Property>
+      <ColumnGroup>
+        <Property name="caption">基本信息</Property>
+        <DataColumn name="name">
+          <Property name="property">name</Property>
+        </DataColumn>
+        <DataColumn name="birthplace">
+          <Property name="property">birthplace</Property>
+        </DataColumn>
+        <DataColumn name="specification">
+          <Property name="property">specification</Property>
+        </DataColumn>
+        <DataColumn name="packaging">
+          <Property name="property">packaging</Property>
+        </DataColumn>
+        <DataColumn name="comment">
+          <Property name="property">comment</Property>
+        </DataColumn>
+      </ColumnGroup>
+      <DataColumn name="storage">
+        <Property name="property">storage</Property>
+      </DataColumn>
+      <ColumnGroup>
+        <Property name="caption">采购信息</Property>
+        <DataColumn name="totalStorage">
+          <Property name="property">totalStorage</Property>
+        </DataColumn>
+        <DataColumn name="dynaStoreTotalnumber">
+          <Property name="property">dynaStoreTotalnumber</Property>
+        </DataColumn>
+      </ColumnGroup>
+      <ColumnGroup>
+        <Property name="caption">销售信息</Property>
+        <DataColumn name="sales">
+          <Property name="property">sales</Property>
+        </DataColumn>
+        <DataColumn name="dynaSaleTotalnumber">
+          <Property name="property">dynaSaleTotalnumber</Property>
+        </DataColumn>
+      </ColumnGroup>
+    </DataGrid>
+    <Dialog id="dialogQueryCondition">
+      <Property name="center">true</Property>
+      <Property name="caption">查询条件</Property>
+      <Property name="height">200</Property>
+      <Property name="width">500</Property>
+      <Buttons>
+        <Button>
+          <ClientEvent name="onClick">var params = this.get(&quot;#formCondition.entity&quot;)&#xD;
+this.get(&quot;#dsGoods&quot;).set(&quot;parameter&quot;, params).flushAsync();&#xD;
+self.get(&quot;parent&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">查询</Property>
+        </Button>
+        <Button>
+          <ClientEvent name="onClick">self.get(&quot;parent&quot;).hide();&#xD;
+</ClientEvent>
+          <Property name="caption">关闭</Property>
+        </Button>
+      </Buttons>
+      <Children>
+        <AutoForm id="formCondition">
+          <AutoFormElement>
+            <Property name="property">beginTime</Property>
+            <Property name="label">开始时间</Property>
+            <Editor>
+              <TextEditor>
+                <Property name="dataType">Date</Property>
+              </TextEditor>
+            </Editor>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="property">endTime</Property>
+            <Property name="label">结束时间</Property>
+            <Editor>
+              <TextEditor>
+                <Property name="dataType">Date</Property>
+              </TextEditor>
+            </Editor>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">cutomerId</Property>
+            <Property name="property">cutomerId</Property>
+            <Property name="label">客户</Property>
+            <Property name="trigger">autoMappingDropDown2</Property>
+            <Editor>
+              <TextEditor>
+                <Property name="mapping">
+                  <Property name="mapValues">${dorado.getDataProvider(&quot;customerPR#getAllCustomer&quot;).getResult()}</Property>
+                  <Property name="keyProperty">id</Property>
+                  <Property name="valueProperty">companyName</Property>
+                </Property>
+              </TextEditor>
+            </Editor>
+          </AutoFormElement>
+          <AutoFormElement>
+            <Property name="name">producerId</Property>
+            <Property name="property">producerId</Property>
+            <Property name="trigger">autoMappingDropDown2</Property>
+            <Property name="label">供应商</Property>
+            <Editor>
+              <TextEditor>
+                <Property name="mapping">
+                  <Property name="mapValues">${dorado.getDataProvider(&quot;producerPR#getAllProducer&quot;).getResult()}</Property>
+                  <Property name="keyProperty">id</Property>
+                  <Property name="valueProperty">companyName</Property>
+                </Property>
+              </TextEditor>
+            </Editor>
+          </AutoFormElement>
+        </AutoForm>
+      </Children>
+      <Tools/>
+    </Dialog>
+  </View>
+</ViewConfig>
