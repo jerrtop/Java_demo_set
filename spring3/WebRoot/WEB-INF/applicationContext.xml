@@ -21,9 +21,15 @@
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver">
 		</property>
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/test"></property>
+		<property name="url" value="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="root"></property>
+		<property name="maxActive" value="100"/>
+        <property name="initialSize" value="1"/>
+        <property name="maxIdle" value="30"/>
+        <property name="minIdle" value="5"/>
+        <property name="maxWait" value="60000"/>
+        <property name="defaultAutoCommit" value="true"/>
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -38,6 +44,8 @@
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.MySQLDialect
 				</prop>
+				<prop key="hibernate.jdbc.fetch_size">50</prop>
+                <prop key="hibernate.jdbc.batch_size">100</prop>
 				<prop key="hibernate.show_sql">true</prop>
 				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
 			</props>

@@ -2,7 +2,7 @@
 <html>
   <head>
     <script type="text/javascript">
-    jQuery(function($){
+    jQuery(function(){
 		$('#userTable').datagrid({
 			title:'用户列表', //标题
 			method:'post',
@@ -22,18 +22,24 @@
 			rownumbers:true, //显示行号
 			columns:[[
 				{field:'ck',checkbox:true,width:2}, //显示复选框
-				{field:'user.name',title:'名字',width:20,sortable:true,
-					formatter:function(value,row,index){return row.user.name;} //需要formatter一下才能显示正确的数据
+				{field:'user.suUsername',title:'账号',width:20,sortable:true,
+					formatter:function(value,row,index){return row.user.suUsername;} //需要formatter一下才能显示正确的数据
 				},
-				{field:'user.age',title:'年龄',width:20,sortable:true,
-					formatter:function(value,row,index){return row.user.age;}
+				{field:'user.suNameCn',title:'姓名',width:20,sortable:true,
+					formatter:function(value,row,index){return row.user.suNameCn;}
 				},
-				{field:'user.birthday',title:'生日',width:30,sortable:true,
-					formatter:function(value,row,index){return row.user.birthday;}
+				{field:'user.suAccEna',title:'激活',width:30,sortable:true,
+					formatter:function(value,row,index){return row.user.suAccEna == 'Y' ? '是' : '否'}
 				},
-				{field:'user.deptId',title:'部门',width:30,sortable:true,
+				{field:'user.crtC',title:'创建人',width:30,sortable:true,
 					formatter:function(value,row,index){
-						return row.deptName;  //该列的值是deptId，显示的是deptName
+						return row.user.crtC;
+					}
+				},
+				{field:'user.crtDate',title:'创建时间',width:30,sortable:true,
+					formatter:function(value,row,index){
+						var date = new Date(row.user.crtDate);
+						return date.format('yyyy-MM-dd hh:mm:ss');
 					}
 				}
 			]],
@@ -64,18 +70,19 @@
 		//下拉表格初始化，这个东西在ajax下要尽量少用，太变态了，每加载一次就会重新创建一次，隐藏在页面上，
 		//时间一长效率很低，用firebug一看页面上有几十个同样的层保存着下拉框中的内容，只有整个页面全部刷新才清除。
 		//不知道新版本修正了没有，我目前的做法是点击菜单的时候手动清除一下。
-		$('#deptCombo').combogrid({
-			idField:'id', //ID字段
-		    textField:'name', //显示的字段
-		    url:"dept/queryAll",
-		    fitColumns: true,
-			striped: true,
-			editable:false,//不可编辑，只能选择
-		    columns:[[
-		        {field:'code',title:'编号',width:100},
-		        {field:'name',title:'名称',width:150}
-		    ]]
-		});
+		
+		//$('#deptCombo').combogrid({
+			//idField:'id', //ID字段
+		    //textField:'name', //显示的字段
+		   // url:"org/queryAll",
+		   // fitColumns: true,
+			//striped: true,
+			//editable:false,//不可编辑，只能选择
+		   // columns:[[
+		     //   {field:'code',title:'编号',width:100},
+		    //    {field:'name',title:'名称',width:150}
+		    //]]
+		//});
 
 	});
     //新增

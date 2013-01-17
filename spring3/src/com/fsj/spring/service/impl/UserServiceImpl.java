@@ -30,7 +30,7 @@ public class UserServiceImpl implements IUserService {
 
 	public Map<String, Object> getPageList(DataGridModel dgm, SysUser user) throws Exception {
 		String totalQuery = "select count(*) from SysUser user";
-		String fullQuery = "select new map(user as user,user.id as uid,user.dept.name as deptName) from SysUser user";
+		String fullQuery = "select new map(user as user,user.id as uid) from SysUser user";
 		StringBuffer sb = new StringBuffer();
 		Map<String, Object> params = new HashMap<String, Object>();
 
