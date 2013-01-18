@@ -1,4 +1,4 @@
-package com.fsj.spring.web;
+package com.fsj.spring.web.sys;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fsj.spring.model.sys.SysOrg;
-import com.fsj.spring.service.IOrgService;
+import com.fsj.spring.service.sys.IOrgService;
 import com.fsj.spring.util.DataGridModel;
 
 @Controller

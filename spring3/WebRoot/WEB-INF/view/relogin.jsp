@@ -10,10 +10,6 @@
     <table width="100%" height="100%" border="0" cellSpacing="0" cellPadding="0">
     	<tr>
     		<td align="center">
-    			<p>
-    				<span style="font-size:17px;padding-left:10px;color:white;font-weight:bold;"></span>
-    			</p>
-    			<p>
 		    		 <form action="${ctx}/welcome" method="post">
 				    	<span class="td_title_content" style="font-size:17px">账  号：</span><input name="suUsername" />
 				    	&nbsp;&nbsp;&nbsp;&nbsp;
@@ -21,7 +17,6 @@
 				    	<input type="submit"  style="font-size:13px;" value="登 录" />
 				    </form>
 				    <span class="td_title_content">${message}</span>
-			    </p>
     		</td>
     	</tr>
     </table>

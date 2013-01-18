@@ -38,18 +38,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 	public void saveOrUpdate(Object transientInstance) {
 		log.debug("saving Object instance");
 		try {
-			getHibernateTemplate().saveOrUpdate(transientInstance);
-			log.debug("save successful");
-		} catch (RuntimeException re) {
-			log.error("save failed", re);
-			throw re;
-		}
-	}
-
-	public void saveOrUpdateAll(Collection entities) {
-		log.debug("saving all Object instance");
-		try {
-			getHibernateTemplate().saveOrUpdateAll(entities);
+			//getHibernateTemplate().saveOrUpdate(transientInstance);
+			getHibernateTemplate().merge(transientInstance);
+			getSession().flush();
 			log.debug("save successful");
 		} catch (RuntimeException re) {
 			log.error("save failed", re);

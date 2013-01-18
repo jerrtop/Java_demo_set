@@ -1,4 +1,4 @@
-package com.fsj.spring.service.impl;
+package com.fsj.spring.service.sys.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.fsj.spring.dao.BaseDao;
 import com.fsj.spring.model.sys.SysOrg;
 import com.fsj.spring.model.sys.SysUser;
-import com.fsj.spring.service.IOrgService;
+import com.fsj.spring.service.sys.IOrgService;
 import com.fsj.spring.util.DataGridModel;
 
 @Service("orgService")

@@ -11,8 +11,6 @@ import com.fsj.spring.util.DataGridModel;
 public interface BaseDao {
 	public void saveOrUpdate(Object transientInstance);
 
-	public void saveOrUpdateAll(Collection entities);
-
 	public void delete(Object persistentInstance);
 
 	public void deleteAll(Collection entities);

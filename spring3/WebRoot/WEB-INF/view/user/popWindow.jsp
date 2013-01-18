@@ -29,7 +29,7 @@
 		姓名：<input name="suNameCn" validType="length[3,30]" style="width:200px;"></input><br>
 		密码：<input name="suPassword" style="width: 200" type="password"  validType="length[6,30]" class="easyui-validatebox" required="true"> <br>
 		激活：<input name="suAccEna" type="checkbox" value="Y"/><br>
-		创建员工：<input name="createPerson" type="checkbox" checked="checked" disabled><br>
+		创建员工：<input name="createPerson" type="checkbox" disabled value="Y"><br>
 		<br>
 		<span style="padding-left:55px;">
 			<a href="#" id="btn-add" onclick="addOrUpdateUser();" class="easyui-linkbutton" iconCls="icon-save">保存</a>

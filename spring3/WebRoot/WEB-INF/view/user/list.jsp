@@ -94,6 +94,8 @@
   			height:250,
   			onLoad: function(){
   				$('#userForm').form('clear');
+  				$('#userForm input[name="suAccEna"]').attr("checked",true);
+  				$('#userForm input[name="createPerson"]').attr("checked",true);
   			}
   			
   		});
@@ -102,14 +104,11 @@
     function updaterow(){
 		var rows = $('#userTable').datagrid('getSelections');
 		//这里有一个jquery easyui datagrid的一个小bug，必须把主键单独列出来，要不然不能多选
-		if(rows.length==0){
+		if(rows.length==0 || rows.length > 1){
 			$.messager.alert('提示',"请选择你要更新的用户",'info');
 			return;
 		}
-		if(rows.length > 1){
-			$.messager.alert('提示',"只能选择一位用户进行更新",'info');
-			return;
-		}
+	
 		showWindow({
   			title:'更新用户信息',
   			href:'user/popWindow',
@@ -163,16 +162,14 @@
   
   <body>
     <form id="queryForm" style="margin:10;text-align: center;">
-		<table width="100%">
+		<table width="100%" class="queryTable">
 			<tr>
-			<td>名字：<input name="name" style="width: 200"></td>
-			<td>年龄：<input class="easyui-numberspinner" name="age" min="1" max="120" increment="1" style="width:200px;"></input></td>
-			<td align="center"><a href="#" onclick="clearForm();" class="easyui-linkbutton" iconCls="icon-search">清空</a></td>
-			</tr>
-			<tr>
-			<td>生日：<input name="birthday" style="width: 200" class="Wdate" onClick="WdatePicker()"></td>
-			<td>部门：<input id="deptCombo" name="dept.id" style="width: 200"></td>
-			<td align="center"><a href="#" onclick="searchUser();" class="easyui-linkbutton" iconCls="icon-search">查询</a></td>
+				<td>账号：<input name="suUsername" style="width: 200"></td>
+				<td>姓名：<input name="suNameCn" style="width:200px;"></input></td>
+				<td align="center">
+					<a href="#" onclick="searchUser();" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+					<!-- <a href="#" onclick="clearForm();" class="easyui-linkbutton" iconCls="icon-search">清空</a>  -->
+				</td>
 			</tr>
 		</table>
 	</form>

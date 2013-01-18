@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fsj.spring.model.sys.SysUser;
-import com.fsj.spring.service.IUserService;
+import com.fsj.spring.service.sys.IUserService;
 import com.fsj.spring.util.Constants;
 
 /*
