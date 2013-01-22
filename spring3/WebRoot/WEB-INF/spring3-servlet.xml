@@ -56,7 +56,7 @@
 	InternalResourceViewResolver默认的就是JstlView所以这里就不用配置viewClass了 
 	-->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/view/"></property>
+		<property name="prefix" value="/view/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 	

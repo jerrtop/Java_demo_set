@@ -1,0 +1,161 @@
+/*********************
+	HTML Elements
+*********************/
+*{
+	margin:0;
+	padding:0;
+}
+img, div,a { behavior: url(/iepngfix.htc) }
+body{
+	font-size: 12px;
+	font-family: Arial, Tahoma, Verdana;
+}
+a, a:visited{
+	text-decoration:none;
+}
+img{
+	border:0;
+	margin:1px;
+}
+p{
+	padding:3px;
+}
+h2{
+
+}
+input{
+	padding:2px;
+}
+select{
+	padding:2px;
+}
+/*********************
+	Structure
+*********************/
+#container{
+	width:1060px;
+	margin-left:auto;
+	margin-right:auto;
+}
+#header{
+	width:1060;
+}
+#header h2{
+margin-top:20px;
+}
+#content{
+	width:85%;
+	float:right;
+	margin:5 5 5 5;
+	/**padding:5px;**/
+}
+#sidebar{
+	background:#FFF;
+	width:13%;
+	float:left;
+	margin:5 5 5 5;
+	padding:5px;
+}
+#footer{
+	clear:both;
+	padding:5px;
+	margin-top:10px;
+}
+#box h3{
+	padding:5px;
+	font-size:14px;
+}
+/*********************
+	Sidebar
+*********************/
+#sidebar ul{
+	list-style:none;
+}
+#sidebar ul li a,#sidebar ul li a:visited{
+	padding-left:19px;
+	text-decoration:none;
+	margin:0 3px;
+	display:block;
+}
+#sidebar ul li a:hover{
+	text-decoration:underline;
+}
+#sidebar ul li ul{
+	margin-left:10px;
+}
+#sidebar h3{
+	padding:2px;
+	font-size:14px;
+}
+/*********************
+  TopMenu, Top-Panel
+*********************/
+#topmenu{
+	margin-top:33px;
+	width:700px;
+	float:left;
+	voice-family:inherit;
+}
+#topmenu ul{
+	list-style:none;
+	line-height:25px;
+}
+#topmenu li{
+	display:inline;
+}
+#topmenu a,#topmenu a:visited{
+	padding:5px 12px 5px 12px;
+	text-decoration:none;
+}
+#topmenu .current a, #topmenu .current a:hover, #topmenu .current a:visited{
+	padding:5px 12px 5px 12px;
+	font-weight:bold;
+	
+}
+#top-panel{
+	background:#FFF;
+	padding:5px;
+	height:20px;
+	float:left;
+	width:1050px;
+}
+#top-panel ul{
+	list-style:none;
+}
+#top-panel ul li{
+	display:inline;
+	line-height:20px;
+}
+#top-panel ul li a{
+	padding-left:19px;
+	text-decoration:none;
+	margin:0 3px;
+	display:inline-block;
+}
+#top-panel a:hover{
+	text-decoration:underline;
+}
+.user{background:transparent url(../../img/blue/icons/user.png) no-repeat left;}
+.useradd{background:transparent url(../../img/blue/icons/user_add.png) no-repeat left;}
+.group{background:transparent url(../../img/blue/icons/group.png) no-repeat left;}
+.search{background:transparent url(../../img/blue/icons/magnifier.png) no-repeat left;}
+.online{background:transparent url(../../img/blue/icons/world.png) no-repeat left;}
+.pagenew{background:transparent url(../../img/blue/icons/page_add.png) no-repeat left;}
+.rss{background:transparent url(../../img/blue/icons/rss.png) no-repeat left;}
+.feed{background:transparent url(../../img/blue/icons/feed.png) no-repeat left;}
+.report{background:transparent url(../../img/blue/icons/report.png) no-repeat left;}
+.house{background:transparent url(../../img/blue/icons/house.png) no-repeat left;}
+.manage{background:transparent url(../../img/blue/icons/cog.png) no-repeat left;}
+.manage_page{background:transparent url(../../img/blue/icons/page_gear.png) no-repeat left;}
+.folder{background:transparent url(../../img/blue/icons/folder.png) no-repeat left;}
+.promotions{background:transparent url(../../img/blue/icons/coins.png) no-repeat left;}
+.cart{background:transparent url(../../img/blue/icons/cart.png) no-repeat left;}
+.folder_table{background:transparent url(../../img/blue/icons/folder_page.png) no-repeat left;}
+.shipping{background:transparent url(../../img/blue/icons/car.png) no-repeat left;}
+.invoices{background:transparent url(../../img/blue/icons/page_white_text_width.png) no-repeat left;}
+.addorder{background:transparent url(../../img/blue/icons/folder_page_add.png) no-repeat left;}
+.add{background:transparent url(../../img/blue/icons/add.png) no-repeat left;}
+.app_add{background:transparent url(../../img/blue/icons/application_add.png) no-repeat left;}
+.report_seo{background:transparent url(../../img/blue/icons/report_link.png) no-repeat left;}
+.modules{background:transparent url(../../img/blue/icons/bricks.png) no-repeat left;}
+.modules_manage{background:transparent url(../../img/blue/icons/bricks_gear.png) no-repeat left;}

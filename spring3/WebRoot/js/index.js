@@ -41,3 +41,22 @@ Date.prototype.format = function(fmt){
 	}
 	return formatValue;
 };
+
+//Grid自适应宽度
+function gridWidthAdapter(selector) {
+	var t = document.documentElement.clientWidth;
+	window.onresize = function() {
+		var winW, winH;
+		if (window.innerHeight) {
+			winW = window.innerWidth;
+		} else if (document.documentElement
+				&& document.documentElement.clientHeight) { // IE 6
+			winW = document.documentElement.clientWidth;
+		} else if (document.body) {
+			winW = document.body.clientWidth;
+		}
+
+		//$(selector).jqGrid('setGridWidth', winW - 18);
+		$(selector).datagrid('resize',{width:winW-25});  
+	}
+}

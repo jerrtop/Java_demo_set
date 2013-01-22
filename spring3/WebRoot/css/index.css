@@ -1,0 +1,68 @@
+@charset "utf-8";
+/* CSS Document */
+body{line-height:1.4;height:auto;}
+body,input,textarea,select{font-size:12px;color:#111;font-family:arial;}
+body,h1,h2,h3,h4,p,ul,ol{margin:0;}
+ul,ol{padding-left:0;list-style-type:none;}
+td{padding:0px;}
+/*image with no-border*/
+a img{border:0;display:block;}
+
+a:link,a:visited{text-decoration:none;font-size:14px;color:#222;}
+a:hover{text-decoration:underline;}
+.w1000{width:1000px;}
+.w635{width:635px;}
+.w365{width:365px;}
+.mauto{margin:0 auto;}
+.f16{font-size:16px;}
+.pr38{padding-right:38px;}
+.bt{border:none;cursor:pointer;}
+
+.indexbg{background:url(../img/sys/index_bg.jpg) repeat left top ; height: 100%;}
+/*.wrap{background:url(../img/sys/index_cloudbg.png) no-repeat 136px 105px;}*/
+.leftbox{float:left;}
+.leftbox .saleprobox{width:300px;height:100px;margin-left:78px;margin-top:330px;display:inline;float:left;background:left center;padding-left:98px;padding-top:30px;}
+
+
+.saleprobox input{width:197px;height:61px;background:left center;border:none;cursor:pointer;}
+.rightbox{float:left;padding-top:32px;}
+.rightbox .loginbox{width:306px;padding-top:60px;background:center 3px;}
+.logintopimg{width:306px;height:77px;_background:url(../img/sys/index_logintop.png) no-repeat left top;overflow:hidden;}
+.loginbotimg{width:306px;height:14px;overflow:hidden;_background:url(../img/sys/index_loginbot.png) no-repeat left top;}
+.logincon{border-left:1px solid #b0b0b0;border-right:1px solid #b0b0b0;background-color:#fff;}
+.logintext{width:164px;height:23px;line-height:23px;border:1px solid #9f9f9f;margin-left:3px;}
+.logincheck{vertical-align:-3px;}
+.btbotbg{background:url(../img/sys/btbotbg.gif) no-repeat center bottom;}
+.loginbt{width:94px;height:31px;background:url(../img/sys/index_loginbt.gif) no-repeat left center;margin-top:8px;}
+.mfsybt{width:108px;height:41px;background:url(../img/sys/index_mfsybt.gif) no-repeat left center;margin-top:10px;}
+.kefu{text-align:center;color:#0065ac;}
+
+.footer{clear:both;}
+.footer span{display:block;text-align:center;font-size:12px;margin-bottom:5px;color:#5b5b5b;}
+.footer span a:link,.footer span a:visited{color:#5b5b5b;}
+
+
+.td_title{
+	padding-left:15px;
+	background-color: #1078b5;
+}
+.td_title_content {
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+}
+.td_litter_bg {
+	background-image: url("../../img/litter_bg.gif");
+	text-align: center;
+}
+.sp_font_b12 {
+	color: #666666;
+	font-weight: bold;
+	font-size: 14px;
+}
+
+.queryTable {
+	background:#F6F6F6;
+	font-size:12px;
+	padding:3px;
+}

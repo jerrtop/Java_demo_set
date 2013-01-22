@@ -18,29 +18,35 @@ import com.fsj.spring.service.sys.IUserService;
 import com.fsj.spring.util.Constants;
 import com.fsj.spring.util.DataGridModel;
 import com.fsj.spring.web.TUserAware;
-
+/**
+ * Title:用户管理控制层
+ * 实现TUserAware接口，访问会话用户信息
+ *
+ * @author 唐有欢
+ * @version 1.0 , 2013-1-21 创建
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController implements TUserAware {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model) throws Exception {
-		return "user/list";
+		return "user/sysuserlist";
 	}
 
-	@RequestMapping(value = "/queryList", method = RequestMethod.POST)
+	@RequestMapping(value = "/queryUserList", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> queryList(DataGridModel dgm, SysUser user) throws Exception {
 		// spring可以自动装配两个对象 会自动的装返回的Map转换成JSON对象
 		return userService.getPageList(dgm, user);
 	}
 
-	@RequestMapping(value = "/popWindow", method = RequestMethod.GET)
+	@RequestMapping(value = "/sysuser-edit", method = RequestMethod.GET)
 	public String popWindow() throws Exception {
-		return "user/popWindow";
+		return "user/sysuser-edit";
 	}
 
-	@RequestMapping(value = "/addOrUpdate", method = RequestMethod.POST)
+	@RequestMapping(value = "/addOrUpdateUser", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> addOrUpdate(SysUser user, HttpSession session) throws Exception {
 		// spring会利用jackson自动将返回值封装成JSON对象
@@ -57,7 +63,7 @@ public class UserController implements TUserAware {
 		return map;
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/deleteUsers", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> delete(@RequestParam("uid") List<Long> uid) throws Exception {
 		// spring 将参数绑定为list类型

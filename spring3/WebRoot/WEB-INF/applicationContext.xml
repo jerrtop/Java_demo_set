@@ -25,10 +25,10 @@
 		<property name="username" value="root"></property>
 		<property name="password" value="root"></property>
 		<property name="maxActive" value="100"/>
-        <property name="initialSize" value="1"/>
+        <property name="initialSize" value="5"/>
         <property name="maxIdle" value="30"/>
         <property name="minIdle" value="5"/>
-        <property name="maxWait" value="60000"/>
+        <property name="maxWait" value="6000"/>
         <property name="defaultAutoCommit" value="true"/>
 	</bean>
 	<bean id="sessionFactory"

@@ -1,7 +1,10 @@
 package com.fsj.spring.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -43,4 +46,16 @@ public class WelcomeController {
 			return "main";
 		}
 	}
+	@RequestMapping(method=RequestMethod.GET)
+	public String refresh(HttpSession session) throws Exception{
+		if(session != null && session.getAttribute(Constants.USER_INFO_SESSION) != null){
+			return "main";
+		}
+		return "relogin";
+	}
+//	
+//	@RequestMapping(value="/left",method=RequestMethod.GET)
+//	public String left(Model model) throws Exception{
+//		return "left";
+//	}
 }
