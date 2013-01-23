@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page import="com.fsj.spring.util.Constants,com.fsj.spring.model.sys.SysUser"%>
 <%@ include file="/taglibs.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,7 +14,7 @@
 					<a href="main.html"><!-- <img src="${ctx}/img/sys/index_logo.png" />  -->
 						Spring3 MVC + Jquery EasyUI 1.2 开发平台
 					</a>
-					<span id="wi" style="padding-top:5px;padding-left:60px;">admin，欢迎使用xxx系统</span>
+					<span id="wi" style="padding-top:5px;padding-left:60px;"><%=((SysUser)session.getAttribute(Constants.USER_INFO_SESSION)).getSuNameCn() %>，欢迎使用!</span>
 					<div id="ts"
 						style="color:#ff0000;background:#feffdd;border:1px solid #e6ea83;text-align:center;width:450px;height:25px;line-height:25px; position:absolute;top:25px;left:400px;display:none;">
 						您的浏览器版本太低了，我们建议您使用IE7以上版本的浏览器

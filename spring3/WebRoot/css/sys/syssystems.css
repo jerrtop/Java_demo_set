@@ -61,7 +61,7 @@ a img{border:0;}
 .dpn{display:none;}
 .xscroll{width:100%;overflow:hidden;overflow-x:auto;}
 
-.sysbox{margin-left:5px;margin-right:2px;border:1px solid #D6E8F6;height:97%;overflow: auto;width:99%}
+.sysbox{margin-left:5px;border:1px solid #D6E8F6;height:97%;width:101%}
 .tablestyle{border:0px;width:100%;}
 .tablestyle td{height:30px;vertical-align:middle;}
 .tableborder{border-top:1px solid #cbdaed;border-left:1px solid #cbdaed;}
@@ -74,9 +74,9 @@ a img{border:0;}
 .selectstyle{border:1px solid #7f9db9;height:22px;line-height:22px;vertical-align:middle;margin-left:3px;}
 .areastyle{border:1px solid #7f9db9;vertical-align:middle;margin:3px;}
 
-.syshead{position:relavite;background:url(../../img/sys/tc_h2bg.gif) repeat-x left top;border:1px solid #cbdaed;height:28px;line-height:28px;margin-bottom:2px;z-index:100000000;}
+.syshead{position:relavite;background:url(../../img/sys/tc_h2bg.gif) repeat-x left top;border:1px solid #cbdaed;height:22px;line-height:22px;margin-bottom:2px;z-index:100000000;}
 .syshead .pagename,.syshead .momijt,.syshead .serchcon{display:inline-block;vertical-align:middle;margin:0px;}
-.syshead .pagename{padding:0 10px;;background:#1f88e3;font-size:14px;font-weight:700;color:#fff;height:28px;line-height:28px;}
+.syshead .pagename{padding:0 10px;;background:#1f88e3;font-size:13px;font-weight:700;color:#fff;height:22px;line-height:22px;}
 .syshead .momijt{color:#1f88e3;font-size:20px;*margin-left:-15px !important;margin-left:-13px;height:30px;line-height:30px;}
 .syshead .serchcon{padding:0px;height:30px;line-height:30px;}
 .tc_sysbox{background:#fff;}

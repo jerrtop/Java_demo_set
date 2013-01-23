@@ -1,24 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <html>
   <head>
-  	<script type="text/javascript">
-		jQuery(function($){
-			//下拉表格初始化
-		});
-		
-		function addOrUpdateUser(){
-			var r = $('#userForm').form('validate');
-			if(!r) {
-				return false;
-			}
-			$.post("user/addOrUpdateUser",$("#userForm").serializeArray(),function(data){
-				$('#MyPopWindow').window('close');
-				$('#userTable').datagrid('reload');  
-				$.messager.alert('提示',data.mes,'info');
-			});
-		}
-		
-	</script>
   </head>
   
   <body>
@@ -37,4 +20,7 @@
 		</span>
 	</form>
   </body>
+<script type="text/javascript">
+	pageInit();
+</script>
 </html>
