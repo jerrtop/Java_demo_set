@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fsj.spring.model.sys.SysUser;
-import com.fsj.spring.service.sys.IUserService;
+import com.fsj.spring.service.sys.UserService;
 import com.fsj.spring.util.Constants;
 
 /*
@@ -22,13 +22,13 @@ import com.fsj.spring.util.Constants;
 @SessionAttributes(Constants.USER_INFO_SESSION)
 public class WelcomeController {
 	
-	private IUserService userService;
+	private UserService userService;
 	
-	public IUserService getUserService() {
+	public UserService getUserService() {
 		return userService;
 	}
 
-	public void setUserService(IUserService userService) {
+	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
 	

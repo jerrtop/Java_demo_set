@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fsj.spring.model.sys.SysOrg;
-import com.fsj.spring.service.sys.IOrgService;
+import com.fsj.spring.service.sys.OrgService;
 import com.fsj.spring.util.DataGridModel;
 
 @Controller
 @RequestMapping("/org")
 public class OrgController {
 
-	private IOrgService orgService;
+	private OrgService orgService;
 
-	public IOrgService getOrgService() {
+	public OrgService getOrgService() {
 		return orgService;
 	}
 
-	public void setOrgService(IOrgService orgService) {
+	public void setOrgService(OrgService orgService) {
 		this.orgService = orgService;
 	}
 

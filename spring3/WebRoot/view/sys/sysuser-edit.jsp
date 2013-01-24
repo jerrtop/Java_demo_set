@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <html>
   <head>
   </head>
-  
   <body>
   	<!-- 验证还是jquery-validation好用，这里省事没用 -->
 	<form id="userForm" method="post" style="margin: 10;text-align: left;">
@@ -14,13 +12,13 @@
 		激活：<input name="suAccEna" type="checkbox" value="Y"/><br>
 		创建员工：<input name="createPerson" type="checkbox" disabled value="Y"><br>
 		<br>
-		<span style="padding-left:55px;">
-			<a href="#" id="btn-add" onclick="addOrUpdateUser();" class="easyui-linkbutton" iconCls="icon-save">保存</a>
-			<a href="#" id="btn-back" onclick="closeWindow('#MyPopWindow');" class="easyui-linkbutton" iconCls="icon-back">返回</a>
+		<span style="padding-left:40px;position:absolute;">
+			<div class="mybuttondiv" onclick="addOrUpdateUser();"><span class="mybutton_icon mybutton-bookmark"></span>保 存</div>
+			<div class="mybuttondiv" onclick="closeWindow('#MyPopWindow');"><span class="mybutton_icon mybutton-arrowreturn-1-s"></span>返 回</div>
 		</span>
 	</form>
   </body>
-<script type="text/javascript">
-	pageInit();
-</script>
+	<script type="text/javascript">
+		pageInit();
+	</script>
 </html>

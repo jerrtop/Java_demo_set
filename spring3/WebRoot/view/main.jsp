@@ -11,8 +11,8 @@
 		<div class="head">
 			<div class="headtop">
 				<div class="logo">
-					<a href="main.html"><!-- <img src="${ctx}/img/sys/index_logo.png" />  -->
-						Spring3 MVC + Jquery EasyUI 1.2 开发平台
+					<a href="spring/welcome"><!-- <img src="${ctx}/img/sys/index_logo.png" />  -->
+						<span style="font-size:16px;font-weight:bold;left:35px;position:absolute;">Spring3 MVC + Jquery EasyUI 1.2 开发平台</span>
 					</a>
 					<span id="wi" style="padding-top:5px;padding-left:60px;"><%=((SysUser)session.getAttribute(Constants.USER_INFO_SESSION)).getSuNameCn() %>，欢迎使用!</span>
 					<div id="ts"
@@ -55,7 +55,7 @@
 								<li><a href="user/list" target="frame_content" class="useradd">用户管理</a></li>
 								<li><a href="#" class="report_seo">权限管理</a></li>
 								<li><a href="#" class="group">角色管理</a></li>
-								<li><a href="#" class="report">菜单管理</a></li>
+								<li><a href="menu/list" class="report" target="frame_content">菜单管理</a></li>
 							</ul>
 						</li>
 						<li><h3><a href="#" class="manage">系统管理</a></h3>

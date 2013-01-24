@@ -47,4 +47,5 @@ public interface TService {
 	 * @return
 	 */
 	public Object getObjectById(Object o,Serializable id);
+	
 }

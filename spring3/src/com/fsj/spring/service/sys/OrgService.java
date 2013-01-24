@@ -6,7 +6,7 @@ import java.util.Map;
 import com.fsj.spring.model.sys.SysOrg;
 import com.fsj.spring.util.DataGridModel;
 
-public interface IOrgService {
+public interface OrgService {
 	SysOrg getOrgById(int id) throws Exception;
 	SysOrg getOrgByName(String name) throws Exception;
 	Map<String, Object> getPageListByExemple(DataGridModel dgm,SysOrg org) throws Exception;

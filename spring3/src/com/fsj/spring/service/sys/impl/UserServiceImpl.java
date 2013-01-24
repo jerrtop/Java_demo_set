@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fsj.spring.model.sys.SysUser;
 import com.fsj.spring.service.TServiceImpl;
-import com.fsj.spring.service.sys.IUserService;
+import com.fsj.spring.service.sys.UserService;
 import com.fsj.spring.util.DataGridModel;
 /**
  * Title:用户管理服务层实现类
@@ -18,7 +18,7 @@ import com.fsj.spring.util.DataGridModel;
  * @version 1.0 , 2013-1-18 创建
  */
 @Service("userService")
-public class UserServiceImpl extends TServiceImpl implements IUserService {
+public class UserServiceImpl extends TServiceImpl implements UserService {
 
 	public Map<String, Object> getPageList(DataGridModel dgm, SysUser user) throws Exception {
 		String totalQuery = "select count(*) from SysUser user";

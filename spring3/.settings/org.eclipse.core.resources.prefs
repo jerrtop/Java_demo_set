@@ -1,8 +1,11 @@
-#Wed Jan 23 10:50:10 CST 2013
+#Thu Jan 24 16:46:36 CST 2013
 eclipse.preferences.version=1
 encoding//WebRoot/js/index.js=UTF-8
 encoding//WebRoot/js/jquery/jquery-easyui-1.2.1/jquery.easyui.min.js=UTF-8
 encoding//WebRoot/js/sys/main.js=UTF-8
+encoding//WebRoot/js/sys/sysmenu-edit.js=UTF-8
+encoding//WebRoot/js/sys/sysmenulist.js=UTF-8
 encoding//WebRoot/js/sys/sysuser-edit.js=UTF-8
 encoding//WebRoot/js/sys/sysuserlist.js=UTF-8
 encoding//WebRoot/view/main.jsp=UTF-8
+encoding//WebRoot/view/sys/sysuser-edit.jsp=UTF-8

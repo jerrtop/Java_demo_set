@@ -1,8 +1,8 @@
 
     jQuery(function(){
-    	gridWidthAdapter('#userTable');
-		$('#userTable').datagrid({
-			title:'用户列表', //标题
+    	gridWidthAdapter('#menuTable');
+		$('#menuTable').datagrid({
+			title:'菜单列表', //标题
 			method:'post',
 			//iconCls:'icon-edit', //图标
 			singleSelect:false, //多选
@@ -10,8 +10,8 @@
 			fitColumns: true, //自动调整各列，用了这个属性，下面各列的宽度值就只是一个比例。
 			striped: true, //奇偶行颜色不同
 			collapsible:false,//可折叠
-			url:"queryUserList", //数据来源
-			sortName: 'user.id', //排序的列
+			url:"queryMenuList", //数据来源
+			sortName: 'menu.id', //排序的列
 			sortOrder: 'desc', //倒序
 			remoteSort: true, //服务器端排序
 			idField:'uid', //主键字段
@@ -21,23 +21,23 @@
 			rownumbers:true, //显示行号
 			columns:[[
 				{field:'ck',checkbox:true,width:2}, //显示复选框
-				{field:'user.suUsername',title:'账号',width:20,sortable:true,
-					formatter:function(value,row,index){return row.user.suUsername;} //需要formatter一下才能显示正确的数据
+				{field:'menu.smCode',title:'编码',width:10,sortable:true,
+					formatter:function(value,row,index){return row.menu.smCode;} //需要formatter一下才能显示正确的数据
 				},
-				{field:'user.suNameCn',title:'姓名',width:20,sortable:true,
-					formatter:function(value,row,index){return row.user.suNameCn;}
+				{field:'menu.smName',title:'菜单名称',width:30,sortable:true,
+					formatter:function(value,row,index){return row.menu.smName;}
 				},
-				{field:'user.suAccEna',title:'激活',width:30,sortable:true,
-					formatter:function(value,row,index){return row.user.suAccEna == 'Y' ? '是' : '否'}
+				{field:'menu.smTitle',title:'菜单标题',width:30,sortable:true,
+					formatter:function(value,row,index){return row.menu.smTitle;}
 				},
-				{field:'user.crtC',title:'创建人',width:30,sortable:true,
+				{field:'menu.crtC',title:'创建人',width:15,sortable:true,
 					formatter:function(value,row,index){
-						return row.user.crtC;
+						return menu.user.crtC;
 					}
 				},
-				{field:'user.crtDate',title:'创建时间',width:30,sortable:true,
+				{field:'menu.crtDate',title:'创建时间',width:15,sortable:true,
 					formatter:function(value,row,index){
-						var date = new Date(row.user.crtDate);
+						var date = new Date(row.menu.crtDate);
 						return date.format('yyyy-MM-dd hh:mm:ss');
 					}
 				}
@@ -62,7 +62,7 @@
 				}
 			},'-'],
 			onLoadSuccess:function(){
-				$('#userTable').datagrid('clearSelections'); //一定要加上这一句，要不然datagrid会记住之前的选择状态，删除时会出问题
+				$('#menuTable').datagrid('clearSelections'); //一定要加上这一句，要不然datagrid会记住之前的选择状态，删除时会出问题
 			}
 		});
     	
@@ -88,10 +88,10 @@
     //新增
     function addrow(){
     	showWindow("#MyPopWindow",{
-  			title:'新增用户信息',
-  			href:'sysuser-edit',
-  			width:300,
-  			height:250,
+  			title:'新增菜单信息',
+  			href:'sysmenu-edit',
+  			width:700,
+  			height:400,
   			onLoad: function(){
   				$('#userForm').form('clear');
   				$('#userForm input[name="suAccEna"]').attr("checked",true);
@@ -102,7 +102,7 @@
 	}
   //更新
     function updaterow(){
-		var rows = $('#userTable').datagrid('getSelections');
+		var rows = $('#menuTable').datagrid('getSelections');
 		//这里有一个jquery easyui datagrid的一个小bug，必须把主键单独列出来，要不然不能多选
 		if(rows.length==0 || rows.length > 1){
 			$.messager.alert('提示',"请选择一条记录,再进行操作.",'info');
@@ -110,29 +110,29 @@
 		}
 	
 		showWindow("#MyPopWindow",{
-  			title:'更新用户信息',
-  			href:'sysuser-edit',
-  			width:300,
-  			height:250,
+  			title:'更新菜单信息',
+  			href:'sysmenu-edit',
+  			width:600,
+  			height:600,
   			onLoad: function(){
   			//自动将数据填充到表单中，无需再查询数据库，这里需要注意：
   			//如果用的是struts2，它的表单元素的名称都是user.id这样的，那load的时候不能加.user要.form('load', rows[0]);
   			//而spring mvc中表单元素的名称不带对象前缀，直拉就是id，所以这里load的时候是：.form('load', rows[0].user)
-  				$("#userForm").form('load', rows[0].user);
+  				$("#menuForm").form('load', rows[0].menu);
   			}
   		});
 	}
   	
   //删除
   	function deleterow(){
-  		var rows = $('#userTable').datagrid('getSelections');
+  		var rows = $('#menuTable').datagrid('getSelections');
 		if(rows.length==0 || rows.length > 1){
 			$.messager.alert('提示',"请选择记录,再进行操作.",'info');
 			return;
 		}
   		$.messager.confirm('提示','确定要删除吗?',function(result){
 	        if (result){
-	        	//var rows = $('#userTable').datagrid('getSelections');
+	        	//var rows = $('#menuTable').datagrid('getSelections');
 	        	var ps = "";
 	        	$.each(rows,function(i,n){
 	        		if(i==0) 
@@ -140,8 +140,8 @@
 	        		else
 	        			ps += "&uid="+n.uid;
 	        	});
-	        	$.post('deleteUsers'+ps,function(data){
-		        	$('#userTable').datagrid('reload'); 
+	        	$.post('deleteMenus'+ps,function(data){
+		        	$('#menuTable').datagrid('reload'); 
 	        		$.messager.alert('提示',data.mes,'info');
 	        	});
 	        }
@@ -149,12 +149,12 @@
   	}
     //表格查询
 	function searchUser(){
-		var params = $('#userTable').datagrid('options').queryParams; //先取得 datagrid 的查询参数
+		var params = $('#menuTable').datagrid('options').queryParams; //先取得 datagrid 的查询参数
 		var fields =$('#queryForm').serializeArray(); //自动序列化表单元素为JSON对象
 		$.each( fields, function(i, field){
 			params[field.name] = field.value; //设置查询参数
 		}); 
-		$('#userTable').datagrid('reload'); //设置好查询参数 reload 一下就可以了
+		$('#menuTable').datagrid('reload'); //设置好查询参数 reload 一下就可以了
 	}
 	//清空查询条件
 	function clearForm(){

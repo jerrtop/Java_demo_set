@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import com.fsj.spring.dao.BaseDao;
 import com.fsj.spring.model.sys.SysOrg;
 import com.fsj.spring.model.sys.SysUser;
-import com.fsj.spring.service.sys.IOrgService;
+import com.fsj.spring.service.sys.OrgService;
 import com.fsj.spring.util.DataGridModel;
 
 @Service("orgService")
-public class OrgServiceImpl implements IOrgService {
+public class OrgServiceImpl implements OrgService {
 
 	private BaseDao baseDao;
 

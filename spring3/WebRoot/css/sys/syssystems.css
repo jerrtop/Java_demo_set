@@ -61,6 +61,11 @@ a img{border:0;}
 .dpn{display:none;}
 .xscroll{width:100%;overflow:hidden;overflow-x:auto;}
 
+.prompt_table TD {
+	vertical-align : top;
+	padding-top : 6px;
+	font-size:12px;
+}
 .sysbox{margin-left:5px;border:1px solid #D6E8F6;height:97%;width:101%}
 .tablestyle{border:0px;width:100%;}
 .tablestyle td{height:30px;vertical-align:middle;}
@@ -90,10 +95,10 @@ a img{border:0;}
 .tc_shouqibt{width:49px;height:18px;border:none;margin-left:5px;cursor:pointer;background:url(../../img/sys/tc_shouqibt.gif) no-repeat left center;}
 .tc_remove{width:49px;height:18px;border:none;margin-left:5px;cursor:pointer;background:url(../../img/sys/tc_remove.png) no-repeat left center;}
 
-.menu{height:19px;padding-left:3%;padding-top:10px;border:1px solid #a7d0e6;border-bottom:none;}
-.menu a:link,.menu a:visited{display:block;float:left;margin-right:15px;width:78px;height:19px;line-height:19px;background:url(../../img/sys/menubg.gif) no-repeat left bottom;text-decoration:none;text-align:center;color:#333;}
-.menu a:hover{text-decoration:underline;color:#128bcb;}
-.menu .my_movie_on a:link,.menu .my_movie_on a:visited{color:#128bcb;}
+.menudiv{height:19px;padding-left:3%;padding-top:10px;border:1px solid #a7d0e6;border-bottom:none;font-weight:bold;}
+.menudiv a:link,.menudiv a:visited{display:block;float:left;margin-right:15px;width:78px;height:19px;line-height:19px;background:url(../../img/sys/menubg.gif) no-repeat left bottom;text-decoration:none;text-align:center;color:#333;}
+.menudiv a:hover{text-decoration:underline;color:#128bcb;}
+.menudiv .my_movie_on a:link,.menudiv .my_movie_on a:visited{color:#128bcb;}
 .cdzy{display:none;height:auto;margin-bottom:2px;}
 /*重用按钮样式　start*/
 .mybuttondiv {
@@ -107,7 +112,7 @@ a img{border:0;}
 	line-height:18px;
 	color:#000;
 	display:inline;
-	margin-left:3px;
+	margin-left:18px;
 	margin-right:3px;
 	padding-right:5px;
 	position:relative;
