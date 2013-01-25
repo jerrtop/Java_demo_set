@@ -60,3 +60,30 @@ function gridWidthAdapter(selector) {
 		$(selector).datagrid('resize',{width:winW-25});  
 	}
 }
+
+function PanShow(objname,classname,curid,maxid)
+{
+	for(var i=1;i<=maxid;i++)
+	{
+		var obj=document.getElementById(objname+i);
+		if(obj)
+		{
+			obj.style.display="none";
+			var objtitle=document.getElementById(objname+"T"+i);
+			if(objtitle)
+			{
+				objtitle.className=classname+"_off";
+			}
+		}
+	}
+	var obj=document.getElementById(objname+curid);
+	if(obj)
+	{
+		obj.style.display="block";
+	}
+	var objtitle=document.getElementById(objname+"T"+curid);
+	if(objtitle)
+	{
+		objtitle.className=classname+"_on";
+	}
+}

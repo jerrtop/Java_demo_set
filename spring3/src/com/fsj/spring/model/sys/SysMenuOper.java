@@ -17,11 +17,13 @@ public class SysMenuOper implements java.io.Serializable {
 
 	private String smoOperation;
 
-	private String smoMenuId;
+	//private String smoMenuId;
+	
+	private SysMenu sysMenu;
 
 	private String crtC;
 
-	private Date crtTime;
+	private Date crtDate;
 
 	private String smoValid;
 
@@ -37,13 +39,13 @@ public class SysMenuOper implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public SysMenuOper(Long id, String smoName, String smoOperation, String smoMenuId, String crtC, Date crtTime, String smoValid) {
+	public SysMenuOper(Long id, String smoName, String smoOperation, SysMenu sysMenu, String crtC, Date crtDate, String smoValid) {
 		this.id = id;
 		this.smoName = smoName;
 		this.smoOperation = smoOperation;
-		this.smoMenuId = smoMenuId;
+		this.sysMenu = sysMenu;
 		this.crtC = crtC;
-		this.crtTime = crtTime;
+		this.crtDate = crtDate;
 		this.smoValid = smoValid;
 	}
 
@@ -73,12 +75,12 @@ public class SysMenuOper implements java.io.Serializable {
 		this.smoOperation = smoOperation;
 	}
 
-	public String getSmoMenuId() {
-		return this.smoMenuId;
+	public SysMenu getSysMenu() {
+		return sysMenu;
 	}
 
-	public void setSmoMenuId(String smoMenuId) {
-		this.smoMenuId = smoMenuId;
+	public void setSysMenu(SysMenu sysMenu) {
+		this.sysMenu = sysMenu;
 	}
 
 	public String getCrtC() {
@@ -89,12 +91,12 @@ public class SysMenuOper implements java.io.Serializable {
 		this.crtC = crtC;
 	}
 
-	public Date getCrtTime() {
-		return this.crtTime;
+	public Date getCrtDate() {
+		return this.crtDate;
 	}
 
-	public void setCrtTime(Date crtTime) {
-		this.crtTime = crtTime;
+	public void setCrtDate(Date crtDate) {
+		this.crtDate = crtDate;
 	}
 
 	public String getSmoValid() {

@@ -29,8 +29,8 @@
 								<input name="suNameCn" style="width:200px;"></input>
 							</td>
 							<td>
-								标题：
-								<input name="suNameCn" style="width:200px;"></input>
+								父菜单：
+								<input name="suParent" style="width:200px;"></input>
 							</td>
 							<td align="left">
 								<div class="mybuttondiv"  onclick="searchMenu();"><span class="mybutton_icon mybutton-icon-search"></span>查 询</div>

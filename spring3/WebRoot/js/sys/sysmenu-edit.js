@@ -4,14 +4,14 @@ function pageInit(){
 	//alert($('#userForm').length);
 }
 
-function addOrUpdateUser(){
-	var r = $('#userForm').form('validate');
+function addOrUpdateMenu(){
+	var r = $('#menuForm').form('validate');
 	if(!r) {
 		return false;
 	}
-	$.post("addOrUpdateUser",$("#userForm").serializeArray(),function(data){
+	$.post("addOrUpdateMenu",$("#menuForm").serializeArray(),function(data){
 		$('#MyPopWindow').window('close');
-		$('#userTable').datagrid('reload');  
+		$('#menuTable').datagrid('reload');  
 		$.messager.alert('提示',data.mes,'info');
 	});
 }

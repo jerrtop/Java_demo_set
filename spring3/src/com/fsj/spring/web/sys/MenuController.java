@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fsj.spring.model.sys.SysMenu;
-import com.fsj.spring.model.sys.SysUser;
 import com.fsj.spring.service.sys.MenuService;
 import com.fsj.spring.util.DataGridModel;
 import com.fsj.spring.web.TUserAwareImpl;
@@ -48,12 +47,12 @@ public class MenuController extends TUserAwareImpl {
 
 	@RequestMapping(value = "/addOrUpdateMenu", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> addOrUpdate(SysUser user, HttpSession session) throws Exception {
+	public Map<String, String> addOrUpdate(SysMenu menu, HttpSession session) throws Exception {
 		// spring会利用jackson自动将返回值封装成JSON对象
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			menuService.setLoginUser(sessionUser);//dao保存操作，自动增加创建人
-			menuService.saveOrUpdate(user);
+			menuService.saveOrUpdate(menu);
 			map.put("mes", "操作成功");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,7 +68,7 @@ public class MenuController extends TUserAwareImpl {
 		// spring 将参数绑定为list类型
 		Map<String, String> map = new HashMap<String, String>();
 		try {
-			menuService.deleteAllObjects(SysUser.class, uid);
+			menuService.deleteAllObjects(SysMenu.class, uid);
 			map.put("mes", "删除成功");
 		} catch (Exception e) {
 			e.printStackTrace();

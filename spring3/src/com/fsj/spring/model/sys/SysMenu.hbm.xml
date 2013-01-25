@@ -19,9 +19,14 @@
         <property name="smTitle" type="java.lang.String">
             <column name="SM_TITLE" length="100" />
         </property>
+        <!-- 
         <property name="smParent" type="java.lang.String">
             <column name="SM_PARENT" length="30" />
         </property>
+         -->
+        <many-to-one name="parentMenu" class="com.fsj.spring.model.sys.SysMenu" fetch="join" not-found="ignore"> <!-- 必须加 not-found配置 -->
+        	<column name="SM_PARENT" length="30"></column>
+        </many-to-one>
         <property name="smPage" type="java.lang.String">
             <column name="SM_PAGE" length="100" />
         </property>
@@ -43,5 +48,9 @@
         <property name="crtDate" type="java.util.Date">
             <column name="CRT_DATE" length="19" />
         </property>
+        <set name="sysMenuOpers" cascade="all" inverse="true" order-by="CRT_DATE DESC" lazy="true">
+        	<key column="SMO_MENU_ID"></key>
+        	<one-to-many class="com.fsj.spring.model.sys.SysMenuOper"/>
+        </set>
     </class>
 </hibernate-mapping>

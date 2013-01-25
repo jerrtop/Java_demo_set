@@ -13,6 +13,9 @@ a img{border:0;}
 .talr{text-align:right;padding-right:3px;}
 .tall{text-align:left;}
 .talc{text-align:center;}
+.wb10{width:10%};
+.wb12{width:12%};
+.wb13{width:13%};
 .wb15{width:15%;}
 .wb20{width:20%;}
 .wb25{width:25%;}
@@ -24,6 +27,8 @@ a img{border:0;}
 .wb70{width:70%;}
 .wb80{width:80%;}
 .wb90{width:90%;}
+.wb91{width:91%;}
+.wb92{width:92%;}
 .wb93{width:93%;}
 .wb95{width:95%;}
 .wb100{width:100%;}
@@ -63,11 +68,10 @@ a img{border:0;}
 
 .prompt_table TD {
 	vertical-align : top;
-	padding-top : 6px;
 	font-size:12px;
 }
 .sysbox{margin-left:5px;border:1px solid #D6E8F6;height:97%;width:101%}
-.tablestyle{border:0px;width:100%;}
+.tablestyle{border:0px;width:100%}
 .tablestyle td{height:30px;vertical-align:middle;}
 .tableborder{border-top:1px solid #cbdaed;border-left:1px solid #cbdaed;}
 .tableborder td{border-bottom:1px solid #cbdaed;border-right:1px solid #cbdaed;}
@@ -78,6 +82,7 @@ a img{border:0;}
 .textstyle{border:1px solid #7f9db9;height:18px;line-height:18px;padding-left:2px;vertical-align:middle;margin-left:3px;}
 .selectstyle{border:1px solid #7f9db9;height:22px;line-height:22px;vertical-align:middle;margin-left:3px;}
 .areastyle{border:1px solid #7f9db9;vertical-align:middle;margin:3px;}
+.chkstyle{margin-left:5px;vertical-align:middle;}
 
 .syshead{position:relavite;background:url(../../img/sys/tc_h2bg.gif) repeat-x left top;border:1px solid #cbdaed;height:22px;line-height:22px;margin-bottom:2px;z-index:100000000;}
 .syshead .pagename,.syshead .momijt,.syshead .serchcon{display:inline-block;vertical-align:middle;margin:0px;}
@@ -96,7 +101,7 @@ a img{border:0;}
 .tc_remove{width:49px;height:18px;border:none;margin-left:5px;cursor:pointer;background:url(../../img/sys/tc_remove.png) no-repeat left center;}
 
 .menudiv{height:19px;padding-left:3%;padding-top:10px;border:1px solid #a7d0e6;border-bottom:none;font-weight:bold;}
-.menudiv a:link,.menudiv a:visited{display:block;float:left;margin-right:15px;width:78px;height:19px;line-height:19px;background:url(../../img/sys/menubg.gif) no-repeat left bottom;text-decoration:none;text-align:center;color:#333;}
+.menudiv a:link,.menudiv a:visited{display:block;float:left;margin-right:15px;width:78px;height:19px;line-height:19px;background:url(../../img/sys/menubg.gif) no-repeat left bottom;text-decoration:none;text-align:center;color:#56BAFC;}
 .menudiv a:hover{text-decoration:underline;color:#128bcb;}
 .menudiv .my_movie_on a:link,.menudiv .my_movie_on a:visited{color:#128bcb;}
 .cdzy{display:none;height:auto;margin-bottom:2px;}

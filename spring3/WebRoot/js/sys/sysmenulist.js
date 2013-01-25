@@ -27,12 +27,12 @@
 				{field:'menu.smName',title:'菜单名称',width:30,sortable:true,
 					formatter:function(value,row,index){return row.menu.smName;}
 				},
-				{field:'menu.smTitle',title:'菜单标题',width:30,sortable:true,
-					formatter:function(value,row,index){return row.menu.smTitle;}
+				{field:'menu.parentMenu.smName',title:'上级菜单',width:30,sortable:true,
+					formatter:function(value,row,index){return (row.menu.parentMenu == null ? '': row.menu.parentMenu.smName);}
 				},
 				{field:'menu.crtC',title:'创建人',width:15,sortable:true,
 					formatter:function(value,row,index){
-						return menu.user.crtC;
+						return row.menu.crtC;
 					}
 				},
 				{field:'menu.crtDate',title:'创建时间',width:15,sortable:true,
@@ -65,23 +65,6 @@
 				$('#menuTable').datagrid('clearSelections'); //一定要加上这一句，要不然datagrid会记住之前的选择状态，删除时会出问题
 			}
 		});
-    	
-		//下拉表格初始化，这个东西在ajax下要尽量少用，太变态了，每加载一次就会重新创建一次，隐藏在页面上，
-		//时间一长效率很低，用firebug一看页面上有几十个同样的层保存着下拉框中的内容，只有整个页面全部刷新才清除。
-		//不知道新版本修正了没有，我目前的做法是点击菜单的时候手动清除一下。
-		
-		//$('#deptCombo').combogrid({
-			//idField:'id', //ID字段
-		    //textField:'name', //显示的字段
-		   // url:"org/queryAll",
-		   // fitColumns: true,
-			//striped: true,
-			//editable:false,//不可编辑，只能选择
-		   // columns:[[
-		     //   {field:'code',title:'编号',width:100},
-		    //    {field:'name',title:'名称',width:150}
-		    //]]
-		//});
 
 	});
 	
@@ -90,8 +73,8 @@
     	showWindow("#MyPopWindow",{
   			title:'新增菜单信息',
   			href:'sysmenu-edit',
-  			width:700,
-  			height:400,
+  			width:560,
+  			height:320,
   			onLoad: function(){
   				$('#userForm').form('clear');
   				$('#userForm input[name="suAccEna"]').attr("checked",true);
@@ -103,7 +86,6 @@
   //更新
     function updaterow(){
 		var rows = $('#menuTable').datagrid('getSelections');
-		//这里有一个jquery easyui datagrid的一个小bug，必须把主键单独列出来，要不然不能多选
 		if(rows.length==0 || rows.length > 1){
 			$.messager.alert('提示',"请选择一条记录,再进行操作.",'info');
 			return;
@@ -112,11 +94,10 @@
 		showWindow("#MyPopWindow",{
   			title:'更新菜单信息',
   			href:'sysmenu-edit',
-  			width:600,
-  			height:600,
+  			width:560,
+  			height:320,
   			onLoad: function(){
   			//自动将数据填充到表单中，无需再查询数据库，这里需要注意：
-  			//如果用的是struts2，它的表单元素的名称都是user.id这样的，那load的时候不能加.user要.form('load', rows[0]);
   			//而spring mvc中表单元素的名称不带对象前缀，直拉就是id，所以这里load的时候是：.form('load', rows[0].user)
   				$("#menuForm").form('load', rows[0].menu);
   			}
@@ -126,7 +107,7 @@
   //删除
   	function deleterow(){
   		var rows = $('#menuTable').datagrid('getSelections');
-		if(rows.length==0 || rows.length > 1){
+		if(rows.length==0){
 			$.messager.alert('提示',"请选择记录,再进行操作.",'info');
 			return;
 		}
@@ -155,9 +136,4 @@
 			params[field.name] = field.value; //设置查询参数
 		}); 
 		$('#menuTable').datagrid('reload'); //设置好查询参数 reload 一下就可以了
-	}
-	//清空查询条件
-	function clearForm(){
-		$('#queryForm').form('clear');
-		searchUser();
 	}

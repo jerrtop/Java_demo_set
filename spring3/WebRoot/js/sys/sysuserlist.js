@@ -126,7 +126,7 @@
   //删除
   	function deleterow(){
   		var rows = $('#userTable').datagrid('getSelections');
-		if(rows.length==0 || rows.length > 1){
+		if(rows.length==0){
 			$.messager.alert('提示',"请选择记录,再进行操作.",'info');
 			return;
 		}
