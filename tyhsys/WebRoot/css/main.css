@@ -1,0 +1,147 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin: 0px;
+	padding: 0px;
+}
+
+ul{
+	list-style-type:none;
+	padding-left:0px;
+	margin:0px;
+}
+
+#header {
+	width: 100%;
+	margin-bottom: 0px;
+	min-width: 1000px;
+	top: 0px;
+}
+#header #headtop {
+	background-image: url(../images/headbg.gif);
+	height: 58px;
+	overflow: hidden;
+	z-index: 10000;
+}
+
+#header #headtop #toprightbox {
+	float: right;
+	margin-right: 10px;
+	margin-top: 5px;
+	width: 40%;
+}
+#content {
+	min-width: 1000px;
+	height: 520px;
+}
+#content #content_left {
+	float: left;
+	width:160px;
+}
+
+#content #menu {
+	margin: 0;
+	padding-left: 10px;
+	padding-top: 8px;
+	padding-right: 10px;
+	width: 160px;
+}
+#content #workplace {
+	margin-top: 5px;
+	padding: 5px;
+	margin-left: 200px;
+	min-height: 500px;
+}
+
+#header #logo {
+	width: 50%;
+	float: left;
+}
+#logo a {
+	display:block;float:left;padding-left:45px;padding-top:3px;
+}
+.sysbtn {
+	float: right;
+	width: 60%;
+	padding-right: 3px;
+	text-align: right;
+}
+#toprightbox .userInfo {
+	width: 30%;
+	float: left;
+}
+.sysbtn a {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+#header #nav {
+	height:28px;
+	background:url(../images/navbg.gif) repeat-x left top;
+	padding-left:15%;
+	border-bottom: 5px solid #F1F1F1;
+	border-top: 1px solid #bbc4ca;
+}
+
+#nav #navmenu {
+	float:left;width:68%;position:relative;
+}
+#navmenu li {
+	float:left;margin-right:5px;height:28px;line-height:28px;
+}
+
+#navmenu li a:link,#navmenu ul li a:visited{
+	text-decoration:none;color:#fff;font-size:14px;font-weight:700;display:block;padding:0 15px;
+}
+
+#navmenu li a:hover{background:url(../images/navhoverbg.gif) repeat-x left top;color:#036ba2;}
+
+#navmenu .selectedli a:link,#navmenu .selectedli a:visited{
+	background:url(../images/navhoverbg.gif) repeat-x left top;color:#036ba2;
+}
+#menu .menuitem {
+	border: 1px solid #0099CC;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+#menu .menuitem ul{
+	padding-left:20px;
+}
+.menuitem .fthmenu {
+	background-color: #0099CC;
+	width: 100%;
+	display: block;
+	padding-left: 10px;
+	font-weight: bold;
+	padding-bottom: 8px;
+	padding-top: 8px;
+	color: #FFFFFF;
+}
+.menuitem li {
+	line-height: 25px;
+}
+.menuitem a {
+	text-decoration: none;
+	color:#000000;
+	padding-top: 10px;
+}
+.menuitem a:hover {
+	text-decoration: none;color:#0099CC;
+}
+#content #switchbar {
+	height: 520px;
+	width: 180px;
+	position: absolute;
+	border-right: 6px solid #EDEDED;
+	cursor: hand;
+}
+#switchbar .switch_show {
+	background-image: url(../images/switch_show.gif);
+	top: 200px;
+	position: relative;
+	left: 180px;
+	width: 7px;
+	height: 33px;
+	border: 0;
+	cursor: hand;
+}

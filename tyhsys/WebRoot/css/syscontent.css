@@ -1,0 +1,80 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin: 0px;
+	padding: 0px;
+	
+}
+
+.systembox {
+	height: auto;
+	width: 100%;
+}
+
+
+.systembox .sitecond {
+	width: 100%;
+	height: 12px;
+	border-bottom: 1px solid #000;
+	padding: 5px;
+}
+
+.textstyle{border:1px solid #7f9db9;height:16px;line-height:16px;padding-left:2px;vertical-align:middle;margin-left:3px;}
+.selectstyle{border:1px solid #7f9db9;height:22px;line-height:22px;vertical-align:middle;margin-left:3px;}
+.areastyle{border:1px solid #7f9db9;vertical-align:middle;margin:3px;}
+
+.mybuttondiv {
+	border:1px solid #1393e9;
+	cursor: pointer;
+	float: left;
+	list-style:none none outside;
+	position: relative;
+	background:url(../images/sys/gbtbg.gif) repeat-x left center;
+	height:18px;
+	line-height:18px;
+	color:#000;
+	display:inline;
+	margin-left:3px;
+	margin-right:3px;
+	padding-right:5px;
+	position:relative;
+	white-space:nowrap;
+}
+.mybutton_icon{text-indent:-99999px;float:left;display:block;width:16px;height:16px;line-height:18px;cursor:pointer;overflow:hidden;margin:0 2px;background: url(../images/sys/buttons.png) no-repeat; }
+.mybutton-icon-search {background-position: -160px -112px; }　　/*查询*/
+.mybutton-extlink { background-position: -32px -80px; }　　/*提交*/
+.mybutton-arrowreturn-1-s { background-position: -112px -64px; }　　/*返回*/　
+.mybutton-circle-plus { background-position: 0 -192px; }　　/*添加子节点*/　
+.mybutton-pencil { background-position: -64px -112px; }　　/*修改*/　
+.mybutton-trash { background-position: -176px -96px; }　　/*作废,删除*/　
+.mybutton-arrowreturnthick-1-s { background-position: -48px -64px; }　　/*导入*/
+.mybutton-arrowreturnthick-1-w { background-position: 0 -64px; }　　/*导出*/
+.mybutton-locked { background-position: -192px -96px; }　　/*确定*/
+.mybutton-circlesmall-close { background-position: -32px -208px; }　　/*取消*/
+.mybutton-bookmark { background-position: -224px -96px; }　　/*保存*/
+.mybutton-plusthick { background-position: -32px -128px; }　　/*新增单位*/
+.mybutton-shuffle { background-position: -80px -80px; }　　/*选择商品*/
+.mybutton-newwin { background-position: -48px -80px; }　　/*复制上月*/
+.mybutton-arrowthickstop-1-s { background-position: -224px -48px; }　　/*下载*/
+.mybutton-print { background-position: -160px -96px; }　　/*打印*/
+.mybutton-arrow-1-n { background-position: 0 -32px; }　　/*上移*/
+.mybutton-arrow-1-s { background-position: -64px -32px; }　　/*下移*/
+.mybutton-document { background-position: -32px -96px; }　　/*计算指标*/
+.mybutton-transferthick-e-w { background-position: -112px -80px; }　　/*生成*/
+.mybutton-zoomin { background-position: -128px -112px; }　　/*审核*/
+/*重用按钮样式　end*/
+
+.searchcond .querytable {
+	height: 100%;
+	width: 100%;
+}
+
+.querytable td{
+	padding-left:25px;
+}
+
+.listitle{
+	background-color: #97CFDE;
+	height: 24px;
+	line-height: 24px;
+}

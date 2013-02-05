@@ -1,0 +1,25 @@
+@import url("button.css");
+.login{width:100%; margin:0 auto;height:300px}
+.loginBg{width:780px; margin:0 auto; padding: 100px 0 0 0; text-align:left; position: relative; z-index: 2;/* background: #fff;*/}
+.loginForm{position:relative; padding-left:78px; padding-bottom:60px; overflow:hidden; *zoom:1;}
+.loginH1{
+	width:350px;
+	height:140px;
+	margin-bottom:0px;
+	margin-left:300px;
+	font-size: 24px;
+	color: #000000;
+		   /*filter:alpha(opacity=50);-moz-opacity:0.5;opacity: 0.5;*/
+}
+.loginForm input.txt{
+	 width:228px; height:38px; line-height:38px; border:1px solid #84a4c1;
+	 padding:0 9px; margin-right:10px; float:left; 
+	 font-family:"Microsoft Yahei"; font-size:20px;
+	 color:#000;;
+}
+.loginForm input.focus{ border-color:#2982ff;}
+.loginForm .errtips{position:absolute; left:78px; top:46px; font-size:12px; color:red;}
+.loginForm .logintip{position:absolute; left:78px; top:46px; font-size:12px; }
+.loginForm a.loginBtn:hover{background-position:0 -168px; text-decoration:none;}
+.loginForm a.loginBtn:hover span{background-position:right -252px; text-decoration:none;}
+	

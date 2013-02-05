@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link  type="text/css" rel="stylesheet" href="css/login.css"/>
+</head>
+<body style="background:#fff;">
+<div class="login">
+  <div class="loginBg">
+    <h1 class="loginH1"></h1>
+    <div class="loginForm">
+    <form id="loginForm" method="post" action="login/login_login.do">
+          <input type="hidden" name="forceLogin" id="forceLogin" value="N"/>
+	      <input type="text" class="txt focus" id="loginName" name="loginName" value="用户名" title="请输入账号"/>
+	      
+	      <input type="text" class="txt" id="passwordTemp" value="密码" title="请输入密码"/>
+	      <input type="password" style="display: none" class="txt" id="password" name="password" value="111111" onkeydown="if(event.keyCode==13||event.which==13)submitLogin();"/>
+	      
+	      <input type="button" class="button green"  value="登录" id="submitBtn" onclick="submitLogin()"  style="width: 120px;height: 38px;font-size: 18px"/>
+	     
+	      <span class="errtips" id="tips" >${loginMessage}</span>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>
