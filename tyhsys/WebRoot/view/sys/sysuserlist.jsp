@@ -17,18 +17,28 @@
 	<body>
 		<div class="systembox">
 			<div class="listitle">
-				您现在所在的位置：系统管理-用户管理
+				您所在的位置：系统管理 - 用户管理
 			</div>
-			<div class="searchcond">
+			<div class="listsearch">
 				<table class="querytable">
+				  <colgroup>
+				  	<col class="wb13"/>
+				  	<col class="wb25"/>
+				  	<col class="wb13"/>
+				  	<col class="wb25"/>
+				  	<col class="wb30"/>
+				  </colgroup>
 				  <tr>
-					<td>用户名:</td>
+					<td class="talr">用户名:</td>
 					<td><input type="text"  class="textstyle" name="suUserName"/></td>
-					<td>姓名:</td>
+					<td class="talr">姓名:</td>
 					<td><input type="text" class="textstyle" name="suNameCn"/></td>
-					<td><div class="mybuttondiv" onclick="search()"><span class="mybutton_icon mybutton-icon-search"></span>查 询</div></td>
+					<td class="talc"><input class="Btn BtnNml" type="button" value="查 询"/></td>
 				  </tr>
 				</table>
+			</div>
+			<div class="toolbtns">
+				<input class="Btn BtnNml" type="button" value="新 增"/><input class="Btn BtnNml" type="button" value="编 辑"/><input class="Btn BtnNml" type="button" value="删 除"/>
 			</div>
 			<div class="listcond">
 				<table id="userTable"></table>

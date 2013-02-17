@@ -11,14 +11,6 @@ body {
 	width: 100%;
 }
 
-
-.systembox .sitecond {
-	width: 100%;
-	height: 12px;
-	border-bottom: 1px solid #000;
-	padding: 5px;
-}
-
 .textstyle{border:1px solid #7f9db9;height:16px;line-height:16px;padding-left:2px;vertical-align:middle;margin-left:3px;}
 .selectstyle{border:1px solid #7f9db9;height:22px;line-height:22px;vertical-align:middle;margin-left:3px;}
 .areastyle{border:1px solid #7f9db9;vertical-align:middle;margin:3px;}
@@ -64,17 +56,110 @@ body {
 .mybutton-zoomin { background-position: -128px -112px; }　　/*审核*/
 /*重用按钮样式　end*/
 
-.searchcond .querytable {
-	height: 100%;
-	width: 100%;
+.querytable{
+	width: auto;
 }
 
-.querytable td{
-	padding-left:25px;
+.listsearch{
+	background-color: #F5F8FD;
+	margin:8px 0px;
+	border: 1px solid #D7EAF8;
+	padding:2px 0px;
 }
 
 .listitle{
-	background-color: #97CFDE;
 	height: 24px;
 	line-height: 24px;
+	color:#666;
 }
+.toolbtns{margin:5px 0px;}
+.toolbtns *{margin-right:15px;}
+
+.talr{text-align:right;padding-right:6px;}
+.tall{text-align:left;}
+.talc{text-align:center;}
+.wb10{width:10%;}
+.wb13{width:13%;}
+.wb15{width:15%;}
+.wb20{width:20%;}
+.wb25{width:25%;}
+.wb30{width:30%;}
+.wb35{width:35%;}
+.wb50{width:50%;}
+.wb60{width:60%;}
+.wb65{width:65%;}
+.wb70{width:70%;}
+.wb80{width:80%;}
+.wb90{width:90%;}
+.wb93{width:93%;}
+.wb95{width:95%;}
+.wb100{width:100%;}
+.wauto{width:auto;}
+.w30{width:30px;}
+.w50{width:50px;}
+.w60{width:60px;}
+.w70{width:70px;}
+.w80{width:80px;}
+.w90{width:90px;}
+.w120{width:120px;}
+.w135{width:135px;}
+.w150{width:150px;}
+.w110{width:110px;}
+.w180{width:180px;}
+.w190{width:190px;}
+.w230{width:230px;}
+.w260{width:260px;}
+.w300{width:300px;}
+.w400{width:400px;}
+.w500{width:450px;}
+.w690{width:690px;}
+.w700{width:700px;}
+.h35{height:35px;}
+.h60{height:60px;}
+
+/**腾讯邮箱按钮样式 begin**/
+
+.btn_gray {
+	margin: 0px; padding: 0px 12px; border-radius: 0px; height: 22px; text-align: center; line-height: 23px; font-family: Simsun; text-decoration: none; vertical-align: middle; display: inline-block; cursor: default; min-width: 24px; _overflow-y: hidden; -moz-user-select: none; -webkit-user-select: none;
+	border:1px solid #888;cursor:hand;
+}
+.btn_gray:hover{text-decoration:none;}
+.btn_gray:active {
+	box-shadow: inset 0px 1px 2px rgba(0,0,0,0.2);
+}
+.btn_gray:focus {
+	border-color: rgb(0, 116, 188);
+}
+
+.btn_space {
+	margin-right: 3px;
+}
+
+.btn_gray {
+	background: rgb(243, 243, 243); border: 1px solid rgb(136, 136, 136); color: rgb(0, 0, 0) !important; filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff',endColorstr='#d7d7d7',GradientType=0 );
+}
+.btn_gray:active {
+	background: rgb(243, 243, 243); border-color: rgb(126, 126, 126); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ebebeb',endColorstr='#F3F3F3',GradientType=0 );
+}
+/**腾讯邮箱按钮样式 end**/
+
+/**网易邮箱 按钮begin**/
+HTML > BODY .Btn {
+PADDING-RIGHT: 11px; PADDING-LEFT: 11px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; outline: none
+}
+.Btn:focus:unknown {
+	BORDER-LEFT-COLOR: transparent; BORDER-BOTTOM-COLOR: transparent; BORDER-TOP-COLOR: transparent; BORDER-RIGHT-COLOR: transparent
+}
+.Btn {
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #000 1px solid; PADDING-LEFT: 5px; BORDER-LEFT: #000 1px solid; CURSOR: hand; COLOR: #333; PADDING-TOP: 2px; BORDER-BOTTOM: #000 1px solid; FONT-FAMILY: "宋体"; HEIGHT: 22px; BACKGROUND-COLOR: #fff
+}
+.BtnNml {
+	BACKGROUND-POSITION: 0px -96px
+}
+.Btn,.ABtn{border:1px solid #72a1bd; background-color:#fff;}
+.BtnHv,.ABtn:hover{border:1px solid #A2904D; background-color:#fff;}
+/*--f2.gif，横向平铺--*/
+.F2Img,.HeadWp,.Btn,.BtnHv,.ABtn
+{background-image:url('../images/sys/f2.gif');background-repeat:repeat-x;}
+
+/** 网易邮箱 按钮end*/
