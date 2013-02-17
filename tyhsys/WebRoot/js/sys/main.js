@@ -45,7 +45,11 @@ function setActiveMenu(obj) {
 	if (obj.hasClass("selectedli")) {
 		return;
 	}
-	$(".selectedli").removeClass("selectedli");
+	var selObjs = $(".selectedli");
+	selObjs.removeClass("selectedli");
+	selObjs.find("span").addClass("menuunselected");
+	
+	obj.find("span").removeClass("menuunselected");
 	obj.addClass("selectedli");
 	$(document.documentElement).scrollTop(0);
 }

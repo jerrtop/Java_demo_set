@@ -93,11 +93,15 @@ ul{
 	text-decoration:none;color:#fff;font-size:14px;font-weight:700;display:block;padding:0 15px;
 }
 
+.menuunselected{color:#fff}
+
 #navmenu li a:hover{background:url(../images/navhoverbg.gif) repeat-x left top;color:#036ba2;}
+#navmenu li a:hover .menuunselected{color:#036ba2;}
 
 #navmenu .selectedli a:link,#navmenu .selectedli a:visited{
 	background:url(../images/navhoverbg.gif) repeat-x left top;color:#036ba2;
 }
+
 #menu .menuitem {
 	border: 1px solid #0099CC;
 	padding-right: 10px;
