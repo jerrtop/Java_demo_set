@@ -6,7 +6,7 @@
 			method:'post',
 			//iconCls:'icon-edit', //图标
 			singleSelect:false, //多选
-			height:'auto',//'406', //高度
+			//height:'500',//'406', //高度
 			fitColumns: true, //自动调整各列，用了这个属性，下面各列的宽度值就只是一个比例。
 			striped: true, //奇偶行颜色不同
 			collapsible:false,//可折叠
@@ -21,21 +21,21 @@
 			rownumbers:true, //显示行号
 			columns:[[
 				{field:'ck',checkbox:true,width:2}, //显示复选框
-				{field:'user.suUsername',title:'账号',width:20,sortable:true,
+				{field:'user.suUsername',align:'center',title:'账号',width:20,sortable:true,
 					formatter:function(value,row,index){return row.user.suUsername;} //需要formatter一下才能显示正确的数据
 				},
-				{field:'user.suNameCn',title:'姓名',width:20,sortable:true,
+				{field:'user.suNameCn',align:'center',title:'姓名',width:20,sortable:true,
 					formatter:function(value,row,index){return row.user.suNameCn;}
 				},
-				{field:'user.suAccEna',title:'激活',width:18,sortable:true,
+				{field:'user.suAccEna',align:'center',title:'激活',width:18,sortable:true,
 					formatter:function(value,row,index){return row.user.suAccEna == 'Y' ? '是' : '否'}
 				},
-				{field:'user.crtC',title:'创建人',width:20,sortable:true,
+				{field:'user.crtC',align:'center',title:'创建人',width:20,sortable:true,
 					formatter:function(value,row,index){
 						return row.user.crtC;
 					}
 				},
-				{field:'user.crtDate',title:'创建时间',width:20,sortable:true,
+				{field:'user.crtDate',align:'center',title:'创建时间',width:20,sortable:true,
 					formatter:function(value,row,index){
 						var date = new Date(row.user.crtDate);
 						return date.format('yyyy-MM-dd hh:mm:ss');
@@ -83,6 +83,13 @@
 		    //]]
 		//});
 
+		
+		//----------- 修改datagrid--------//
+		var beforeHeight = $("div[class='datagrid-view1']").find(".datagrid-body").height();
+		var currentHeight = beforeHeight - 5;
+		//$("div[class='datagrid-view1']").find(".datagrid-body").css({height:currentHeight});
+		//$("div[class='datagrid-view2']").find(".datagrid-body").css({height:currentHeight});
+		//alert($("div[class='datagrid-view2']").find("table").width());
 	});
 	
     //新增

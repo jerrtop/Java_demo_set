@@ -48,7 +48,7 @@ ul{
 }
 #content #workplace {
 	margin-top: 5px;
-	padding: 5px;
+	padding: 0px 20px 0px 3px;
 	margin-left: 200px;
 	min-height: 500px;
 }
@@ -101,7 +101,10 @@ ul{
 #navmenu .selectedli a:link,#navmenu .selectedli a:visited{
 	background:url(../images/navhoverbg.gif) repeat-x left top;color:#036ba2;
 }
-
+#menu{
+	position:relative;
+	z-index:11;
+}
 #menu .menuitem {
 	border: 1px solid #0099CC;
 	padding-right: 10px;
@@ -117,8 +120,8 @@ ul{
 	display: block;
 	padding-left: 10px;
 	font-weight: bold;
-	padding-bottom: 8px;
-	padding-top: 8px;
+	padding-bottom: 5px;
+	padding-top: 5px;
 	color: #FFFFFF;
 }
 .menuitem li {

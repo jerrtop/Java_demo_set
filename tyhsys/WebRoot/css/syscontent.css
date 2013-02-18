@@ -72,7 +72,9 @@ body {
 	line-height: 24px;
 	color:#666;
 }
-.toolbtns{margin:5px 0px;}
+.toolbtns{
+	margin:5px 0px;
+}
 .toolbtns *{margin-right:15px;}
 
 .talr{text-align:right;padding-right:6px;}
@@ -145,21 +147,16 @@ body {
 
 /**网易邮箱 按钮begin**/
 HTML > BODY .Btn {
-PADDING-RIGHT: 11px; PADDING-LEFT: 11px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; outline: none
+PADDING-RIGHT: 11px; PADDING-LEFT: 11px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; outline: none;
 }
-.Btn:focus:unknown {
-	BORDER-LEFT-COLOR: transparent; BORDER-BOTTOM-COLOR: transparent; BORDER-TOP-COLOR: transparent; BORDER-RIGHT-COLOR: transparent
-}
+
+.Btn:HOVER{cursor: pointer !important; cursor:hand}
 .Btn {
-	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #000 1px solid; PADDING-LEFT: 5px; BORDER-LEFT: #000 1px solid; CURSOR: hand; COLOR: #333; PADDING-TOP: 2px; BORDER-BOTTOM: #000 1px solid; FONT-FAMILY: "宋体"; HEIGHT: 22px; BACKGROUND-COLOR: #fff
+	BORDER-RIGHT: #000 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #000 1px solid; PADDING-LEFT: 5px; BORDER-LEFT: #000 1px solid; COLOR: #333; PADDING-TOP: 2px; BORDER-BOTTOM: #000 1px solid; FONT-FAMILY: "宋体"; HEIGHT: 22px; BACKGROUND-COLOR: #fff
 }
 .BtnNml {
 	BACKGROUND-POSITION: 0px -96px
 }
-.Btn,.ABtn{border:1px solid #72a1bd; background-color:#fff;}
-.BtnHv,.ABtn:hover{border:1px solid #A2904D; background-color:#fff;}
-/*--f2.gif，横向平铺--*/
-.F2Img,.HeadWp,.Btn,.BtnHv,.ABtn
-{background-image:url('../images/sys/f2.gif');background-repeat:repeat-x;}
+.Btn{border:1px solid #72a1bd; background-color:#fff;background-image:url('../images/sys/f2.gif');background-repeat:repeat-x;}
 
 /** 网易邮箱 按钮end*/

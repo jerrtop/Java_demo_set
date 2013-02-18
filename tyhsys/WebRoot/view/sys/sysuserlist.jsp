@@ -38,7 +38,7 @@
 				</table>
 			</div>
 			<div class="toolbtns">
-				<input class="Btn BtnNml" type="button" value="新 增"/><input class="Btn BtnNml" type="button" value="编 辑"/><input class="Btn BtnNml" type="button" value="删 除"/>
+				<input class="Btn BtnNml" type="button" value="新 增" /><input class="Btn BtnNml" type="button" value="编 辑"/><input class="Btn BtnNml" type="button" value="删 除"/>
 			</div>
 			<div class="listcond">
 				<table id="userTable"></table>
