@@ -5,7 +5,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <script type="text/javascript" src="js/jquery/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/sys/main.js"></script>
 </head>
 

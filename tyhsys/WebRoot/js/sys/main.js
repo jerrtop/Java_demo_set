@@ -100,14 +100,4 @@ function fetchMenuList() {
 	}
 }
 
-//弹出窗口
-function showWindow(selector,options){
-	$(selector).window(options);
-
-}
-//关闭弹出窗口
-function closeWindow(selector){
-	$(selector).window('close');
-
-}
 

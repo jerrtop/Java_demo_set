@@ -14,6 +14,7 @@ body {
 .textstyle{border:1px solid #7f9db9;height:16px;line-height:16px;padding-left:2px;vertical-align:middle;margin-left:3px;}
 .selectstyle{border:1px solid #7f9db9;height:22px;line-height:22px;vertical-align:middle;margin-left:3px;}
 .areastyle{border:1px solid #7f9db9;vertical-align:middle;margin:3px;}
+.chkstyle{vertical-align:middle;margin:3px;}
 
 .mybuttondiv {
 	border:1px solid #1393e9;
@@ -67,6 +68,8 @@ body {
 	padding:2px 0px;
 }
 
+.listcond{margin-top:3px;}
+
 .listitle{
 	height: 24px;
 	line-height: 24px;
@@ -76,11 +79,30 @@ body {
 	margin:5px 0px;
 }
 .toolbtns *{margin-right:15px;}
+/*------------- form 样式 ----------------*/
+.formcon{margin:0px 5px;}
+.tc_sysbox{background:#fff;margin:5px 5px}
+.menudiv{height:19px;padding-left:3%;padding-top:10px;border:1px solid #a7d0e6;border-bottom:none;}
+.menudiv a:link,.menudiv a:visited{display:block;float:left;margin-right:15px;width:78px;height:19px;line-height:19px;background:url(../../images/menubg.gif) no-repeat left bottom;text-decoration:none;text-align:center;color:#333;}
+.menudiv a:hover{text-decoration:underline;color:#128bcb;}
+.menudiv .my_movie_on a:link,.menudiv .my_movie_on a:visited{color:#128bcb;}
+.serchcondition{margin-bottom:2px;}
+.tablestyle{border:0px;width:100%;}
+.tablestyle td{height:30px;vertical-align:middle;}
+.tableborder{border-top:1px solid #cbdaed;border-left:1px solid #cbdaed;}
+.tableborder td{border-bottom:1px solid #cbdaed;border-right:1px solid #cbdaed;}
+.bgtd{background-color:#e2f0ff;}
+.star{color:red;font-weight:900;font-size:17px;vertical-align:middle;}
+.cdzy{display:none;height:auto;margin-bottom:2px;}
+.juzhong{display:block;margin:0px auto;}
+.juzhong *{margin-right:5px}
+.bgf{background-color:#fff;}
 
 .talr{text-align:right;padding-right:6px;}
 .tall{text-align:left;}
 .talc{text-align:center;}
 .wb10{width:10%;}
+.wb12{width:12%;}
 .wb13{width:13%;}
 .wb15{width:15%;}
 .wb20{width:20%;}
@@ -95,6 +117,7 @@ body {
 .wb90{width:90%;}
 .wb93{width:93%;}
 .wb95{width:95%;}
+.wb98{width:98%;}
 .wb100{width:100%;}
 .wauto{width:auto;}
 .w30{width:30px;}

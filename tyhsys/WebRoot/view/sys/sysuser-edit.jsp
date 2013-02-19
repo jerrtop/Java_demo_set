@@ -3,22 +3,50 @@
   <head>
   </head>
   <body>
-  	<!-- 验证还是jquery-validation好用，这里省事没用 -->
+	<!-- 验证还是jquery-validation好用，这里省事没用 -->
 	<form id="userForm" method="post" style="margin: 10;text-align: left;">
 		<input type="hidden" name="id" id="uuid">
-		账号：<input name="suUsername" style="width: 200" validType="length[3,30]" class="easyui-validatebox" required="true"> <br>
-		姓名：<input name="suNameCn" validType="length[3,30]" style="width:200px;" class="easyui-validatebox" required="true"></input><br>
-		密码：<input name="suPassword" style="width: 200" type="password"  validType="length[6,30]" class="easyui-validatebox" required="true"> <br>
-		激活：<input name="suAccEna" type="checkbox" value="Y"/><br>
-		创建员工：<input name="createPerson" type="checkbox" disabled value="Y"><br>
-		<br>
-		<span style="padding-left:40px;position:absolute;">
-			<div class="mybuttondiv" onclick="addOrUpdateUser();"><span class="mybutton_icon mybutton-bookmark"></span>保 存</div>
-			<div class="mybuttondiv" onclick="closeWindow('#MyPopWindow');"><span class="mybutton_icon mybutton-arrowreturn-1-s"></span>返 回</div>
-		</span>
+  		<div class="tc_sysbox">
+  			<table cellspacing="0" cellpadding="0" class="tablestyle tableborder">
+				<colgroup>
+					<col class="wb25 talr bgtd"></col>
+					<col></col>
+				</colgroup>
+				<tr>
+					<td><span class="star">*</span>账号:</td>
+					<td><input name="suUsername" validType="length[3,30]" class="textstyle wb80 easyui-validatebox" required="true"></td>
+				</tr>
+				<tr>
+					<td><span class="star">*</span>姓名:</td>
+					<td><input name="suNameCn" validType="length[3,30]" class="textstyle wb80 easyui-validatebox" required="true"></td>
+				</tr>
+				<tr>
+					<td><span class="star">*</span>密码:</td>
+					<td><input type="password" name="suPassword" validType="length[6,30]" class="textstyle wb80 easyui-validatebox" required="true"></td>
+				</tr>
+				<tr>
+					<td>激活:</td>
+					<td><input name="suAccEna" type="checkbox" value="Y"/></td>
+				</tr>
+				<tr>
+					<td>创建员工:</td>
+					<td><input name="createPerson" type="checkbox" disabled value="Y"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="bgf">
+							<div class="juzhong w150">
+								<input class="Btn BtnNml" type="button" value="保 存" onclick="addOrUpdateUser()"/>
+								<input class="Btn BtnNml" type="button" value="关 闭" onclick="closeWindow('#MyPopWindow')"/>
+							</div>
+					</td>
+				</tr>
+			</table>				
+		</div>
 	</form>
-  </body>
+	
+	<!-- 内嵌的页面无法支持src式导入的js，所以页面加载完成调用外部js函数 -->
 	<script type="text/javascript">
 		pageInit();
 	</script>
+  </body>
 </html>

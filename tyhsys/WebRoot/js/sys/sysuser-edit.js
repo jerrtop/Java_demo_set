@@ -10,7 +10,7 @@ function addOrUpdateUser(){
 		return false;
 	}
 	$.post("addOrUpdateUser",$("#userForm").serializeArray(),function(data){
-		$('#MyPopWindow').window('close');
+		closeWindow('#MyPopWindow');
 		$('#userTable').datagrid('reload');  
 		$.messager.alert('提示',data.mes,'info');
 	});

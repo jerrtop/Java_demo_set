@@ -6,17 +6,17 @@
   
   <body>
   	<!-- 验证还是jquery-validation好用，这里省事没用 -->
-<form id="menuForm" method="post" style="margin: 10;text-align: left;">
+<form id="menuForm" method="post">
 	<input type="hidden" name="id" id="uuid">
 	<div class="tc_sysbox">
 		<div id="iteminformationDiv">
-	        <div class="menudiv" style="width:98%"> 
+	        <div class="menudiv wb98"> 
 				<span class="my_movie_on" id="MovieInfoT1" onClick="PanShow('MovieInfo','my_movie',1,2);"> <a href="#">菜单信息</a> </span>
 				<span id="MovieInfoT2" onClick="PanShow('MovieInfo','my_movie',2,2);"> <a href="#">功能操作</a> </span>
 		  	</div>
 
-			<div id="MovieInfo1" class="serchcondition" style="width:98%">
-		       	<table cellspacing="0" cellpadding="0" class="prompt_table tablestyle tableborder">
+			<div id="MovieInfo1" class="serchcondition wb98">
+		       	<table cellspacing="0" cellpadding="0" class="tablestyle tableborder">
 			       	<colgroup>
 			       		<col class="wb15 talr bgtd" />
 			       		<col class="wb35" />
@@ -113,8 +113,8 @@
 				</table>
 			</div>
 			
-			<div class="cdzy" id="MovieInfo2"  style="width:98%">
-	  			<table cellspacing="0" cellpadding="0" class="prompt_table tablestyle tableborder">
+			<div class="cdzy wb98" id="MovieInfo2">
+	  			<table cellspacing="0" cellpadding="0" class="tablestyle tableborder">
 				  	<tr>
 						<td>
 							<div class="mybuttondiv" onClick="createUnit()"><span class="mybutton_icon mybutton-plusthick"></span>新建功能</div>
@@ -128,7 +128,7 @@
 				</table>
 			</div>
 			
-			<div style="padding-left:160px;position:absolute;padding-top:5px;">
+			<div class="frmfooterbar">
              	<div class="mybuttondiv" onclick="addOrUpdateMenu();"><span class="mybutton_icon mybutton-bookmark"></span>保 存</div>
 				<div class="mybuttondiv" onclick="closeWindow('#MyPopWindow');"><span class="mybutton_icon mybutton-arrowreturn-1-s"></span>返 回</div>
              </div>
