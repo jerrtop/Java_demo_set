@@ -1,6 +1,7 @@
 package com.fsj.spring.dao.impl;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -17,6 +18,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -34,7 +36,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 
 	protected void initDao() {
 	}
-
+	/**
+	 * 保存对象
+	 */
 	public void saveOrUpdate(Object transientInstance) {
 		log.debug("saving Object instance");
 		try {
@@ -47,7 +51,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 			throw re;
 		}
 	}
-
+	/**
+	 * 删除指定对象
+	 */
 	public void delete(Object persistentInstance) {
 		log.debug("deleting Object instance");
 		try {
@@ -58,7 +64,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 			throw re;
 		}
 	}
-
+	/**
+	 * 查询集合里的所有对象
+	 */
 	public void deleteAll(Collection entities) {
 		log.debug("deleting all Object instance");
 		try {
@@ -69,7 +77,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 			throw re;
 		}
 	}
-
+	/**
+	 * 通过ID查询对象
+	 */
 	public Object findById(Class clazz, Serializable id) {
 		log.debug("getting Object instance with id: " + id);
 		try {
@@ -80,7 +90,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 			throw re;
 		}
 	}
-
+	/**
+	 * 通过Example查询对象结合
+	 */
 	public List findByExample(Object instance) {
 		log.debug("finding instance by example");
 		try {
@@ -93,6 +105,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 		}
 	}
 
+	/**
+	 * 通过属性查询对象集合
+	 */
 	public List findByProperty(Class clazz, String propertyName, Object value) {
 		log.debug("finding " + clazz.getSimpleName() + "instance with property: " + propertyName + ", value: " + value);
 		try {
@@ -103,7 +118,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 			throw re;
 		}
 	}
-
+	/**
+	 * 查询所有对象集合
+	 */
 	public List findAll(Class clazz) {
 		log.debug("finding " + clazz.getSimpleName() + " all instances");
 		try {
@@ -114,7 +131,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 			throw re;
 		}
 	}
-
+	/**
+	 * HQL查询
+	 */
 	public List findByHQL(String hql, List pl) {
 		log.debug("finding instance by hql");
 		try {
@@ -126,6 +145,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 		return null;
 	}
 
+	/**
+	 * SQL更新
+	 */
 	public int updateBySQL(final String sql, final List pl) {
 		log.debug("updating instance by sql");
 		try {
@@ -148,7 +170,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 			throw re;
 		}
 	}
-
+	/**
+	 * 执行SQL，返回List<Map<String,Object>>结合
+	 */
 	public List findBySQl(final String sql, final List pl) {
 		HibernateCallback callback = new HibernateCallback() {
 			public Object doInHibernate(Session session) throws SQLException {
@@ -180,7 +204,9 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 		};
 		return (List) getHibernateTemplate().execute(callback);
 	}
-	
+	/**
+	 * 使用example查询分页
+	 */
 	public Map<String, Object> getPageListByExemple(DataGridModel dgm,Object instance) throws Exception{
 		Map<String, Object> result = new HashMap<String, Object>(2);
 		
@@ -192,46 +218,22 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 		result.put("rows", pagelist);
 		return result;
 	}
-	
+	/**
+	 * 通过hql查询分页
+	 * @param dgm dataGrid对象
+	 * @param countQuery 总行数HQL
+	 * @param resultQuery 查询结果集SQL
+	 * @param params	查询条件
+	 * @return	Map<String,Object>
+	 * @throws Exception
+	 */
 	@SuppressWarnings("rawtypes")
 	public Map<String, Object> getPageList(DataGridModel dgm,String countQuery,String resultQuery,Map<String,Object> params) throws Exception{
-		
 		Map<String, Object> result = new HashMap<String, Object>(2); 
-		//String totalQuery = "select count(*) from TUser user,TDept dept where user.deptId=dept.id "; 
-		//String fullQuery = "select new map(user as user,user.id as uid,dept.name as deptName) from TUser user,TDept dept where user.deptId=dept.id "; 
-		//这里需要用new map()，jquery easyui datagrid有一个小bug，必须把idField单独列出来，要不然不能多选
 		String orderString = "";
 		if(StringUtils.isNotBlank(dgm.getSort()))
 			orderString = " order by " + dgm.getSort() + " " + dgm.getOrder(); //排序
-		//增加条件
-		//StringBuffer sb = new StringBuffer();
-		//Map<String,Object> params = new HashMap<String,Object>();
-		/*
-		if(user != null) {
-			if(StringUtils.isNotBlank(user.getName())) {
-				sb.append(" and user.name like :userName");
-				params.put("userName", "%"+user.getName()+"%");
-			}
-			if(user.getAge() != null) {
-				sb.append(" and user.age = :age");
-				params.put("age", user.getAge());
-			}
-			if(user.getBirthday() != null) {
-				sb.append(" and user.birthday = :birthday");
-				params.put("birthday", user.getBirthday());
-			}
-			if(user.getDeptId() != null) {
-				sb.append(" and dept.id = :deptId");
-				params.put("deptId", user.getDeptId());
-			}
-		}
-		*/
-		
-		//查询总数可以用getHibernateTemplate()，我下面用的是createQuery
-		//Hibernate的动态条件查询用DetachedCriteria是一个比较好的解决
-//			List totalList = getHibernateTemplate().findByNamedParam(countQuery, params.keySet().toArray(new String[0]), params.values().toArray());
-//			int total = ((Long)totalList.iterator().next()).intValue();
-		
+
 		Query queryTotal = getSession().createQuery(countQuery);
 		Query queryList = getSession().createQuery(resultQuery + orderString)
 							.setFirstResult((dgm.getPage() - 1) * dgm.getRows()).setMaxResults(dgm.getRows());
@@ -242,9 +244,49 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 				queryTotal.setParameter(key, params.get(key));
 				queryList.setParameter(key, params.get(key));
 			}	
-		}			
-		int total = ((Long)queryTotal.uniqueResult()).intValue(); //这里必须先转成Long再取intValue，不能转成Integer
+		}
+		//这里必须先转成Long再取intValue，不能转成Integer
+		int total = ((Long)queryTotal.uniqueResult()).intValue();
 		
+		List list = queryList.list();
+		result.put("total", total);
+		result.put("rows", list);
+			
+		return result;
+	}
+	/**
+	 * 通过sql查询分页
+	 * @param dgm dataGrid对象
+	 * @param countQuery 总行数SQL
+	 * @param resultQuery 查询结果集SQL
+	 * @param params	查询条件
+	 * @return	Map<String,Object>
+	 * @throws Exception
+	 */
+	@SuppressWarnings("rawtypes")
+	public Map<String, Object> getPageListBySQL(DataGridModel dgm,String countSQL,String resultSQL,Map<String,Object> params) throws Exception{
+		Map<String, Object> result = new HashMap<String, Object>(2); 
+		String orderString = "";
+		if(StringUtils.isNotBlank(dgm.getSort()))
+			orderString = " order by " + dgm.getSort() + " " + dgm.getOrder(); //排序
+		
+		Query queryTotal = getSession().createSQLQuery(countSQL);
+		Query queryList = getSession().createSQLQuery(resultSQL + orderString).setFirstResult((dgm.getPage() - 1) * dgm.getRows()).setMaxResults(dgm.getRows());;
+		
+		if(params!=null && !params.isEmpty()){
+			Iterator<String> it = params.keySet().iterator();
+			while(it.hasNext()){					
+				String key = it.next();	
+				queryTotal.setParameter(key, params.get(key));
+				queryList.setParameter(key, params.get(key));
+			}	
+		}	
+		
+		List<BigInteger> totalList = queryTotal.list();
+		int total = totalList.get(0).intValue();
+		
+		//返回一个map,KEY:为DB中名称一致（大小写一致）
+		queryList.setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP); 
 		List list = queryList.list();
 		result.put("total", total);
 		result.put("rows", list);

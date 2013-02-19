@@ -11,7 +11,7 @@
 			striped: true, //奇偶行颜色不同
 			collapsible:false,//可折叠
 			url:"queryUserList", //数据来源
-			sortName: 'user.id', //排序的列
+			sortName: 'id', //排序的列
 			sortOrder: 'desc', //倒序
 			remoteSort: true, //服务器端排序
 			idField:'uid', //主键字段
@@ -21,23 +21,23 @@
 			rownumbers:true, //显示行号
 			columns:[[
 				{field:'ck',checkbox:true,width:2}, //显示复选框
-				{field:'user.suUsername',align:'center',title:'账号',width:20,sortable:true,
-					formatter:function(value,row,index){return row.user.suUsername;} //需要formatter一下才能显示正确的数据
+				{field:'SU_USERNAME',align:'center',title:'账号',width:20,sortable:true,
+					formatter:function(value,row,index){return row.SU_USERNAME;} //需要formatter一下才能显示正确的数据
 				},
-				{field:'user.suNameCn',align:'center',title:'姓名',width:20,sortable:true,
-					formatter:function(value,row,index){return row.user.suNameCn;}
+				{field:'SU_NAME_CN',align:'center',title:'姓名',width:20,sortable:true,
+					formatter:function(value,row,index){return row.SU_NAME_CN;}
 				},
-				{field:'user.suAccEna',align:'center',title:'激活',width:18,sortable:true,
-					formatter:function(value,row,index){return row.user.suAccEna == 'Y' ? '是' : '否'}
+				{field:'SU_ACC_ENA',align:'center',title:'激活',width:18,sortable:true,
+					formatter:function(value,row,index){return row.SU_ACC_ENA == 'Y' ? '是' : '否';}
 				},
-				{field:'user.crtC',align:'center',title:'创建人',width:20,sortable:true,
+				{field:'CRT_C',align:'center',title:'创建人',width:20,sortable:true,
 					formatter:function(value,row,index){
-						return row.user.crtC;
+						return row.CRT_C;
 					}
 				},
-				{field:'user.crtDate',align:'center',title:'创建时间',width:20,sortable:true,
+				{field:'CRT_DATE',align:'center',title:'创建时间',width:20,sortable:true,
 					formatter:function(value,row,index){
-						var date = new Date(row.user.crtDate);
+						var date = new Date(row.CRT_DATE);
 						return date.format('yyyy-MM-dd hh:mm:ss');
 					}
 				}
@@ -83,13 +83,6 @@
 		    //]]
 		//});
 
-		
-		//----------- 修改datagrid--------//
-		var beforeHeight = $("div[class='datagrid-view1']").find(".datagrid-body").height();
-		var currentHeight = beforeHeight - 5;
-		//$("div[class='datagrid-view1']").find(".datagrid-body").css({height:currentHeight});
-		//$("div[class='datagrid-view2']").find(".datagrid-body").css({height:currentHeight});
-		//alert($("div[class='datagrid-view2']").find("table").width());
 	});
 	
     //新增
@@ -110,7 +103,6 @@
   //更新
     function updaterow(){
 		var rows = $('#userTable').datagrid('getSelections');
-		//这里有一个jquery easyui datagrid的一个小bug，必须把主键单独列出来，要不然不能多选
 		if(rows.length==0 || rows.length > 1){
 			$.messager.alert('提示',"请选择一条记录,再进行操作.",'info');
 			return;
@@ -122,10 +114,16 @@
   			width:300,
   			height:250,
   			onLoad: function(){
-  			//自动将数据填充到表单中，无需再查询数据库，这里需要注意：
-  			//如果用的是struts2，它的表单元素的名称都是user.id这样的，那load的时候不能加.user要.form('load', rows[0]);
-  			//而spring mvc中表单元素的名称不带对象前缀，直拉就是id，所以这里load的时候是：.form('load', rows[0].user)
-  				$("#userForm").form('load', rows[0].user);
+  				//$("#userForm").form('load', rows[0]);//该方法适用于filed与表单控件name相同时，自动加载值
+  				
+  				$("#userForm input[name='id']").val(rows[0].uid);
+  				$("#userForm input[name='suUsername']").val(rows[0].SU_USERNAME);
+  				$("#userForm input[name='suNameCn']").val(rows[0].SU_NAME_CN);
+  				$("#userForm input[name='suPassword']").val(rows[0].SU_PASSWORD);
+  				var suAccEna = rows[0].SU_ACC_ENA;
+  				if(suAccEna != null && suAccEna != ""){
+  					$("#userForm input[name='suAccEna'][value='"+ suAccEna +"']").attr("checked",true);
+  				}
   			}
   		});
 	}

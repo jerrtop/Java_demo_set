@@ -42,7 +42,8 @@ public class UserController extends TUserAwareImpl {
 		//设置会话用户信息 ， 用于数据过滤
 		userService.setLoginUser(sessionUser);
 		
-		return userService.getPageList(dgm, user);
+		//return userService.getPageList(dgm, user);
+		return userService.getPageListBySQL(dgm, user);
 	}
 
 	@RequestMapping(value = "/sysuser-edit", method = RequestMethod.GET)

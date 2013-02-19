@@ -13,5 +13,9 @@ import com.fsj.spring.util.DataGridModel;
  */
 public interface UserService extends TService{
 	SysUser getUserByName(String name) throws Exception;
+	//这是使用HQL分页查询的例子
 	Map<String, Object> getPageList(DataGridModel dgm,SysUser user) throws Exception;
+	
+	//这是使用SQL分页查询的例子
+	Map<String, Object> getPageListBySQL(DataGridModel dgm,SysUser user) throws Exception;
 }

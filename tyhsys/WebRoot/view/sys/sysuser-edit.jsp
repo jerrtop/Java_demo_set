@@ -30,7 +30,7 @@
 				</tr>
 				<tr>
 					<td>创建员工:</td>
-					<td><input name="createPerson" type="checkbox" disabled value="Y"></td>
+					<td><input name="createPerson" type="checkbox" disabled = "disabled" value="Y" checked = "checked"></td>
 				</tr>
 				<tr>
 					<td colspan="2" class="bgf">

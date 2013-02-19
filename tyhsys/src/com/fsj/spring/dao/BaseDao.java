@@ -32,5 +32,7 @@ public interface BaseDao {
 	public Map<String, Object> getPageListByExemple(DataGridModel dgm, Object instance) throws Exception;
 
 	public Map<String, Object> getPageList(DataGridModel dgm, String countQuery, String resultQuery,Map<String , Object> params) throws Exception;
+	
+	public Map<String, Object> getPageListBySQL(DataGridModel dgm, String countQuery, String resultQuery,Map<String , Object> params) throws Exception;
 
 }
