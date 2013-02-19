@@ -44,9 +44,8 @@ Date.prototype.format = function(fmt){
 
 //Grid自适应宽度
 function gridWidthAdapter(selector) {
-	var t = document.documentElement.clientWidth;
 	window.onresize = function() {
-		var winW, winH;
+		var winW = 1000;
 		if (window.innerHeight) {
 			winW = window.innerWidth;
 		} else if (document.documentElement
@@ -57,7 +56,7 @@ function gridWidthAdapter(selector) {
 		}
 
 		//$(selector).jqGrid('setGridWidth', winW - 18);
-		$(selector).datagrid('resize',{width:winW-25});  
+		$(selector).datagrid('resize',{width:winW-5});  
 	}
 }
 

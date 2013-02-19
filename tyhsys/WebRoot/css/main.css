@@ -145,10 +145,20 @@ ul{
 #switchbar .switch_show {
 	background-image: url(../images/switch_show.gif);
 	top: 200px;
-	position: relative;
+	position: absolute;
 	left: 180px;
 	width: 7px;
 	height: 33px;
 	border: 0;
-	cursor: hand;
+	cursor: pointer !important; cursor:hand;
+}
+#switchbar .switch_hide {
+	background-image: url(../images/switch_hide.gif);
+	top: 200px;
+	position: absolute;
+	margin-left: 180px;
+	width: 7px;
+	height: 33px;
+	border: 0;
+	cursor: pointer !important; cursor:hand;
 }

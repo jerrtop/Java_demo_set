@@ -27,19 +27,21 @@ $(document).ready(function () {
 			changeMore = 1;
 		}
 	});
+	
+	//展开收起
 	$("#shouqi").toggle(function () {
-		$("#con_left").css({"left":"-208px"});
-		$("#sidebar").hide();
-		$("#con_right").css({"paddingLeft":"20px"});
-		$("#content").css({width:'98%'});
-		$("#shouqi img").attr("src", "img/sys/switch_right.gif");
+		$("#content_left").css({"margin-left":"-180px"});
+		$("#shouqi").attr("class", "switch_hide");
+		
+		$("#workplace").css({"margin-left":"20px"});
 	}, function () {
-		$("#con_left").css({"left":"-30"});
-		$("#sidebar").show();
-		$("#content").css({width:'85%'});
-		$("#con_right").css({"paddingLeft":"230"});
-		$("#shouqi img").attr("src", "img/sys/switch_left.gif");
+		$("#workplace").css({"margin-left":"200px"});
+		
+		$("#content_left").css({"margin-left":"0px"});
+		$("#shouqi").attr("class", "switch_show");
+		
 	});
+	
 });
 function setActiveMenu(obj) {
 	if (obj.hasClass("selectedli")) {

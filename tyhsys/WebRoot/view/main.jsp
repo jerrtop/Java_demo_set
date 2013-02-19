@@ -31,7 +31,7 @@
 <div id="content">
 	<div id="content_left">
 		<div id="switchbar">
-		  <img class="switch_show" title="打开/关闭左侧栏" ></img>  
+		  <img id="shouqi" class="switch_show" title="打开/关闭左侧栏" ></img>  
 		</div>
 		<div id="menu">
 			<div class="menuitem">
