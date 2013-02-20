@@ -2,7 +2,7 @@
     jQuery(function(){
     	gridWidthAdapter('#userTable');
 		$('#userTable').datagrid({
-			//title:'用户列表', //标题
+			title:'用户管理', //标题
 			method:'post',
 			//iconCls:'icon-edit', //图标
 			singleSelect:false, //多选

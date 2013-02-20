@@ -3,6 +3,8 @@ body {
 	font-size: 12px;
 	margin: 0px;
 	padding: 0px;
+	
+	/**background: #F1F1F1;*/
 }
 
 ul{
@@ -41,16 +43,18 @@ ul{
 
 #content #menu {
 	margin: 0;
-	padding-left: 10px;
+	/*padding-left: 10px;
 	padding-top: 8px;
-	padding-right: 10px;
-	width: 160px;
+	padding-right: 10px;*/
+	padding:0;
+	width: 180px;
 }
 #content #workplace {
 	margin-top: 5px;
 	padding: 0px 20px 0px 3px;
 	margin-left: 200px;
 	min-height: 500px;
+	background:#fff;
 }
 
 #header #logo {
@@ -108,21 +112,25 @@ ul{
 #menu .menuitem {
 	border: 1px solid #0099CC;
 	padding-right: 10px;
-	padding-bottom: 10px;
+	padding-bottom: 5px;
 }
 
 #menu .menuitem ul{
-	padding-left:20px;
+	padding-left:45px;
+	padding-top:5px;
+	list-style-image: url("../images/menu_li.gif");
 }
 .menuitem .fthmenu {
 	background-color: #0099CC;
 	width: 100%;
 	display: block;
-	padding-left: 10px;
+	padding-left: 13px;
 	font-weight: bold;
 	padding-bottom: 5px;
 	padding-top: 5px;
-	color: #FFFFFF;
+	color: #fff;
+	font-size:13px;
+	width:166px;
 }
 .menuitem li {
 	line-height: 25px;

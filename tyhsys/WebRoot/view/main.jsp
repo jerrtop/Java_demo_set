@@ -15,7 +15,7 @@
   	<div id="logo"><a><img src="images/logo.png"/></a></div>
     <div id="toprightbox">
 		<span class="userInfo">admin，欢迎您!</span>
-		<span class="sysbtn"><a href="#">[修改密码]</a><a href="#">[注销退出]</a></span>
+		<span class="sysbtn"><a href="#">[修改密码]</a><a href="user/loginOut">[注销退出]</a></span>
 	</div>
 	<div style="clear:both;"></div>
   </div>
