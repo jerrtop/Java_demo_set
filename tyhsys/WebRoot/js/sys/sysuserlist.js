@@ -1,7 +1,7 @@
 
     jQuery(function(){
-    	gridWidthAdapter('#userTable');
-		$('#userTable').datagrid({
+    	gridWidthAdapter('#listTable');
+		$('#listTable').datagrid({
 			title:'用户管理', //标题
 			method:'post',
 			//iconCls:'icon-edit', //图标
@@ -62,7 +62,7 @@
 //				}
 //			},'-'],
 			onLoadSuccess:function(){
-				$('#userTable').datagrid('clearSelections'); //一定要加上这一句，要不然datagrid会记住之前的选择状态，删除时会出问题
+				$('#listTable').datagrid('clearSelections');
 			}
 		});
     	
@@ -93,16 +93,16 @@
   			width:300,
   			height:250,
   			onLoad: function(){
-  				$('#userForm').form('clear');
-  				$('#userForm input[name="suAccEna"]').attr("checked",true);
-  				$('#userForm input[name="createPerson"]').attr("checked",true);
+  				$('#dataForm').form('clear');
+  				$('#dataForm input[name="suAccEna"]').attr("checked",true);
+  				$('#dataForm input[name="createPerson"]').attr("checked",true);
   			}
   			
   		});
 	}
   //更新
     function updaterow(){
-		var rows = $('#userTable').datagrid('getSelections');
+		var rows = $('#listTable').datagrid('getSelections');
 		if(rows.length==0 || rows.length > 1){
 			$.messager.alert('提示',"请选择一条记录,再进行操作.",'info');
 			return;
@@ -114,30 +114,32 @@
   			width:300,
   			height:250,
   			onLoad: function(){
-  				//$("#userForm").form('load', rows[0]);//该方法适用于filed与表单控件name相同时，自动加载值
-  				
-  				$("#userForm input[name='id']").val(rows[0].uid);
-  				$("#userForm input[name='suUsername']").val(rows[0].SU_USERNAME);
-  				$("#userForm input[name='suNameCn']").val(rows[0].SU_NAME_CN);
-  				$("#userForm input[name='suPassword']").val(rows[0].SU_PASSWORD);
-  				var suAccEna = rows[0].SU_ACC_ENA;
-  				if(suAccEna != null && suAccEna != ""){
-  					$("#userForm input[name='suAccEna'][value='"+ suAccEna +"']").attr("checked",true);
-  				}
+  				setformVals();
   			}
   		});
 	}
-  	
+    
+  	//编辑时，填充form值
+    function setformVals(){
+		$("#dataForm input[name='id']").val(rows[0].uid);
+		$("#dataForm input[name='suUsername']").val(rows[0].SU_USERNAME);
+		$("#dataForm input[name='suNameCn']").val(rows[0].SU_NAME_CN);
+		$("#dataForm input[name='suPassword']").val(rows[0].SU_PASSWORD);
+		var suAccEna = rows[0].SU_ACC_ENA;
+		if(suAccEna != null && suAccEna != ""){
+			$("#dataForm input[name='suAccEna'][value='"+ suAccEna +"']").attr("checked",true);
+		}
+    }
+    
   //删除
   	function deleterow(){
-  		var rows = $('#userTable').datagrid('getSelections');
+  		var rows = $('#listTable').datagrid('getSelections');
 		if(rows.length==0){
 			$.messager.alert('提示',"请选择记录,再进行操作.",'info');
 			return;
 		}
   		$.messager.confirm('提示','确定要删除吗?',function(result){
 	        if (result){
-	        	//var rows = $('#userTable').datagrid('getSelections');
 	        	var ps = "";
 	        	$.each(rows,function(i,n){
 	        		if(i==0) 
@@ -146,7 +148,7 @@
 	        			ps += "&uid="+n.uid;
 	        	});
 	        	$.post('deleteUsers'+ps,function(data){
-		        	$('#userTable').datagrid('reload'); 
+		        	$('#listTable').datagrid('reload'); 
 	        		$.messager.alert('提示',data.mes,'info');
 	        	});
 	        }
@@ -154,12 +156,12 @@
   	}
     //表格查询
 	function searchUser(){
-		var params = $('#userTable').datagrid('options').queryParams; //先取得 datagrid 的查询参数
+		var params = $('#listTable').datagrid('options').queryParams; //先取得 datagrid 的查询参数
 		var fields =$('#queryForm').serializeArray(); //自动序列化表单元素为JSON对象
 		$.each( fields, function(i, field){
 			params[field.name] = field.value; //设置查询参数
 		}); 
-		$('#userTable').datagrid('reload'); //设置好查询参数 reload 一下就可以了
+		$('#listTable').datagrid('reload'); //设置好查询参数 reload 一下就可以了
 	}
 	//清空查询条件
 	function clearForm(){

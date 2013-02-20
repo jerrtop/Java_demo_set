@@ -22,6 +22,7 @@
 			<div class="listsearch">
 			  <form id="queryForm">
 				<table class="querytable">
+					<!-- 
 				  <colgroup>
 				  	<col class="wb12"/>
 				  	<col />
@@ -30,22 +31,22 @@
 				  	<col class="wb13"/>
 				  	<col class="wb13"/>
 				  </colgroup>
+				   -->
 				  <tr>
 					<td class="talr">用户名:</td>
 					<td><input type="text"  class="textstyle" name="suUsername"/></td>
 					<td class="talr">姓名:</td>
 					<td><input type="text" class="textstyle" name="suNameCn"/></td>
-					<td class="talc"><input class="Btn BtnNml" type="button" value="查 询" onclick="searchUser()"/></td>
-					<td class="talc"><input class="Btn BtnNml" type="button" value="重 置" onclick="clearForm()"/></td>
+					<td class="talr"><input class="Btn BtnNml toolbtnalign" type="button" value="查 询" onclick="searchUser()"/><input class="Btn BtnNml toolbtnalign" type="button" value="重 置" onclick="clearForm()"/></td>
 				  </tr>
 				</table>
 			  </form>
 			</div>
 			<div class="toolbtns">
-				<input class="Btn BtnNml" type="button" value="新 增" onclick="addrow()"/><input class="Btn BtnNml" type="button" value="编 辑" onclick="updaterow()"/><input class="Btn BtnNml" type="button" value="删 除" onclick="deleterow()"/>
+				<input class="Btn BtnNml toolbtnalign" type="button" value="新 增" onclick="addrow()"/><input class="Btn BtnNml toolbtnalign" type="button" value="编 辑" onclick="updaterow()"/><input class="Btn BtnNml toolbtnalign" type="button" value="删 除" onclick="deleterow()"/>
 			</div>
 			<div class="listcond">
-				<table id="userTable"></table>
+				<table id="listTable"></table>
 			</div>
 		</div>
 

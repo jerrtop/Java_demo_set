@@ -5,13 +5,13 @@ function pageInit(){
 }
 
 function addOrUpdateUser(){
-	var r = $('#userForm').form('validate');
+	var r = $('#dataForm').form('validate');
 	if(!r) {
 		return false;
 	}
-	$.post("addOrUpdateUser",$("#userForm").serializeArray(),function(data){
+	$.post("addOrUpdateUser",$("#dataForm").serializeArray(),function(data){
 		closeWindow('#MyPopWindow');
-		$('#userTable').datagrid('reload');  
+		$('#listTable').datagrid('reload');  
 		$.messager.alert('提示',data.mes,'info');
 	});
 }

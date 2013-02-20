@@ -78,12 +78,12 @@ body {
 .toolbtns{
 	margin:5px 0px;
 }
-.toolbtns *{margin-right:15px;}
+.toolbtnalign{margin-right:10px;}
 /*------------- form 样式 ----------------*/
 .formcon{margin:0px 5px;}
 .tc_sysbox{background:#fff;margin:5px 5px}
 .menudiv{height:19px;padding-left:3%;padding-top:10px;border:1px solid #a7d0e6;border-bottom:none;}
-.menudiv a:link,.menudiv a:visited{display:block;float:left;margin-right:15px;width:78px;height:19px;line-height:19px;background:url(../../images/menubg.gif) no-repeat left bottom;text-decoration:none;text-align:center;color:#333;}
+.menudiv a:link,.menudiv a:visited{display:block;float:left;margin-right:15px;width:78px;height:19px;line-height:19px;background:url(../images/sys/formmenubg.gif) no-repeat left bottom;text-decoration:none;text-align:center;color:#333;}
 .menudiv a:hover{text-decoration:underline;color:#128bcb;}
 .menudiv .my_movie_on a:link,.menudiv .my_movie_on a:visited{color:#128bcb;}
 .serchcondition{margin-bottom:2px;}
@@ -98,7 +98,7 @@ body {
 .juzhong *{margin-right:5px}
 .bgf{background-color:#fff;}
 
-.talr{text-align:right;padding-right:6px;}
+.talr{text-align:right;padding-right:6px;padding-left:16px;}
 .tall{text-align:left;}
 .talc{text-align:center;}
 .wb10{width:10%;}

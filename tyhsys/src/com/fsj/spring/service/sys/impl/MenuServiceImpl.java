@@ -25,24 +25,25 @@ public class MenuServiceImpl extends TServiceImpl implements MenuService {
 	 *@return
 	 *@throws Exception
 	 */
-	public Map<String, Object> getPageList(DataGridModel dgm, SysMenu menu) throws Exception {
-		String totalQuery = "select count(*) from SysMenu menu";
-		String fullQuery = "select new map(menu as menu,menu.id as uid) from SysMenu menu";
+	public Map<String, Object> getPageListBySQL(DataGridModel dgm, SysMenu menu) throws Exception {
+		String totalQuery = "select count(*) from sys_menu menu";
+		//多表查询的例子
+		String fullQuery = "select menu.*,menu.id as uid,parent.sm_name as parentMenuName from sys_menu menu left join sys_menu parent on menu.sm_parent = parent.sm_code ";
 		StringBuffer sb = new StringBuffer();
 		Map<String, Object> params = new HashMap<String, Object>();
 
 		if (menu != null) {
 			if (StringUtils.isNotBlank(menu.getSmCode())) {
-				sb.append(" and menu.smCode like :smCode");
+				sb.append(" and menu.SM_CODE like :smCode");
 				params.put("smCode", "%" + menu.getSmCode() + "%");
 			}
 			if (StringUtils.isNotBlank(menu.getSmName())) {
-				sb.append(" and menu.smName like :smName");
+				sb.append(" and menu.SM_NAME like :smName");
 				params.put("smName", "%" + menu.getSmName() + "%");
 			}
-			if (StringUtils.isNotBlank(menu.getSmTitle())) {
-				sb.append(" and menu.smTitle like :smTitle");
-				params.put("smTitle", "%" + menu.getSmTitle() + "%");
+			if (StringUtils.isNotBlank(menu.getSmParent())) {
+				sb.append(" and menu.SM_PARENT like :smParent");
+				params.put("smParent", "%" + menu.getSmParent() + "%");
 			}
 		}
 
@@ -52,7 +53,7 @@ public class MenuServiceImpl extends TServiceImpl implements MenuService {
 		}
 		totalQuery += sb.toString();
 		fullQuery += sb.toString();
-		return baseDao.getPageList(dgm, totalQuery, fullQuery, params);
+		return baseDao.getPageListBySQL(dgm, totalQuery, fullQuery, params);
 	}
 
 }

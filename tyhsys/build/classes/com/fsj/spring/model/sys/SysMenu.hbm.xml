@@ -18,15 +18,10 @@
         </property>
         <property name="smTitle" type="java.lang.String">
             <column name="SM_TITLE" length="100" />
-        </property>
-        <!-- 
+        </property> 
         <property name="smParent" type="java.lang.String">
             <column name="SM_PARENT" length="30" />
         </property>
-         -->
-        <many-to-one name="parentMenu" class="com.fsj.spring.model.sys.SysMenu" fetch="join" not-found="ignore"> <!-- 必须加 not-found配置 -->
-        	<column name="SM_PARENT" length="30"></column>
-        </many-to-one>
         <property name="smPage" type="java.lang.String">
             <column name="SM_PAGE" length="100" />
         </property>

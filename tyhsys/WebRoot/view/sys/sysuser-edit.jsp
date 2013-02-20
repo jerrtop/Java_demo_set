@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html>
-  <head>
-  </head>
   <body>
 	<!-- 验证还是jquery-validation好用，这里省事没用 -->
-	<form id="userForm" method="post" style="margin: 10;text-align: left;">
+	<form id="dataForm" method="post" style="margin: 10;text-align: left;">
 		<input type="hidden" name="id" id="uuid">
   		<div class="tc_sysbox">
   			<table cellspacing="0" cellpadding="0" class="tablestyle tableborder">
@@ -32,8 +30,10 @@
 					<td>创建员工:</td>
 					<td><input name="createPerson" type="checkbox" disabled = "disabled" value="Y" checked = "checked"></td>
 				</tr>
+			</table>
+			<table cellspacing="0" cellpadding="0" class="tablestyle">
 				<tr>
-					<td colspan="2" class="bgf">
+					<td class="bgf">
 							<div class="juzhong w150">
 								<input class="Btn BtnNml" type="button" value="保 存" onclick="addOrUpdateUser()"/>
 								<input class="Btn BtnNml" type="button" value="关 闭" onclick="closeWindow('#MyPopWindow')"/>

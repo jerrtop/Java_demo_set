@@ -21,9 +21,7 @@ public class SysMenu implements java.io.Serializable {
 
 	private String smTitle;
 
-	//private String smParent;
-	
-	private SysMenu parentMenu;
+	private String smParent;
 
 	private String smPage;
 
@@ -45,13 +43,16 @@ public class SysMenu implements java.io.Serializable {
 		super();
 	}
 
-	public SysMenu(Long id, String smName, String smCode, String smTitle, String smParent, String smPage, String smContainPage, String smIsUsed, String smIsTop, String smDescription, String crtC, Date crtDate, Set<SysMenuOper> sysMenuOpers) {
+	public SysMenu(Long id, String smName, String smCode, String smTitle,
+			String smParent, String smPage, String smContainPage,
+			String smIsUsed, String smIsTop, String smDescription, String crtC,
+			Date crtDate, Set<SysMenuOper> sysMenuOpers) {
 		super();
 		this.id = id;
 		this.smName = smName;
 		this.smCode = smCode;
 		this.smTitle = smTitle;
-		//this.smParent = smParent;
+		this.smParent = smParent;
 		this.smPage = smPage;
 		this.smContainPage = smContainPage;
 		this.smIsUsed = smIsUsed;
@@ -60,6 +61,86 @@ public class SysMenu implements java.io.Serializable {
 		this.crtC = crtC;
 		this.crtDate = crtDate;
 		this.sysMenuOpers = sysMenuOpers;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getSmName() {
+		return smName;
+	}
+
+	public void setSmName(String smName) {
+		this.smName = smName;
+	}
+
+	public String getSmCode() {
+		return smCode;
+	}
+
+	public void setSmCode(String smCode) {
+		this.smCode = smCode;
+	}
+
+	public String getSmTitle() {
+		return smTitle;
+	}
+
+	public void setSmTitle(String smTitle) {
+		this.smTitle = smTitle;
+	}
+
+	public String getSmParent() {
+		return smParent;
+	}
+
+	public void setSmParent(String smParent) {
+		this.smParent = smParent;
+	}
+
+	public String getSmPage() {
+		return smPage;
+	}
+
+	public void setSmPage(String smPage) {
+		this.smPage = smPage;
+	}
+
+	public String getSmContainPage() {
+		return smContainPage;
+	}
+
+	public void setSmContainPage(String smContainPage) {
+		this.smContainPage = smContainPage;
+	}
+
+	public String getSmIsUsed() {
+		return smIsUsed;
+	}
+
+	public void setSmIsUsed(String smIsUsed) {
+		this.smIsUsed = smIsUsed;
+	}
+
+	public String getSmIsTop() {
+		return smIsTop;
+	}
+
+	public void setSmIsTop(String smIsTop) {
+		this.smIsTop = smIsTop;
+	}
+
+	public String getSmDescription() {
+		return smDescription;
+	}
+
+	public void setSmDescription(String smDescription) {
+		this.smDescription = smDescription;
 	}
 
 	public String getCrtC() {
@@ -78,86 +159,6 @@ public class SysMenu implements java.io.Serializable {
 		this.crtDate = crtDate;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getSmCode() {
-		return smCode;
-	}
-
-	public void setSmCode(String smCode) {
-		this.smCode = smCode;
-	}
-
-	public String getSmContainPage() {
-		return smContainPage;
-	}
-
-	public void setSmContainPage(String smContainPage) {
-		this.smContainPage = smContainPage;
-	}
-
-	public String getSmDescription() {
-		return smDescription;
-	}
-
-	public void setSmDescription(String smDescription) {
-		this.smDescription = smDescription;
-	}
-
-	public String getSmIsTop() {
-		return smIsTop;
-	}
-
-	public void setSmIsTop(String smIsTop) {
-		this.smIsTop = smIsTop;
-	}
-
-	public String getSmIsUsed() {
-		return smIsUsed;
-	}
-
-	public void setSmIsUsed(String smIsUsed) {
-		this.smIsUsed = smIsUsed;
-	}
-
-	public String getSmName() {
-		return smName;
-	}
-
-	public void setSmName(String smName) {
-		this.smName = smName;
-	}
-
-	public String getSmPage() {
-		return smPage;
-	}
-
-	public void setSmPage(String smPage) {
-		this.smPage = smPage;
-	}
-
-//	public String getSmParent() {
-//		return smParent;
-//	}
-//
-//	public void setSmParent(String smParent) {
-//		this.smParent = smParent;
-//	}
-
-	public String getSmTitle() {
-		return smTitle;
-	}
-
-	public void setSmTitle(String smTitle) {
-		this.smTitle = smTitle;
-	}
-
 	public Set<SysMenuOper> getSysMenuOpers() {
 		return sysMenuOpers;
 	}
@@ -166,13 +167,7 @@ public class SysMenu implements java.io.Serializable {
 		this.sysMenuOpers = sysMenuOpers;
 	}
 
-	public SysMenu getParentMenu() {
-		return parentMenu;
-	}
-
-	public void setParentMenu(SysMenu parentMenu) {
-		this.parentMenu = parentMenu;
-	}
+	
 
 
 }

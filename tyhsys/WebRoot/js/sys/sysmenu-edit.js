@@ -4,14 +4,14 @@ function pageInit(){
 	//alert($('#userForm').length);
 }
 
-function addOrUpdateMenu(){
-	var r = $('#menuForm').form('validate');
+function addOrUpdate(){
+	var r = $('#dataForm').form('validate');
 	if(!r) {
 		return false;
 	}
-	$.post("addOrUpdateMenu",$("#menuForm").serializeArray(),function(data){
+	$.post("addOrUpdateMenu",$("#dataForm").serializeArray(),function(data){
 		$('#MyPopWindow').window('close');
-		$('#menuTable').datagrid('reload');  
+		$('#listTable').datagrid('reload');  
 		$.messager.alert('提示',data.mes,'info');
 	});
 }

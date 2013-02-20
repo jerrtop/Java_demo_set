@@ -37,7 +37,7 @@ public class MenuController extends TUserAwareImpl {
 	@ResponseBody
 	public Map<String, Object> queryList(DataGridModel dgm, SysMenu menu) throws Exception {
 		// spring可以自动装配两个对象 会自动的装返回的Map转换成JSON对象
-		return menuService.getPageList(dgm, menu);
+		return menuService.getPageListBySQL(dgm, menu);
 	}
 
 	@RequestMapping(value = "/sysmenu-edit", method = RequestMethod.GET)
