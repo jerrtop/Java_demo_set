@@ -114,18 +114,18 @@
   			width:300,
   			height:250,
   			onLoad: function(){
-  				setformVals();
+  				setformVals(rows[0]);
   			}
   		});
 	}
     
   	//编辑时，填充form值
-    function setformVals(){
-		$("#dataForm input[name='id']").val(rows[0].uid);
-		$("#dataForm input[name='suUsername']").val(rows[0].SU_USERNAME);
-		$("#dataForm input[name='suNameCn']").val(rows[0].SU_NAME_CN);
-		$("#dataForm input[name='suPassword']").val(rows[0].SU_PASSWORD);
-		var suAccEna = rows[0].SU_ACC_ENA;
+    function setformVals(dataRow){
+		$("#dataForm input[name='id']").val(dataRow.uid);
+		$("#dataForm input[name='suUsername']").val(dataRow.SU_USERNAME);
+		$("#dataForm input[name='suNameCn']").val(dataRow.SU_NAME_CN);
+		$("#dataForm input[name='suPassword']").val(dataRow.SU_PASSWORD);
+		var suAccEna = dataRow.SU_ACC_ENA;
 		if(suAccEna != null && suAccEna != ""){
 			$("#dataForm input[name='suAccEna'][value='"+ suAccEna +"']").attr("checked",true);
 		}

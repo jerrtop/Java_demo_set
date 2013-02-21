@@ -21,6 +21,13 @@ public interface BaseDao {
 
 	public List findByProperty(Class clazz, String propertyName, Object value);
 
+	/**
+	 * 查询记录数
+	 * @param sql 查询记录数的sql
+	 * @param pl 查询值集合
+	 */
+	public Integer findObjectsCount(String sql,List pl );
+	
 	public List findAll(Class clazz);
 
 	public List findByHQL(String hql, List pl);

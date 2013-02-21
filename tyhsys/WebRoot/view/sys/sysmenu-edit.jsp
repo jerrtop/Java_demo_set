@@ -21,13 +21,13 @@
 							<span class="star">*</span>编码:
 						</td>
 						<td valign="middle">
-								<input type="text" class="textstyle wb80 easyui-validatebox" name="smCode" validType="length[3,30]" required="true"/>
+								<input type="text" class="textstyle wb80 easyui-validatebox" name="smCode" validType="length[2,30]" required="true" onblur="checkUnique(this)"/>
 						</td>
 					</tr>
 					<tr>
 						<td><span class="star">*</span>菜单名称:</td>
 						<td>
-								<input type="text" class="textstyle wb80 easyui-validatebox" name="smName" validType="length[3,30]" required="true"/>
+								<input type="text" class="textstyle wb80 easyui-validatebox" name="smName" validType="length[1,30]" required="true"/>
 						</td>
 					</tr>
 					<!-- 
@@ -45,7 +45,7 @@
 							父菜单:
 						</td>
 						<td>
-								<input type="text" name="smParent" class="textstyle wb80 easyui-validatebox" validType="length[0,30]"  />
+								<input type="text" name="smParent" class="textstyle wb80 easyui-validatebox" validType="length[0,30]"  onblur="checkUnique(this)" />
 						</td>
 					</tr>
 					<tr>
@@ -66,10 +66,10 @@
 					</tr>
 					<tr>
 						<td>
-							<span class="star">*</span>链接页面:
+							菜单URL:
 						</td>
 						<td>
-								<input type="text" class="textstyle wb80 easyui-validatebox" name="smPage"  validType="length[1,100]" required="true"/>
+								<input type="text" class="textstyle wb80 easyui-validatebox" name="smPage"  validType="length[0,100]"/>
 						</td>
 						
 					</tr>
@@ -110,5 +110,11 @@
 			</table>
 		</div>
 	</form>
+	
+	<!-- 
+	<script type="text/javascript">
+		pageInit();// 页面加载完毕执行，body onLoad也不行，必须这么调用
+	</script>
+	 -->
   </body>
 </html>

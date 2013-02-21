@@ -14,4 +14,6 @@ import com.fsj.spring.util.DataGridModel;
 public interface MenuService extends TService{
 	//这是使用SQL分页查询的例子
 	Map<String, Object> getPageListBySQL(DataGridModel dgm,SysMenu menu) throws Exception;
+
+	int checkUnique(String checkProperty,Object toBeCheckVal);
 }

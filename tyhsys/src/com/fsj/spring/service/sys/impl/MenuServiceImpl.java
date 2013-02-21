@@ -1,10 +1,12 @@
 package com.fsj.spring.service.sys.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
+
 
 import com.fsj.spring.model.sys.SysMenu;
 import com.fsj.spring.service.TServiceImpl;
@@ -54,6 +56,24 @@ public class MenuServiceImpl extends TServiceImpl implements MenuService {
 		totalQuery += sb.toString();
 		fullQuery += sb.toString();
 		return baseDao.getPageListBySQL(dgm, totalQuery, fullQuery, params);
+	}
+	
+	/**
+	 *检查值唯一性
+	 *@param property 被检查的属性
+	 *@param toBeCheckVal 被检查的值
+	 *@return String 
+	 */
+	@Override
+	public int checkUnique(String property,Object toBeCheckVal) {
+		String countSql = "select count(*) from sys_menu menu where " + property + "= ?";
+		java.util.List pl = new ArrayList();
+		pl.add(toBeCheckVal);
+		int count = baseDao.findObjectsCount(countSql,pl);
+		if(count >=1){
+			count = 1;
+		}
+		return count;
 	}
 
 }

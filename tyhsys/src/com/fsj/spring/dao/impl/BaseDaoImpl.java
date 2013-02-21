@@ -118,6 +118,30 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 			throw re;
 		}
 	}
+	
+	/**
+	 * 查询记录数
+	 * @param sql 查询记录数的sql
+	 * @param pl 查询值集合
+	 */
+	public Integer findObjectsCount(String sql,List pl ) {
+		log.debug("finding objectsCount by sql : " + sql);
+		try {
+			SQLQuery queryCount = getSession().createSQLQuery(sql);
+			if(pl != null && !pl.isEmpty()){
+				for (int i = 0; i < pl.size(); i++) {
+					queryCount.setParameter(i, pl.get(i));
+				}
+			}
+			List<BigInteger> countList = queryCount.list();
+			int count = countList.get(0).intValue();
+			return count;
+		} catch (RuntimeException re) {
+			log.error("find objectsCount by sql : "+ sql +" , failed", re);
+			throw re;
+		}
+	}
+	
 	/**
 	 * 查询所有对象集合
 	 */

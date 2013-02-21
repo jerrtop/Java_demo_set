@@ -27,11 +27,23 @@
 				{field:'SM_NAME',title:'菜单名称',width:28,sortable:true,
 					formatter:function(value,row,index){return row.SM_NAME;}
 				},
-				{field:'SM_PAGE',title:'菜单页面',width:28,sortable:true,
+				{field:'SM_PAGE',title:'菜单URL',width:28,sortable:true,
 					formatter:function(value,row,index){return row.SM_PAGE;}
 				},
+				{field:'SM_PARENT',hidden:true,//隐藏列
+					formatter:function(value,row,index){return row.SM_PARENT;}
+				},
+				{field:'SM_DESCRIPTION',hidden:true,//隐藏列
+					formatter:function(value,row,index){return row.SM_DESCRIPTION;}
+				},
+				{field:'SM_IS_TOP',hidden:true,//隐藏列
+					formatter:function(value,row,index){return row.SM_IS_TOP;}
+				},
+				{field:'SM_IS_USED',hidden:true,//隐藏列
+					formatter:function(value,row,index){return row.SM_IS_USED;}
+				},
 				{field:'parentMenuName',title:'上级菜单',width:28,sortable:true,
-					formatter:function(value,row,index){return (row.parentMenuName == null ? '': row.parentMenuName);}
+					formatter:function(value,row,index){return row.parentMenuName;}
 				},
 				{field:'CRT_C',title:'创建人',width:15,sortable:true,
 					formatter:function(value,row,index){
@@ -61,13 +73,13 @@
   			height:380,
   			onLoad: function(){
   				$('#dataForm').form('clear');
-  				//$('#dataForm input[name="suAccEna"]').attr("checked",true);
-  				//$('#dataForm input[name="createPerson"]').attr("checked",true);
+  				$('#dataForm input[name="suIsUsed"]').attr("checked",true);
   			}
   			
   		});
 	}
-  //更新
+    
+    //更新
     function updaterow(){
 		var rows = $('#listTable').datagrid('getSelections');
 		if(rows.length==0 || rows.length > 1){
@@ -81,12 +93,34 @@
   			width:450,
   			height:380,
   			onLoad: function(){
-  				$("#menuForm").form('load', rows[0].menu);
+  				setformVals(rows[0]);
   			}
   		});
 	}
   	
-  //删除
+    //编辑时，填充form值
+    function setformVals(dataRow){
+    	//编码不允许更改，并取消唯一验证事件
+    	$("#dataForm input[name='smCode']").attr("disabled",true);
+    	$("#dataForm input[name='smCode']").unbind("blur");//取消失去焦点事件
+    	
+		$("#dataForm input[name='id']").val(dataRow.uid);
+		$("#dataForm input[name='smCode']").val(dataRow.SM_CODE);
+		$("#dataForm input[name='smName']").val(dataRow.SM_NAME);
+		$("#dataForm input[name='smParent']").val(dataRow.SM_PARENT == null ? '':dataRow.SM_PARENT);
+		var smIsUsed = dataRow.SM_IS_USED;
+		if(smIsUsed != null && smIsUsed != ""){
+			$("#dataForm input[name='smIsUsed'][value='"+ smIsUsed +"']").attr("checked",true);
+		}
+		var smIsTop = dataRow.SM_IS_TOP;
+		if(smIsTop != null && smIsTop != ""){
+			$("#dataForm input[name='smIsTop'][value='"+ smIsTop +"']").attr("checked",true);
+		}
+		$("#dataForm input[name='smPage']").val(dataRow.SM_PAGE == null ? '':dataRow.SM_PAGE);
+		$("#dataForm textarea[name='smDescription']").val(dataRow.SM_DESCRIPTION == null ? '':dataRow.SM_DESCRIPTION);
+    }
+    
+    //删除
   	function deleterow(){
   		var rows = $('#listTable').datagrid('getSelections');
 		if(rows.length==0){

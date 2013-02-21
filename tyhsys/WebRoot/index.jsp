@@ -23,7 +23,7 @@
 	}
 </script>
 </HEAD>
-<BODY id=userlogin_body>
+<BODY id=userlogin_body onkeydown="login()">
 	<DIV></DIV>
 
 	<DIV id=user_login>

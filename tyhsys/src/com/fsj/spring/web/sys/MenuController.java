@@ -47,7 +47,7 @@ public class MenuController extends TUserAwareImpl {
 
 	@RequestMapping(value = "/addOrUpdateMenu", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, String> addOrUpdate(SysMenu menu, HttpSession session) throws Exception {
+	public Map<String, String> addOrUpdate(SysMenu menu) throws Exception {
 		// spring会利用jackson自动将返回值封装成JSON对象
 		Map<String, String> map = new HashMap<String, String>();
 		try {
@@ -62,6 +62,22 @@ public class MenuController extends TUserAwareImpl {
 		return map;
 	}
 
+	@RequestMapping(value = "/checkUnique", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> checkUnique(@RequestParam("checkProperty") String checkProperty,@RequestParam("checkValue") String toBeCheckVal) throws Exception {
+		Map map = new HashMap();
+		try {
+			menuService.setLoginUser(sessionUser);//dao保存操作，自动增加创建人
+			int result = menuService.checkUnique(checkProperty,toBeCheckVal);// result: 0 不存在	1 存在
+			map.put("mes", result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("mes", "操作失败，请联系管理员。");
+			throw e;
+		}
+		return map;
+	}
+	
 	@RequestMapping(value = "/deleteMenus", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, String> delete(@RequestParam("uid") List<Long> uid) throws Exception {
