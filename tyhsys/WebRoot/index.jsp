@@ -21,9 +21,17 @@
 		
 		document.getElementById("loginForm").submit();
 	}
+	
+	// 回车绑定登录事件
+	document.onkeydown = function(e){
+		if(!e)
+			e = window.event;
+		if((e.keyCode || e.which) == 13)
+			login();
+	};
 </script>
 </HEAD>
-<BODY id=userlogin_body onkeydown="login()">
+<BODY id=userlogin_body>
 	<DIV></DIV>
 
 	<DIV id=user_login>

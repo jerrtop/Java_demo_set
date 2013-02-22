@@ -1,7 +1,6 @@
 package com.fsj.spring.model.sys;
 // default package
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,7 +34,7 @@ public class SysMenu implements java.io.Serializable {
 
 	private String crtC;
 
-	private Date crtDate;
+	private String crtDate;
 	
 	private Set<SysMenuOper> sysMenuOpers = new HashSet<SysMenuOper>(0);
 
@@ -46,7 +45,7 @@ public class SysMenu implements java.io.Serializable {
 	public SysMenu(Long id, String smName, String smCode, String smTitle,
 			String smParent, String smPage, String smContainPage,
 			String smIsUsed, String smIsTop, String smDescription, String crtC,
-			Date crtDate, Set<SysMenuOper> sysMenuOpers) {
+			String crtDate, Set<SysMenuOper> sysMenuOpers) {
 		super();
 		this.id = id;
 		this.smName = smName;
@@ -151,11 +150,11 @@ public class SysMenu implements java.io.Serializable {
 		this.crtC = crtC;
 	}
 
-	public Date getCrtDate() {
+	public String getCrtDate() {
 		return crtDate;
 	}
 
-	public void setCrtDate(Date crtDate) {
+	public void setCrtDate(String crtDate) {
 		this.crtDate = crtDate;
 	}
 

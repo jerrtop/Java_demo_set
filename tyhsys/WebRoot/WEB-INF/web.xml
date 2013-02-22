@@ -29,6 +29,22 @@
 		<filter-name>Set Character Encoding</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+	<!-- 
+	opensessioninview是结合 hibernateTemplete在存在延迟加载的情况下来用的 
+	由于模板方法中hibernatepemplete默认打开一个session并在并在最后关闭session 
+	这时候用hibernatepemplete如果取到一个对象A该对象内存在延迟加载的对象B 而想要调用A.getB()的话就会出现显示session已经关闭。 
+	opensessioninview 主要为了解决该问题~~~~~~~~~~~~~~~是的session在请求完毕最后关闭。
+	 -->
+	<filter>
+		<filter-name>hibernateFilter</filter-name>
+		<filter-class>
+			 org.springframework.orm.hibernate3.support.OpenSessionInViewFilter
+		</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>hibernateFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	
 	<!-- 默认所对应的配置文件是WEB-INF下的{servlet-name}-servlet.xml，这里便是：spring3-servlet.xml -->
 	<servlet>

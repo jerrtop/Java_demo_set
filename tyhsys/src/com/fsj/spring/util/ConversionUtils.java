@@ -64,21 +64,16 @@ public class ConversionUtils {
 					e.printStackTrace();
 				}
 
-				if (result == null
-						&& (returnClass.equals(Date.class) || returnClass.equals(String.class) || methodName.equals("setCrtC") || methodName
+				if (result == null && (returnClass.equals(Date.class) || returnClass.equals(String.class) || methodName.equals("setCrtC") || methodName
 								.equals("setCrtDate")))
 					continue;
 
-				try {
-					if (result != null) {
-						goalMethod = goalClass.getMethod(methodName, convertToNeedType(new Class[] { result.getClass() }));
-					} else {
-						goalMethod = goalClass.getMethod(methodName, new Class[] { returnClass });
-					}
-					goalMethod.invoke(goal, new Object[] { result });
-				} catch (RuntimeException e) {
-					e.printStackTrace();
+				if (result != null) {
+					goalMethod = goalClass.getMethod(methodName, convertToNeedType(new Class[] { result.getClass() }));
+				} else {
+					goalMethod = goalClass.getMethod(methodName, new Class[] { returnClass });
 				}
+				goalMethod.invoke(goal, new Object[] { result });
 
 			}
 		}
@@ -106,7 +101,6 @@ public class ConversionUtils {
 				convertType[i] = float.class;
 			else if (argsType[i].equals(HashSet.class))
 				convertType[i] = Set.class;
-
 			else
 				convertType[i] = argsType[i];
 		}

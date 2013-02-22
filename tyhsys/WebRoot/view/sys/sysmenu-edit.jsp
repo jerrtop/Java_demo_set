@@ -84,16 +84,34 @@
 				</table>
 			</div>
 			
-			<div class="cdzy wb98" id="MovieInfo2">
+			<div class="cdzy" id="MovieInfo2">
 	  			<table cellspacing="0" cellpadding="0" class="tablestyle tableborder">
 				  	<tr>
-						<td class="bgf">
+						<td style="padding:3px;">
 							<input class="Btn BtnNml toolbtnalign" type="button" value="新建" onclick="addOper()"/>
-						</td>
-					</tr>
-				  	<tr>
-						<td id="units" class="vat">
-						&nbsp;
+							<table id="operstable" cellspacing="0" cellpadding="0" class="tablestyle tableborder" style="margin-top:3px;">
+								<colgroup>
+									<col class="wb30">
+									<col class="wb30">
+									<col class="wb20">
+									<col class="wb20 talc">
+								</colgroup>
+								<tr class="bgtd">
+									<td>名称</td><td>权限(HTML控件ID)</td><td>启用</td><td>操作</td>
+								</tr>
+								<tr>
+									<td><input type="text" class="textstyle wb80" name="smOpers.smoName" value="新增"/></td>
+									<td><input type="text" class="textstyle wb80" name="smOpers.smoOperation" value="add" /></td>
+									<td><input type="checkbox" class="chkstyle" name="smOpers.smoValid" value="Y" checked="checked"/></td>
+									<td><a href="javascript:void(0)">删除</a></td>
+								</tr>
+								<tr>
+									<td><input type="text" class="textstyle wb80" name="smOpers.smoName" value="编辑" /></td>
+									<td><input type="text" class="textstyle wb80" name="smOpers.smoOperation" value="edit" /></td>
+									<td><input type="checkbox" class="chkstyle" name="smOpers.smoValid" value="Y" checked="checked"/></td>
+									<td><a href="javascript:void(0)">删除</a></td>
+								</tr>
+							</table>
 						</td>
 					</tr>
 				</table>
@@ -101,12 +119,12 @@
 			<table cellspacing="0" cellpadding="0" class="tablestyle">
 				<tr>
 					<td class="bgf">
-								<div class="juzhong w150">
-									<input class="Btn BtnNml" type="button" value="保 存" onclick="addOrUpdate()"/>
-									<input class="Btn BtnNml" type="button" value="关 闭" onclick="closeWindow('#MyPopWindow')"/>
-								</div>
-						</td>
-					</tr>
+						<div class="juzhong w150">
+							<input class="Btn BtnNml" type="button" value="保 存" onclick="addOrUpdate()"/>
+							<input class="Btn BtnNml" type="button" value="关 闭" onclick="closeWindow('#MyPopWindow')"/>
+						</div>
+					</td>
+				</tr>
 			</table>
 		</div>
 	</form>

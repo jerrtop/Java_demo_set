@@ -93,7 +93,7 @@
   			width:300,
   			height:250,
   			onLoad: function(){
-  				$('#dataForm').form('clear');
+  				//$('#dataForm').form('clear');
   				$('#dataForm input[name="suAccEna"]').attr("checked",true);
   				$('#dataForm input[name="createPerson"]').attr("checked",true);
   			}

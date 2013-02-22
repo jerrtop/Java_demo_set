@@ -2,6 +2,7 @@ package com.fsj.spring.service;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -20,6 +21,7 @@ import com.fsj.spring.util.ConversionUtils;
  * @version 1.0 , 2013-1-18 创建
  */
 public class TServiceImpl implements TService {
+	private SimpleDateFormat datetimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final Logger log = LoggerFactory.getLogger(TServiceImpl.class);
 
 	protected BaseDao baseDao;
@@ -52,7 +54,7 @@ public class TServiceImpl implements TService {
 	public void deleteObject(Object instance) {
 		baseDao.delete(instance);
 	}
-
+	
 	public void deleteAllObjects(Class clazz, List<?> uids) {
 		if (uids != null && uids.size() > 0) {
 			for (Iterator iter = uids.iterator(); iter.hasNext();) {
@@ -61,8 +63,8 @@ public class TServiceImpl implements TService {
 		}
 	}
 
-	public Object getObjectById(Object o, Serializable id) {
-		return baseDao.findById(o.getClass(), id);
+	public Object getObjectById(Class clazz, Serializable id) {
+		return baseDao.findById(clazz, id);
 	}
 
 	public void setObjectSaveValue(Object[] o) {
@@ -91,6 +93,7 @@ public class TServiceImpl implements TService {
 				}
 			}
 		}
+		//设置创建人 ，创建时间默认值
 		try {
 			getMethod = o[0].getClass().getMethod("getCrtC", null);
 			result = getMethod.invoke(o[0], null);
@@ -103,8 +106,10 @@ public class TServiceImpl implements TService {
 			getMethod = o[0].getClass().getMethod("getCrtDate", null);
 			result = getMethod.invoke(o[0], null);
 			if (result == null) {
-				setMethod = o[0].getClass().getMethod("setCrtDate", new Class[] { Date.class });
-				setMethod.invoke(o[0], new Date());
+				setMethod = o[0].getClass().getMethod("setCrtDate", new Class[] { String.class });
+				
+				//setMethod.invoke(o[0], new Date());
+				setMethod.invoke(o[0], datetimeFormat.format(new Date()));
 			}
 			result = null;
 		} catch (Exception e) {

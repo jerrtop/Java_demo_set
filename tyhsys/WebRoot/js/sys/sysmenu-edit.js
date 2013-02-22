@@ -68,6 +68,8 @@ function addOrUpdate(){
 	if(!r) {
 		return false;
 	}
+	//alert($("#dataForm").serializeArray())
+	//return;
 	$.post("addOrUpdateMenu",$("#dataForm").serializeArray(),function(data){
 		$('#MyPopWindow').window('close');
 		$('#listTable').datagrid('reload');  

@@ -24,12 +24,6 @@
         <many-to-one name="sysMenu" class="com.fsj.spring.model.sys.SysMenu" fetch="select">
         	<column name="SMO_MENU_ID" length="36"></column>
         </many-to-one>
-        <property name="crtC" type="java.lang.String">
-            <column name="CRT_C" length="36" />
-        </property>
-        <property name="crtDate" type="java.util.Date">
-            <column name="CRT_DATE" length="19" />
-        </property>
         <property name="smoValid" type="java.lang.String">
             <column name="SMO_VALID" length="1" />
         </property>

@@ -52,8 +52,10 @@
 				},
 				{field:'CRT_DATE',title:'创建时间',width:15,sortable:true,
 					formatter:function(value,row,index){
-						var date = new Date(row.CRT_DATE);
-						return date.format('yyyy-MM-dd hh:mm:ss');
+						return row.CRT_DATE;
+						
+						//var date = new Date(row.CRT_DATE);
+						//return date.format('yyyy-MM-dd hh:mm:ss');
 					}
 				}
 			]],
@@ -72,8 +74,8 @@
   			width:450,
   			height:380,
   			onLoad: function(){
-  				$('#dataForm').form('clear');
-  				$('#dataForm input[name="suIsUsed"]').attr("checked",true);
+  				//$('#dataForm').form('clear');
+  				$('#dataForm input[name="smIsUsed"]').attr("checked",true);
   			}
   			
   		});
@@ -102,7 +104,7 @@
     function setformVals(dataRow){
     	//编码不允许更改，并取消唯一验证事件
     	$("#dataForm input[name='smCode']").attr("disabled",true);
-    	$("#dataForm input[name='smCode']").unbind("blur");//取消失去焦点事件
+    	$("#dataForm input[name='smCode']").attr("onblur","");//取消失去焦点事件
     	
 		$("#dataForm input[name='id']").val(dataRow.uid);
 		$("#dataForm input[name='smCode']").val(dataRow.SM_CODE);

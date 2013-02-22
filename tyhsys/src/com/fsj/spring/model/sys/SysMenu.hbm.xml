@@ -40,10 +40,10 @@
         <property name="crtC" type="java.lang.String">
             <column name="CRT_C" length="30" />
         </property>
-        <property name="crtDate" type="java.util.Date">
+        <property name="crtDate" type="java.lang.String">
             <column name="CRT_DATE" length="19" />
         </property>
-        <set name="sysMenuOpers" cascade="all" inverse="true" order-by="CRT_DATE DESC" lazy="true">
+        <set name="sysMenuOpers" cascade="all" inverse="true" lazy="true">
         	<key column="SMO_MENU_ID"></key>
         	<one-to-many class="com.fsj.spring.model.sys.SysMenuOper"/>
         </set>
