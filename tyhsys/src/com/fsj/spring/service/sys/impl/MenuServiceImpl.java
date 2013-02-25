@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 
+
 import com.fsj.spring.model.sys.SysMenu;
 import com.fsj.spring.service.TServiceImpl;
 import com.fsj.spring.service.sys.MenuService;
@@ -74,6 +75,22 @@ public class MenuServiceImpl extends TServiceImpl implements MenuService {
 			count = 1;
 		}
 		return count;
+	}
+	/**
+	 * 保存菜单时，同时保存操作权限
+	 */
+	public void saveOrUpdate(Object o){
+		SysMenu menu = (SysMenu) o;
+		Long menuId = menu.getId();
+					
+		// 1. 操作权限采取先删后插入的做法
+		String deleteOpersSQL = "delete from sys_menu_oper where smo_menu_id = ?";
+		java.util.List pl = new ArrayList();
+		pl.add(menuId);
+		baseDao.updateBySQL(deleteOpersSQL,pl);
+		
+		// 2. 保存菜单
+		baseDao.saveOrUpdate(menu);
 	}
 
 }

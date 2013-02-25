@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="../js/jquery/jquery-1.4.2.min.js"></script>
 		<script type="text/javascript" src="../js/jquery/jquery-easyui-1.2.1/jquery.easyui.min.js"></script>
 		<script type="text/javascript" src="../js/jquery/jquery-easyui-1.2.1/locale/easyui-lang-zh_CN.js"></script>
+		<script type="text/javascript" src="../js/json2.js"></script>
 		<script type="text/javascript" src="../js/common.js"></script>
 		<script type="text/javascript" src="../js/sys/sysmenulist.js"></script>
 		<script type="text/javascript" src="../js/sys/sysmenu-edit.js"></script>

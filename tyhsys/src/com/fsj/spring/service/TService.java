@@ -3,6 +3,7 @@ package com.fsj.spring.service;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import com.fsj.spring.model.sys.SysUser;
 /**
@@ -24,6 +25,11 @@ public interface TService {
 	 */
 	public void saveOrUpdate(Object instance);
 	
+	/**
+	 * 保存多个对象
+	 * @param objects Map用来存在要保存的对象数据
+	 */
+	public void saveOrUpdateMultiObjects(Map objects);
 	/**
 	 * 删除
 	 * @param instance

@@ -68,8 +68,10 @@ function addOrUpdate(){
 	if(!r) {
 		return false;
 	}
-	//alert($("#dataForm").serializeArray())
-	//return;
+	//json2.js库 提供的把json对象转为字符串
+	alert(JSON.stringifyJSON($("#dataForm").serializeArray()));
+	
+	return;
 	$.post("addOrUpdateMenu",$("#dataForm").serializeArray(),function(data){
 		$('#MyPopWindow').window('close');
 		$('#listTable').datagrid('reload');  

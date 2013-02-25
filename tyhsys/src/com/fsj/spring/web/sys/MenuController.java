@@ -1,16 +1,9 @@
 package com.fsj.spring.web.sys;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,22 +55,11 @@ public class MenuController extends TUserAwareImpl {
 		try {
 			menuService.setLoginUser(sessionUser);//dao保存操作，自动增加创建人
 			
-			//updateMenu
-			if(menu.getId() != null)
-				menu = (SysMenu) menuService.getObjectById(menu.getClass(), menu.getId());
-			
-			//1.先删除子对象
-			Set<SysMenuOper> sysMenuOpers = menu.getSysMenuOpers();
+			//子对象
 			String[] smoNames = request.getParameterValues("smOpers.smoName");
-			if(smoNames.length > 0 && sysMenuOpers.size() > 0){
-				//TODO
-			}
-			
-			//2.插入子对象
 			String[] smoOperations = request.getParameterValues("smOpers.smoOperation");
 			String[] smoValids = request.getParameterValues("smOpers.smoValid");
 			
-			Set<SysMenuOper> sysMenuOperSet = new HashSet<SysMenuOper>();
 			for (int i = 0; i < smoNames.length; i++) {
 				SysMenuOper sysMenuOper = new SysMenuOper();
 				if(smoNames[i] != null)
@@ -88,11 +70,8 @@ public class MenuController extends TUserAwareImpl {
 					sysMenuOper.setSmoValid(smoValids[i]);
 				
 				sysMenuOper.setSysMenu(menu);
-				sysMenuOperSet.add(sysMenuOper);
+				menu.getSysMenuOpers().add(sysMenuOper);
 			}
-			if(sysMenuOperSet.size() > 0)
-				menu.setSysMenuOpers(sysMenuOperSet);
-			
 			menuService.saveOrUpdate(menu);
 			map.put("mes", "操作成功");
 		} catch (Exception e) {

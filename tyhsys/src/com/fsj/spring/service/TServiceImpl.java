@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -114,6 +116,14 @@ public class TServiceImpl implements TService {
 			result = null;
 		} catch (Exception e) {
 			log.error(e.getMessage());
+		}
+	}
+
+	@Override
+	public void saveOrUpdateMultiObjects(Map objects) {
+		for(Object key : objects.keySet()){
+			Object o = objects.get(key);
+			baseDao.saveOrUpdate(o);
 		}
 	}
 }
