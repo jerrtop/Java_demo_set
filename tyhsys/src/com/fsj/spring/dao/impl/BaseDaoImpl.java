@@ -160,13 +160,14 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 	 */
 	public List findByHQL(String hql, List pl) {
 		log.debug("finding instance by hql");
+		List result = null;
 		try {
-			getHibernateTemplate().find(hql, pl.toArray());
+			result =  getHibernateTemplate().find(hql, pl.toArray());
 		} catch (RuntimeException re) {
 			log.error("find instance by hql failed", re);
 			throw re;
 		}
-		return null;
+		return result;
 	}
 
 	/**
@@ -197,7 +198,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 	/**
 	 * 执行SQL，返回List<Map<String,Object>>结合
 	 */
-	public List findBySQl(final String sql, final List pl) {
+	public List findBySQL(final String sql, final List pl) {
 		HibernateCallback callback = new HibernateCallback() {
 			public Object doInHibernate(Session session) throws SQLException {
 				List resultlist = new ArrayList();
@@ -205,7 +206,7 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 				PreparedStatement preparedStatement = session.connection().prepareStatement(sql);
 				if (pl != null && !pl.isEmpty()) {
 					for (int i = 0; i < pl.size(); i++) {
-						preparedStatement.setObject(i, pl.get(i));
+						preparedStatement.setObject(i + 1, pl.get(i));
 					}
 				}
 				ResultSet resultSet = preparedStatement.executeQuery();

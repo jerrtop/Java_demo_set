@@ -96,6 +96,8 @@
   			height:380,
   			onLoad: function(){
   				setformVals(rows[0]);
+  				
+  				setMenuOpers(rows[0].uid);
   			}
   		});
 	}
@@ -120,6 +122,24 @@
 		}
 		$("#dataForm input[name='smPage']").val(dataRow.SM_PAGE == null ? '':dataRow.SM_PAGE);
 		$("#dataForm textarea[name='smDescription']").val(dataRow.SM_DESCRIPTION == null ? '':dataRow.SM_DESCRIPTION);
+    }
+    
+   
+    //编辑时，填充 "操作信息"
+    function setMenuOpers(suMenuId){
+    	var shtml = '';
+    	$.get("findOpers?smMenuId=" + suMenuId,function(data){
+    		for(var i = 0 ; i < data.opers.length ; i ++){
+    				shtml += '<tr>';
+    				shtml += '<td><input type="text" class="textstyle wb80" name="smOpers.smoName" value="'+ data.opers[i].SMO_NAME +'"/></td>';
+    				shtml += '<td><input type="text" class="textstyle wb80" name="smOpers.smoOperation" value="'+ data.opers[i].SMO_OPERATION +'" /></td>';
+    				shtml += '<td><input type="checkbox" class="chkstyle" name="smOpers.smoValid" value="Y" checked="'+ (data.opers[i].SMO_VALID == 'Y' ? 'checked' : '') +'"/></td>';
+    				shtml += '<td><a href="javascript:void(0)" onclick="deleteOper(this)">删除</a></td>';
+    				shtml += '</tr>';
+    		}
+    		
+    		$("table[name='opersInfo']").append(shtml);
+    	});
     }
     
     //删除

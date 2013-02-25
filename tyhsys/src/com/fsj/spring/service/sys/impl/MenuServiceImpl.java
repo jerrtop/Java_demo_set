@@ -2,6 +2,7 @@ package com.fsj.spring.service.sys.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.fsj.spring.model.sys.SysMenu;
+import com.fsj.spring.model.sys.SysMenuOper;
 import com.fsj.spring.service.TServiceImpl;
 import com.fsj.spring.service.sys.MenuService;
 import com.fsj.spring.util.DataGridModel;
@@ -89,8 +91,21 @@ public class MenuServiceImpl extends TServiceImpl implements MenuService {
 		pl.add(menuId);
 		baseDao.updateBySQL(deleteOpersSQL,pl);
 		
-		// 2. 保存菜单
-		baseDao.saveOrUpdate(menu);
+		// 2.复制属性值
+		Object[] menuObj = new Object[]{menu};
+		setObjectSaveValue(menuObj);
+		// 3. 保存菜单
+		baseDao.saveOrUpdate(menuObj[0]);
 	}
 
+	/**
+	 * 根据菜单ID，查找操作
+	 */
+	@Override
+	public List findOpers(Long smMenuId) {
+		String hql = "select * from sys_menu_oper smo where smo.smo_menu_id = ?";
+		List pl = new ArrayList();
+		pl.add(smMenuId);
+		return baseDao.findBySQL(hql, pl);
+	}
 }

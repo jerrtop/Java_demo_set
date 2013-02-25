@@ -22,7 +22,7 @@
         </property>
          -->
         <many-to-one name="sysMenu" class="com.fsj.spring.model.sys.SysMenu" fetch="select">
-        	<column name="SMO_MENU_ID" length="36"></column>
+        	<column name="SMO_MENU_ID"></column>
         </many-to-one>
         <property name="smoValid" type="java.lang.String">
             <column name="SMO_VALID" length="1" />

@@ -32,7 +32,7 @@ public interface BaseDao {
 
 	public List findByHQL(String hql, List pl);
 
-	public List findBySQl(String sql, List pl);
+	public List findBySQL(String sql, List pl);
 
 	public int updateBySQL(String sql, List pl);
 

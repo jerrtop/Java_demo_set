@@ -37,52 +37,16 @@
 				},
 				{field:'CRT_DATE',align:'center',title:'创建时间',width:20,sortable:true,
 					formatter:function(value,row,index){
-						var date = new Date(row.CRT_DATE);
-						return date.format('yyyy-MM-dd hh:mm:ss');
+						//var date = new Date(row.CRT_DATE);
+						//return date.format('yyyy-MM-dd hh:mm:ss');
+						return row.CRT_DATE;
 					}
 				}
 			]],
-//			toolbar:[{
-//				text:'新增',
-//				iconCls:'icon-add',
-//				handler:function(){
-//					addrow();
-//				}
-//			},'-',{
-//				text:'更新',
-//				iconCls:'icon-edit',
-//				handler:function(){
-//					updaterow();
-//				}
-//			},'-',{
-//				text:'删除',
-//				iconCls:'icon-remove',
-//				handler:function(){
-//					deleterow();
-//				}
-//			},'-'],
 			onLoadSuccess:function(){
 				$('#listTable').datagrid('clearSelections');
 			}
 		});
-    	
-		//下拉表格初始化，这个东西在ajax下要尽量少用，太变态了，每加载一次就会重新创建一次，隐藏在页面上，
-		//时间一长效率很低，用firebug一看页面上有几十个同样的层保存着下拉框中的内容，只有整个页面全部刷新才清除。
-		//不知道新版本修正了没有，我目前的做法是点击菜单的时候手动清除一下。
-		
-		//$('#deptCombo').combogrid({
-			//idField:'id', //ID字段
-		    //textField:'name', //显示的字段
-		   // url:"org/queryAll",
-		   // fitColumns: true,
-			//striped: true,
-			//editable:false,//不可编辑，只能选择
-		   // columns:[[
-		     //   {field:'code',title:'编号',width:100},
-		    //    {field:'name',title:'名称',width:150}
-		    //]]
-		//});
-
 	});
 	
     //新增

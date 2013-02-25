@@ -98,3 +98,15 @@ function closeWindow(selector){
 	$(selector).window('close');
 
 }
+
+//将jquery系列化后的值转为name:value的形式。
+function convertArray(o) {  
+	var v = {}; 
+	for (var i in o) { 
+		if (typeof (v[o[i].name]) == 'undefined') 
+			v[o[i].name] = o[i].value; 
+		else 
+			v[o[i].name] += "," + o[i].value; 
+	} 
+	return v; 
+} 

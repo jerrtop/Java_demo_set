@@ -60,17 +60,19 @@ public class MenuController extends TUserAwareImpl {
 			String[] smoOperations = request.getParameterValues("smOpers.smoOperation");
 			String[] smoValids = request.getParameterValues("smOpers.smoValid");
 			
-			for (int i = 0; i < smoNames.length; i++) {
-				SysMenuOper sysMenuOper = new SysMenuOper();
-				if(smoNames[i] != null)
-					sysMenuOper.setSmoName(smoNames[i]);
-				if(smoOperations[i] != null)
-					sysMenuOper.setSmoOperation(smoOperations[i]);
-				if(smoValids[i] != null)
-					sysMenuOper.setSmoValid(smoValids[i]);
-				
-				sysMenuOper.setSysMenu(menu);
-				menu.getSysMenuOpers().add(sysMenuOper);
+			if(smoNames != null){
+				for (int i = 0; i < smoNames.length; i++) {
+					SysMenuOper sysMenuOper = new SysMenuOper();
+					if(smoNames[i] != null)
+						sysMenuOper.setSmoName(smoNames[i]);
+					if(smoOperations[i] != null)
+						sysMenuOper.setSmoOperation(smoOperations[i]);
+					if(smoValids[i] != null)
+						sysMenuOper.setSmoValid(smoValids[i]);
+					
+					sysMenuOper.setSysMenu(menu);
+					menu.getSysMenuOpers().add(sysMenuOper);
+				}
 			}
 			menuService.saveOrUpdate(menu);
 			map.put("mes", "操作成功");
@@ -93,6 +95,21 @@ public class MenuController extends TUserAwareImpl {
 		} catch (Exception e) {
 			e.printStackTrace();
 			map.put("mes", "操作失败，请联系管理员。");
+			throw e;
+		}
+		return map;
+	}
+	
+	@RequestMapping(value = "/findOpers", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> findOpers(@RequestParam("smMenuId") Long smMenuId) throws Exception {
+		Map map = new HashMap();
+		try {
+			menuService.setLoginUser(sessionUser);//dao保存操作，自动增加创建人
+			List result = menuService.findOpers(smMenuId);// result: 0 不存在	1 存在
+			map.put("opers", result);
+		} catch (Exception e) {
+			e.printStackTrace();
 			throw e;
 		}
 		return map;

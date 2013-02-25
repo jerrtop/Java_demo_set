@@ -1,5 +1,6 @@
 package com.fsj.spring.service.sys;
 
+import java.util.List;
 import java.util.Map;
 
 import com.fsj.spring.model.sys.SysMenu;
@@ -16,4 +17,6 @@ public interface MenuService extends TService{
 	Map<String, Object> getPageListBySQL(DataGridModel dgm,SysMenu menu) throws Exception;
 
 	int checkUnique(String checkProperty,Object toBeCheckVal);
+
+	List findOpers(Long smMenuId);
 }

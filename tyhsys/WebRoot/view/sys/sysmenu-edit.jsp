@@ -2,8 +2,6 @@
 <html>
   <body>
   	<!-- 验证还是jquery-validation好用，这里省事没用 -->
-   <form id="dataForm" method="post">
-	<input type="hidden" name="id" id="uuid">
 	<div class="tc_sysbox">
 	        <div class="menudiv"> 
 				<span class="my_movie_on" id="MovieInfoT1" onClick="PanShow('MovieInfo','my_movie',1,2);"> <a href="#">菜单信息</a> </span>
@@ -11,7 +9,9 @@
 		  	</div>
 
 			<div id="MovieInfo1" class="serchcondition">
-		       	<table cellspacing="0" cellpadding="0" class="tablestyle tableborder">
+			   <form id="dataForm" method="post"><!-- 菜单form 只做取值使用，不做提交-->
+				<input type="hidden" name="id" id="uuid">
+		       	<table name="menuInfo" cellspacing="0" cellpadding="0" class="tablestyle tableborder">
 			       	<colgroup>
 			       		<col class="wb15 talr bgtd" />
 			       		<col class="wb35" />
@@ -82,6 +82,7 @@
 						</td>
 					</tr>
 				</table>
+				</form>
 			</div>
 			
 			<div class="cdzy" id="MovieInfo2">
@@ -89,7 +90,8 @@
 				  	<tr>
 						<td style="padding:3px;">
 							<input class="Btn BtnNml toolbtnalign" type="button" value="新建" onclick="addOper()"/>
-							<table id="operstable" cellspacing="0" cellpadding="0" class="tablestyle tableborder" style="margin-top:3px;">
+							<form id="opersForm" method="post"><!-- 操作Form，只做取值使用，不做提交 -->
+							<table id="operstable"  name="opersInfo" cellspacing="0" cellpadding="0" class="tablestyle tableborder" style="margin-top:3px;">
 								<colgroup>
 									<col class="wb30">
 									<col class="wb30">
@@ -99,6 +101,7 @@
 								<tr class="bgtd">
 									<td>名称</td><td>权限(HTML控件ID)</td><td>启用</td><td>操作</td>
 								</tr>
+								<!-- 
 								<tr>
 									<td><input type="text" class="textstyle wb80" name="smOpers.smoName" value="新增"/></td>
 									<td><input type="text" class="textstyle wb80" name="smOpers.smoOperation" value="add" /></td>
@@ -111,7 +114,9 @@
 									<td><input type="checkbox" class="chkstyle" name="smOpers.smoValid" value="Y" checked="checked"/></td>
 									<td><a href="javascript:void(0)">删除</a></td>
 								</tr>
+								 -->
 							</table>
+							</form>
 						</td>
 					</tr>
 				</table>
@@ -127,7 +132,7 @@
 				</tr>
 			</table>
 		</div>
-	</form>
+
 	
 	<!-- 
 	<script type="text/javascript">
