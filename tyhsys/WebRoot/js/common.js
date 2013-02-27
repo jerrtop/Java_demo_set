@@ -44,7 +44,7 @@ Date.prototype.format = function(fmt){
 
 //Grid自适应宽度
 function gridWidthAdapter(selector) {
-	window.onresize = function() {
+	$(window).resize(function() {
 		var winW = 1000;
 		if (window.innerHeight) {
 			winW = window.innerWidth;
@@ -57,7 +57,7 @@ function gridWidthAdapter(selector) {
 
 		//$(selector).jqGrid('setGridWidth', winW - 18);
 		$(selector).datagrid('resize',{width:winW-5});  
-	}
+	});
 }
 
 function PanShow(objname,classname,curid,maxid)

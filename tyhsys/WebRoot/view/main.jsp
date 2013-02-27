@@ -44,7 +44,10 @@
 						<a href="menu/list" target="frame_content">菜单管理</a>
 					</li>
 					<li>
-						<a href="user/list" target="frame_content">权限管理</a>
+						<a href="role/list" target="frame_content">角色管理</a>
+					</li>
+					<li>
+						<a href="#" target="frame_content">权限管理</a>
 					</li>
 				</ul>
 			</div>

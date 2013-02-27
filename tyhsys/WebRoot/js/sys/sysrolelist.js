@@ -1,17 +1,17 @@
 
     jQuery(function(){
-    	gridWidthAdapter('#listTable');
+    	//gridWidthAdapter('#listTable');
 		$('#listTable').datagrid({
-			title:'菜单管理', //标题
+			title:'角色管理', //标题
 			method:'post',
 			//iconCls:'icon-edit', //图标
 			singleSelect:false, //多选
-			height:'auto',//'406', //高度
+			//height:'auto',//'406', //高度
 			fitColumns: true, //自动调整各列，用了这个属性，下面各列的宽度值就只是一个比例。
 			striped: true, //奇偶行颜色不同
 			collapsible:false,//可折叠
-			url:"queryMenuList", //数据来源
-			sortName: 'SM_CODE', //排序的列
+			url:"queryRoleList", //数据来源
+			sortName: 'SR_CODE', //排序的列
 			sortOrder: 'asc', //倒序
 			remoteSort: true, //服务器端排序
 			idField:'uid', //主键字段
@@ -21,36 +21,18 @@
 			rownumbers:true, //显示行号
 			columns:[[
 				{field:'ck',checkbox:true,width:2}, //显示复选框
-				{field:'SM_CODE',title:'编码',width:10,sortable:true,
-					formatter:function(value,row,index){return row.SM_CODE;} //需要formatter一下才能显示正确的数据
+				{field:'SR_CODE',title:'编码',width:15,sortable:true,
+					formatter:function(value,row,index){return row.SR_CODE;} //需要formatter一下才能显示正确的数据
 				},
-				{field:'SM_NAME',title:'菜单名称',width:18,sortable:true,
-					formatter:function(value,row,index){return row.SM_NAME;}
+				{field:'SR_NAME',title:'角色名称',width:28,sortable:true,
+					formatter:function(value,row,index){return row.SR_NAME;}
 				},
-				{field:'SM_PAGE',title:'菜单URL',width:20,sortable:true,
-					formatter:function(value,row,index){return row.SM_PAGE;}
-				},
-				{field:'SM_PARENT',title:'上级菜单编码',width:15,sortable:false,
-					formatter:function(value,row,index){return row.SM_PARENT;}
-				},
-				{field:'parentMenuName',title:'上级菜单名称',width:18,sortable:true,
-					formatter:function(value,row,index){return row.parentMenuName;}
-				},
-				{field:'SM_DESCRIPTION',title:'菜单说明',width:22,sortable:false,
-					formatter:function(value,row,index){return row.SM_DESCRIPTION;}
-				},
-				{field:'SM_IS_TOP',title:'顶级菜单',width:10,sortable:false,
-					formatter:function(value,row,index){return row.SM_IS_TOP == 'Y' ? '√' : '';}
-				},
-				{field:'SM_IS_USED',title:'是否启用',width:10,sortable:false,
-					formatter:function(value,row,index){return row.SM_IS_USED == 'Y' ? '√' : '';}
-				},
-				{field:'CRT_C',title:'创建人',width:10,sortable:true,
+				{field:'CRT_C',title:'创建人',width:15,sortable:true,
 					formatter:function(value,row,index){
 						return row.CRT_C;
 					}
 				},
-				{field:'CRT_DATE',title:'创建时间',width:20,sortable:true,
+				{field:'CRT_DATE',title:'创建时间',width:15,sortable:true,
 					formatter:function(value,row,index){
 						return row.CRT_DATE;
 						
@@ -69,13 +51,13 @@
     //新增
     function addrow(){
     	showWindow("#MyPopWindow",{
-  			title:'新增菜单信息',
-  			href:'sysmenu-edit',
-  			width:450,
-  			height:380,
+  			title:'新增角色信息',
+  			href:'sysrole-edit',
+  			width:600,
+  			height:500,
   			onLoad: function(){
   				//$('#dataForm').form('clear');
-  				$('#dataForm input[name="smIsUsed"]').attr("checked",true);
+  				//$('#dataForm input[name="smIsUsed"]').attr("checked",true);
   			}
   			
   		});
@@ -90,14 +72,14 @@
 		}
 	
 		showWindow("#MyPopWindow",{
-  			title:'更新菜单信息',
-  			href:'sysmenu-edit',
+  			title:'更新角色信息',
+  			href:'sysrole-edit',
   			width:450,
   			height:380,
   			onLoad: function(){
   				setformVals(rows[0]);
   				
-  				setMenuOpers(rows[0].uid);
+  				//setMenuOpers(rows[0].uid);
   			}
   		});
 	}
@@ -158,7 +140,7 @@
 	        		else
 	        			ps += "&uid="+n.uid;
 	        	});
-	        	$.post('deleteMenus'+ps,function(data){
+	        	$.post('deleteRoles'+ps,function(data){
 		        	$('#listTable').datagrid('reload'); 
 	        		$.messager.alert('提示',data.mes,'info');
 	        	});

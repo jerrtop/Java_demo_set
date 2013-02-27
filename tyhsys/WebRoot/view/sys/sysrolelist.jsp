@@ -11,37 +11,23 @@
 		<script type="text/javascript" src="../js/jquery/jquery-easyui-1.2.1/locale/easyui-lang-zh_CN.js"></script>
 		<script type="text/javascript" src="../js/json2.js"></script>
 		<script type="text/javascript" src="../js/common.js"></script>
-		<script type="text/javascript" src="../js/sys/sysmenulist.js"></script>
-		<script type="text/javascript" src="../js/sys/sysmenu-edit.js"></script>
-		
-		<script>
-// 			$(window).resize(function(){
-// 				alert(99);
-				
-// 			});
-// 			window.onresize = function(){
-// 				alert(99);
-// 				var clientWidth = $(".listcond").width();
-// 				$('#listTable').datagrid('resize',{width:clientWidth-5});
-// 			}
-		</script>
+		<script type="text/javascript" src="../js/sys/sysrolelist.js"></script>
+		<script type="text/javascript" src="../js/sys/sysrole-edit.js"></script>
 	</head>
 
 	<body>
 		<div class="systembox">
 			<div class="listitle">
-				您所在的位置：系统管理 - 菜单管理
+				您所在的位置：系统管理 - 角色管理
 			</div>
 			<div class="listsearch">
 			  <form id="queryForm">
 				<table class="querytable">
 				  <tr>
 					<td class="talr">编码:</td>
-					<td><input type="text"  class="textstyle" name="smCode"/></td>
-					<td class="talr">菜单名称:</td>
-					<td><input type="text" class="textstyle" name="smName"/></td>
-					<td class="talr">上级菜单编码:</td>
-					<td><input type="text" class="textstyle" name="smParent"/></td>
+					<td><input type="text"  class="textstyle" name="srCode"/></td>
+					<td class="talr">角色名称:</td>
+					<td><input type="text" class="textstyle" name="srName"/></td>
 					<td class="talr"><input class="Btn BtnNml toolbtnalign" type="button" value="查 询" onclick="search()"/><input class="Btn BtnNml toolbtnalign" type="button" value="重 置" onclick="clearForm()"/></td>
 				  </tr>
 				</table>
