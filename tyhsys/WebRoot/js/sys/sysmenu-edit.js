@@ -14,18 +14,14 @@ function checkUnique(element){
 		return false;
 	
 	var json = '';
+	json += '{';
+	json += '"checkProperty":"SM_CODE",';
+	json += '"checkValue":"'+ $.trim(chkVal) + '"';
+	json += '}';
 	// 检查菜单编码
 	if(inputName == 'smCode'){
-		json += '{';
-		json += '"checkProperty":"SM_CODE",';
-		json += '"checkValue":"'+ $.trim(chkVal) + '"';
-		json += '}';
 		checkUniqueBySmCode(json);
 	}else if(inputName == 'smParent'){// 检查上级菜单编码
-		json += '{';
-		json += '"checkProperty":"SM_PARENT",';
-		json += '"checkValue":"'+ $.trim(chkVal) + '"';
-		json += '}';
 		checkUniqueBySmParent(json);
 	}
 	

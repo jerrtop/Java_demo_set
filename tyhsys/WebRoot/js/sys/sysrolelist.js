@@ -50,11 +50,12 @@
 	
     //新增
     function addrow(){
+    	editRowId = '';
     	showWindow("#MyPopWindow",{
   			title:'新增角色信息',
   			href:'sysrole-edit',
-  			width:600,
-  			height:500,
+  			width:500,
+  			height:460,
   			onLoad: function(){
   				//$('#dataForm').form('clear');
   				//$('#dataForm input[name="smIsUsed"]').attr("checked",true);
@@ -63,6 +64,7 @@
   		});
 	}
     
+    var editRowId = '';
     //更新
     function updaterow(){
 		var rows = $('#listTable').datagrid('getSelections');
@@ -71,11 +73,12 @@
 			return;
 		}
 	
+		editRowId = rows[0].uid;
 		showWindow("#MyPopWindow",{
   			title:'更新角色信息',
   			href:'sysrole-edit',
-  			width:450,
-  			height:380,
+  			width:500,
+  			height:460,
   			onLoad: function(){
   				setformVals(rows[0]);
   				
@@ -87,23 +90,13 @@
     //编辑时，填充form值
     function setformVals(dataRow){
     	//编码不允许更改，并取消唯一验证事件
-    	$("#dataForm input[name='smCode']").attr("disabled",true);
-    	$("#dataForm input[name='smCode']").attr("onblur","");//取消失去焦点事件
+    	$("#dataForm input[name='srCode']").attr("disabled",true);
+    	$("#dataForm input[name='srCode']").attr("onblur","");//取消失去焦点事件
     	
 		$("#dataForm input[name='id']").val(dataRow.uid);
-		$("#dataForm input[name='smCode']").val(dataRow.SM_CODE);
-		$("#dataForm input[name='smName']").val(dataRow.SM_NAME);
-		$("#dataForm input[name='smParent']").val(dataRow.SM_PARENT == null ? '':dataRow.SM_PARENT);
-		var smIsUsed = dataRow.SM_IS_USED;
-		if(smIsUsed != null && smIsUsed != ""){
-			$("#dataForm input[name='smIsUsed'][value='"+ smIsUsed +"']").attr("checked",true);
-		}
-		var smIsTop = dataRow.SM_IS_TOP;
-		if(smIsTop != null && smIsTop != ""){
-			$("#dataForm input[name='smIsTop'][value='"+ smIsTop +"']").attr("checked",true);
-		}
-		$("#dataForm input[name='smPage']").val(dataRow.SM_PAGE == null ? '':dataRow.SM_PAGE);
-		$("#dataForm textarea[name='smDescription']").val(dataRow.SM_DESCRIPTION == null ? '':dataRow.SM_DESCRIPTION);
+		$("#dataForm input[name='srCode']").val(dataRow.SR_CODE);
+		$("#dataForm input[name='srName']").val(dataRow.SR_NAME);
+		
     }
     
    

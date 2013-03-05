@@ -18,4 +18,18 @@ public interface UserService extends TService{
 	
 	//这是使用SQL分页查询的例子
 	Map<String, Object> getPageListBySQL(DataGridModel dgm,SysUser user) throws Exception;
+	
+	/**
+	 * 检查唯一
+	 * @param checkProperty 被检查的属性
+	 * @param toBeCheckVal	被检查的值
+	 * @return 1：存在；0：不存在
+	 */
+	int checkUnique(String checkProperty,Object toBeCheckVal);
+	/**
+	 * 得到用户菜单权限
+	 * @param user 用户
+	 * @return 菜单权限json
+	 */
+	String getUserRoleMenus(SysUser user);
 }

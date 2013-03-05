@@ -84,6 +84,20 @@ public class UserController extends TUserAwareImpl {
 		return map;
 	}
 
+	@RequestMapping(value = "/checkUnique", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, String> checkUnique(@RequestParam("checkProperty") String checkProperty,@RequestParam("checkValue") String toBeCheckVal) throws Exception {
+		Map map = new HashMap();
+		try {
+			int result = userService.checkUnique(checkProperty,toBeCheckVal);// result: 0 不存在	1 存在
+			map.put("mes", result);
+		} catch (Exception e) {
+			e.printStackTrace();
+			map.put("mes", "操作失败，请联系管理员。");
+			throw e;
+		}
+		return map;
+	}
 	@RequestMapping(value = "/loginOut", method = RequestMethod.GET)
 	public String loginOut(HttpSession session) {
 		if (session != null && session.getAttribute(Constants.USER_INFO_SESSION) != null) {

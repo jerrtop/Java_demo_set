@@ -1,9 +1,14 @@
 package com.fsj.spring.web.sys;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,13 +50,14 @@ public class RoleController extends TUserAwareImpl {
 
 	@RequestMapping(value = "/addOrUpdateRole", method = RequestMethod.POST)
 	@ResponseBody
-	//1.Spring会自动绑定form提交的值到menu对象
 	//2.多对象保存例子,增加request参数
-	public Map<String, String> addOrUpdate(SysRole role,WebRequest request) throws Exception {
+	public Map<String, String> addOrUpdate(WebRequest request) throws Exception {
 		// spring会利用jackson自动将返回值封装成JSON对象
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			roleService.setLoginUser(sessionUser);//dao保存操作，自动增加创建人
+			String data = request.getParameter("data");
+			roleService.saveOrUpdate(data);
 			
 //			//子对象
 //			String[] smoNames = request.getParameterValues("smOpers.smoName");
@@ -84,10 +90,9 @@ public class RoleController extends TUserAwareImpl {
 
 	@RequestMapping(value = "/checkUnique", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, String> checkUnique(@RequestParam("checkProperty") String checkProperty,@RequestParam("checkValue") String toBeCheckVal) throws Exception {
+	public Map checkUnique(@RequestParam("checkProperty") String checkProperty,@RequestParam("checkValue") String toBeCheckVal) throws Exception {
 		Map map = new HashMap();
 		try {
-			roleService.setLoginUser(sessionUser);//dao保存操作，自动增加创建人
 			int result = roleService.checkUnique(checkProperty,toBeCheckVal);// result: 0 不存在	1 存在
 			map.put("mes", result);
 		} catch (Exception e) {
@@ -97,21 +102,32 @@ public class RoleController extends TUserAwareImpl {
 		}
 		return map;
 	}
-	
-//	@RequestMapping(value = "/findOpers", method = RequestMethod.GET)
-//	@ResponseBody
-//	public Map<String, String> findOpers(@RequestParam("smMenuId") Long smMenuId) throws Exception {
-//		Map map = new HashMap();
-//		try {
-//			menuService.setLoginUser(sessionUser);//dao保存操作，自动增加创建人
-//			List result = menuService.findOpers(smMenuId);// result: 0 不存在	1 存在
-//			map.put("opers", result);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			throw e;
-//		}
-//		return map;
-//	}
+	/**
+	 * 获得所有菜单
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/fetchMenus", method = RequestMethod.GET)
+	public void fetchMenus(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		Long strRoleId;
+		if(StringUtils.isBlank(request.getParameter("srRoleId")))
+			strRoleId = null;
+		else
+			strRoleId = Long.parseLong(request.getParameter("srRoleId"));
+		
+		PrintWriter out = response.getWriter();
+		String result = "";
+		try {
+			result = roleService.fetchMenus(strRoleId);
+			//System.out.println(result);
+			out.print(result);
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 	
 	@RequestMapping(value = "/deleteRoles", method = RequestMethod.POST)
 	@ResponseBody

@@ -85,6 +85,10 @@
     
   	//编辑时，填充form值
     function setformVals(dataRow){
+    	//账号只读
+    	$("#dataForm input[name='suUsername']").attr("disalbed",true);
+    	$("#dataForm input[name='suUsername']").attr("onblur","");
+    	
 		$("#dataForm input[name='id']").val(dataRow.uid);
 		$("#dataForm input[name='suUsername']").val(dataRow.SU_USERNAME);
 		$("#dataForm input[name='suNameCn']").val(dataRow.SU_NAME_CN);

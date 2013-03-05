@@ -11,19 +11,33 @@ public class SysUser implements java.io.Serializable {
 	// Fields
 
 	private Long id;
-
+	/**
+	 * 用户名
+	 */
 	private String suUsername;
-
+	/**
+	 * 用户密码
+	 */
 	private String suPassword;
-
+	/**
+	 * 用户姓名
+	 */
 	private String suNameCn;
-
+	/**
+	 * 用户激活
+	 */
 	private String suAccEna;
-
+	/**
+	 * 用户备注
+	 */
 	private String suMemo;
-
+	/**
+	 * 创建人
+	 */
 	private String crtC;
-
+	/**
+	 * 创建时间
+	 */
 	private String crtDate;
 
 	// Constructors

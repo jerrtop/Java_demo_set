@@ -89,7 +89,6 @@ public class MenuController extends TUserAwareImpl {
 	public Map<String, String> checkUnique(@RequestParam("checkProperty") String checkProperty,@RequestParam("checkValue") String toBeCheckVal) throws Exception {
 		Map map = new HashMap();
 		try {
-			menuService.setLoginUser(sessionUser);//dao保存操作，自动增加创建人
 			int result = menuService.checkUnique(checkProperty,toBeCheckVal);// result: 0 不存在	1 存在
 			map.put("mes", result);
 		} catch (Exception e) {
@@ -105,8 +104,7 @@ public class MenuController extends TUserAwareImpl {
 	public Map<String, String> findOpers(@RequestParam("smMenuId") Long smMenuId) throws Exception {
 		Map map = new HashMap();
 		try {
-			menuService.setLoginUser(sessionUser);//dao保存操作，自动增加创建人
-			List result = menuService.findOpers(smMenuId);// result: 0 不存在	1 存在
+			List result = menuService.findOpers(smMenuId);
 			map.put("opers", result);
 		} catch (Exception e) {
 			e.printStackTrace();

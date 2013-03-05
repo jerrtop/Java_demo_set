@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,15 +15,18 @@ import org.slf4j.LoggerFactory;
 import com.fsj.spring.dao.BaseDao;
 import com.fsj.spring.model.sys.SysUser;
 import com.fsj.spring.util.ConversionUtils;
+
 /**
  * Title:通用服务层实现类
- *
+ * 
  * @author 唐有欢
  * @version 1.0 , 2013-1-18 创建
  */
 public class TServiceImpl implements TService {
-	private SimpleDateFormat datetimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private static final Logger log = LoggerFactory.getLogger(TServiceImpl.class);
+	private SimpleDateFormat datetimeFormat = new SimpleDateFormat(
+			"yyyy-MM-dd HH:mm:ss");
+	private static final Logger log = LoggerFactory
+			.getLogger(TServiceImpl.class);
 
 	protected BaseDao baseDao;
 
@@ -42,33 +44,55 @@ public class TServiceImpl implements TService {
 		this.sysUser = user;
 	}
 
+	/**
+	 * 保存对象 hibernate会判断对象属性值是否有变化 而执行更新
+	 */
 	public void saveOrUpdate(Object o) {
 		Object[] objs = new Object[] { o };
 		setObjectSaveValue(objs);
 		baseDao.saveOrUpdate(objs[0]);
 	}
 
+	/**
+	 * 删除集合内的对象
+	 */
 	public void deleteAllObjects(Collection<?> collection) {
 		baseDao.deleteAll(collection);
 
 	}
 
+	/**
+	 * 删除对象
+	 */
 	public void deleteObject(Object instance) {
 		baseDao.delete(instance);
 	}
-	
+
+	/**
+	 * 通过id集合，删除多个对象
+	 */
 	public void deleteAllObjects(Class clazz, List<?> uids) {
 		if (uids != null && uids.size() > 0) {
 			for (Iterator iter = uids.iterator(); iter.hasNext();) {
-				deleteObject(baseDao.findById(clazz, (Serializable) iter.next()));
+				deleteObject(baseDao
+						.findById(clazz, (Serializable) iter.next()));
 			}
 		}
 	}
 
+	/**
+	 * 通过ID查找对象
+	 */
 	public Object getObjectById(Class clazz, Serializable id) {
 		return baseDao.findById(clazz, id);
 	}
 
+	/**
+	 * 复制对象属性值
+	 * 
+	 * @param o
+	 *            对象数组
+	 */
 	public void setObjectSaveValue(Object[] o) {
 
 		Method setMethod = null;
@@ -88,19 +112,21 @@ public class TServiceImpl implements TService {
 			updateObject = baseDao.findById(o[0].getClass(), (Serializable) id);
 			if (updateObject != null) {
 				try {
-					ConversionUtils.convertAttribute(updateObject, o[0], ConversionUtils.GOAL);
+					ConversionUtils.convertAttribute(updateObject, o[0],
+							ConversionUtils.GOAL);
 					o[0] = updateObject;
 				} catch (Exception e) {
 					log.error(e.getMessage());
 				}
 			}
 		}
-		//设置创建人 ，创建时间默认值
+		// 设置创建人 ，创建时间默认值
 		try {
 			getMethod = o[0].getClass().getMethod("getCrtC", null);
 			result = getMethod.invoke(o[0], null);
 			if (result == null) {
-				setMethod = o[0].getClass().getMethod("setCrtC", new Class[] { String.class });
+				setMethod = o[0].getClass().getMethod("setCrtC",
+						new Class[] { String.class });
 				setMethod.invoke(o[0], sysUser.getSuUsername());
 			}
 			result = null;
@@ -108,9 +134,10 @@ public class TServiceImpl implements TService {
 			getMethod = o[0].getClass().getMethod("getCrtDate", null);
 			result = getMethod.invoke(o[0], null);
 			if (result == null) {
-				setMethod = o[0].getClass().getMethod("setCrtDate", new Class[] { String.class });
-				
-				//setMethod.invoke(o[0], new Date());
+				setMethod = o[0].getClass().getMethod("setCrtDate",
+						new Class[] { String.class });
+
+				// setMethod.invoke(o[0], new Date());
 				setMethod.invoke(o[0], datetimeFormat.format(new Date()));
 			}
 			result = null;
@@ -119,9 +146,12 @@ public class TServiceImpl implements TService {
 		}
 	}
 
+	/**
+	 * 保存Map中的多对象
+	 */
 	@Override
 	public void saveOrUpdateMultiObjects(Map objects) {
-		for(Object key : objects.keySet()){
+		for (Object key : objects.keySet()) {
 			Object o = objects.get(key);
 			baseDao.saveOrUpdate(o);
 		}

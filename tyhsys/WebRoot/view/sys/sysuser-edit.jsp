@@ -12,7 +12,7 @@
 				</colgroup>
 				<tr>
 					<td><span class="star">*</span>账号:</td>
-					<td><input name="suUsername" validType="length[3,30]" class="textstyle wb80 easyui-validatebox" required="true"></td>
+					<td><input name="suUsername" validType="length[3,30]" class="textstyle wb80 easyui-validatebox" required="true" onblur="checkUnique(this)"></td>
 				</tr>
 				<tr>
 					<td><span class="star">*</span>姓名:</td>
@@ -20,7 +20,7 @@
 				</tr>
 				<tr>
 					<td><span class="star">*</span>密码:</td>
-					<td><input type="password" name="suPassword" validType="length[6,30]" class="textstyle wb80 easyui-validatebox" required="true"></td>
+					<td><input type="password" name="suPassword" validType="length[6,32]" class="textstyle wb80 easyui-validatebox" required="true"></td>
 				</tr>
 				<tr>
 					<td>激活:</td>

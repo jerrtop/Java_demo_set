@@ -1,20 +1,21 @@
 package com.fsj.spring.service.sys.impl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
-
-
-import com.fsj.spring.model.sys.SysMenu;
-import com.fsj.spring.model.sys.SysMenuOper;
 import com.fsj.spring.model.sys.SysRole;
+import com.fsj.spring.model.sys.SysRoleMenu;
 import com.fsj.spring.service.TServiceImpl;
-import com.fsj.spring.service.sys.MenuService;
 import com.fsj.spring.service.sys.RoleService;
 import com.fsj.spring.util.DataGridModel;
 /**
@@ -75,24 +76,158 @@ public class RoleServiceImpl extends TServiceImpl implements RoleService {
 		}
 		return count;
 	}
+	
 	/**
-	 * 保存菜单时，同时保存操作权限
+	 * 获得菜单
+	 * @param smParentCode 上级菜单编码
 	 */
-//	public void saveOrUpdate(Object o){
-//		SysMenu menu = (SysMenu) o;
-//		Long menuId = menu.getId();
-//					
-//		// 1. 操作权限采取先删后插入的做法
-//		String deleteOpersSQL = "delete from sys_menu_oper where smo_menu_id = ?";
-//		java.util.List pl = new ArrayList();
-//		pl.add(menuId);
-//		baseDao.updateBySQL(deleteOpersSQL,pl);
-//		
-//		// 2.复制属性值
-//		Object[] menuObj = new Object[]{menu};
-//		setObjectSaveValue(menuObj);
-//		// 3. 保存菜单
-//		baseDao.saveOrUpdate(menuObj[0]);
-//	}
+	@Override
+	public String fetchMenus(Long srRoleId) throws Exception {
+		JSONArray menus = new JSONArray();
+		menus = fetchMenuIterator(null,srRoleId);
+		return menus.toString();
+	}
+	/**
+	 * 递归得到菜单信息
+	 * @param smParentCode
+	 * @param srRoleId
+	 * @return
+	 */
+	private JSONArray fetchMenuIterator(String smParentCode,Long srRoleId){
+		List pl = new ArrayList();
+		String sql = "select menu.*,(select group_concat(concat_ws('=',SMO_NAME,smo_operation)) from sys_menu_oper smo where smo.smo_menu_id = menu.id and smo.smo_valid = 'Y') as 'menuOpers' from sys_menu menu ";
+		
+		if(StringUtils.isNotBlank(smParentCode)){
+			sql += " where SM_PARENT = ?";
+			pl.add(smParentCode);
+		}else{
+			sql += " where (SM_PARENT is null or SM_PARENT = '')";
+		}
+		sql = "select * from (" + sql + ") t order by t.sm_code asc";
+		//System.out.println(".......... " + sql);
+		
+		List result = baseDao.findBySQL(sql, pl);
+		JSONArray submenus = null;
+		if(result != null && result.size() > 0){
+			submenus = new JSONArray();
+			for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+				Map menuMap = (Map) iterator.next();
+				
+				JSONObject json = new JSONObject();
+				json.put("id", menuMap.get("ID"));
+				json.put("text", menuMap.get("SM_NAME"));
+				json.put("state", "open");
+				
+				JSONObject attributes = findRoleMenu(srRoleId, Long.parseLong(menuMap.get("ID").toString()));
+				attributes.put("menuOpers", menuMap.get("MENUOPERS"));
+				json.put("checked", attributes.getBoolean("checked"));
+				attributes.remove("checked");
+				json.put("attributes", attributes);
+				
+				String currentSmParentCode = menuMap.get("SM_CODE").toString();
+				json.put("children", fetchMenuIterator(currentSmParentCode,srRoleId));
+				submenus.add(json);
+			}
+		}
+		
+		return submenus;
+	}
+	
+	/**
+	 * 角色菜单信息
+	 * @param srRoleId 角色ID
+	 * @param smMenuId 菜单ID
+	 * @return
+	 */
+	private JSONObject findRoleMenu(Long srRoleId,Long smMenuId){
+		JSONObject roleMenu = new JSONObject();
+		
+		boolean checked = false;
+		String selectedMenuOpers = "";
+		
+		if(srRoleId != null){ //编辑
+			String sql = "select * from sys_role_menu srm where srm_role_id = ? and srm_menu_id = ?";
+			List pl = new ArrayList();
+			pl.add(srRoleId);
+			pl.add(smMenuId);
+			List result = baseDao.findBySQL(sql, pl);
+			
+			for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+				Map object = (Map) iterator.next();
+				checked = true;
+				selectedMenuOpers = object.get("SRM_OPERS").toString();
+			}
+		}
+			
+		roleMenu.put("checked", checked);
+		roleMenu.put("selectedMenuOpers", selectedMenuOpers);
+		return roleMenu;
+	}
+	
+	/**
+	 * 保存角色
+	 */
+	@Override
+	public void saveOrUpdate(Object str) {
+		JSONObject role = JSONObject.fromObject(str);
+		SysRole sysRole = new SysRole();
+		String where = "";
+		List pl = new ArrayList();
+		Long srRoleId = null;
+		if(role.get("id") != null && !role.get("id").toString().equals("")){
+			srRoleId = Long.parseLong(role.get("id").toString());
+			sysRole.setId(srRoleId);
+			where = " where srm_role_id = ?";
+			pl.add(srRoleId);
+		}
+		// 1.保存角色
+		sysRole.setSrCode(role.get("srCode").toString());
+		sysRole.setSrName(role.get("srName").toString());
+		Object[] o = new Object[]{sysRole};
+		setObjectSaveValue(o);//复制属性值
+		baseDao.saveOrUpdate(o[0]);
+		
+		
+		// 2.先删除角色菜单权限，再插入
+		if(srRoleId == null){
+			List roles = baseDao.findByExample(sysRole);
+			srRoleId = ((SysRole) roles.get(0)).getId();
+		}
+		if(where.length() > 0){
+			String sql = "delete from sys_role_menu ";
+			sql += where;
+			
+			baseDao.updateBySQL(sql, pl);
+		}
+		String menuOpers = role.getString("menuopers");
+		JSONArray items = JSONArray.fromObject(menuOpers);
+		for (int i = 0; i < items.size(); i++) {
+			JSONObject item = items.getJSONObject(i);
+			SysRoleMenu srm = (SysRoleMenu) JSONObject.toBean(item, SysRoleMenu.class);
+			srm.setSrmRoleId(srRoleId);
+			
+			baseDao.saveOrUpdate(srm);
+		}
+	}
 
+	/**
+	 * 删除角色
+	 */
+	@Override
+	public void deleteAllObjects(Class clazz, List<?> uids) {
+		if (uids != null && uids.size() > 0) {
+			SysRole role = null;
+			List roleMenus = new ArrayList();
+			for (Iterator iter = uids.iterator(); iter.hasNext();) {
+				role = (SysRole) baseDao.findById(clazz, (Serializable) iter.next());
+				//删除角色
+				deleteObject(role);
+				
+				//删除角色菜单权限
+				roleMenus = baseDao.findByProperty(SysRoleMenu.class, "srmRoleId", role.getId());
+				if(roleMenus != null && roleMenus.size() > 0)
+					deleteAllObjects(roleMenus);
+			}
+		}
+	}
 }

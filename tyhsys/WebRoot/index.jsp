@@ -7,6 +7,9 @@
 <LINK href="css/Default.css" type=text/css rel=stylesheet>
 <LINK href="css/User_Login.css" type=text/css rel=stylesheet>
 <script type="text/javascript">
+	if(location.href != window.parent.location.href)
+		window.parent.location.href = location.href;
+	
 	function login(){
 		var userName = document.getElementById("TxtUserName");
 		var password = document.getElementById("TxtPassword");

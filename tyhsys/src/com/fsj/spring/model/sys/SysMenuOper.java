@@ -12,14 +12,25 @@ public class SysMenuOper implements java.io.Serializable {
 
 	private Long id;
 
+	/**
+	 * 操作名称
+	 */
 	private String smoName;
 
+	/**
+	 * 操作控件id 或 name
+	 */
 	private String smoOperation;
 
 	//private String smoMenuId;
-	
+	/**
+	 * 关联菜单
+	 */
 	private SysMenu sysMenu;
 
+	/**
+	 * 是否可用
+	 */
 	private String smoValid;
 
 	// Constructors

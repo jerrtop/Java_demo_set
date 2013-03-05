@@ -12,16 +12,26 @@ public class SysRole implements java.io.Serializable {
 	// Fields
 
 	private Long id;
-
+	/**
+	 * 角色编码
+	 */
 	private String srCode;
-
+	/**
+	 * 角色名称
+	 */
 	private String srName;
-
+	/**
+	 * 角色备注
+	 */
 	private String srMemo;
-
+	/**
+	 * 创建人
+	 */
 	private String crtC;
-
-	private Date crtDate;
+	/**
+	 * 创建时间
+	 */
+	private String crtDate;
 
 	// Constructors
 
@@ -35,7 +45,7 @@ public class SysRole implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public SysRole(Long id, String srCode, String srName, String srMemo, String crtC, Date crtDate) {
+	public SysRole(Long id, String srCode, String srName, String srMemo, String crtC, String crtDate) {
 		this.id = id;
 		this.srCode = srCode;
 		this.srName = srName;
@@ -86,11 +96,11 @@ public class SysRole implements java.io.Serializable {
 		this.crtC = crtC;
 	}
 
-	public Date getCrtDate() {
+	public String getCrtDate() {
 		return this.crtDate;
 	}
 
-	public void setCrtDate(Date crtDate) {
+	public void setCrtDate(String crtDate) {
 		this.crtDate = crtDate;
 	}
 

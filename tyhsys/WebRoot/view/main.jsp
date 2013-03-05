@@ -7,6 +7,9 @@
 <script type="text/javascript" src="js/jquery/jquery-1.4.2.min.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
 <script type="text/javascript" src="js/sys/main.js"></script>
+<script type="text/javascript">
+	var global_role_menus = ${userSessionRoleMenus};
+</script>
 </head>
 
 <body>
@@ -21,8 +24,10 @@
   </div>
   <div id="nav">
   	<ul id="navmenu">
-  		<li class="selectedli"><a href="#" target="frame_content" onclick="setActiveMenu($(this).parent());"><span>主页</span></a></li>
-		<li><a href="user/list" target="frame_content" onclick="setActiveMenu($(this).parent());"><span class="menuunselected">系统管理</span></a></li>
+		<!--   		
+			<li class="selectedli"><a href="#" target="frame_content" onclick="setActiveMenu($(this).parent());"><span>主页</span></a></li>
+			<li><a href="user/list" target="frame_content" onclick="setActiveMenu($(this).parent());"><span class="menuunselected">系统管理</span></a></li>
+		-->
 		<div style="clear:both;"></div>
   	</ul>
 	<div style="clear:both;"></div>
@@ -35,6 +40,7 @@
 		</div>
 		<div id="menu">
 			<div class="menuitem">
+				<!-- 
 				<span class="fthmenu">系统管理</span>
 				<ul>
 					<li>
@@ -50,11 +56,12 @@
 						<a href="#" target="frame_content">权限管理</a>
 					</li>
 				</ul>
+				 -->
 			</div>
 		</div>
 	</div>
   	<div id="workplace">
-		<iframe name="frame_content" id="frame_content" width="100%" height="500" src="user/list" frameborder="0"></iframe>
+		<iframe name="frame_content" id="frame_content" width="100%" height="500" src="" frameborder="0"></iframe>
 		<script type="text/javascript">	
 			function reinitIframe(){
 				$('#frame_content').load(function(){

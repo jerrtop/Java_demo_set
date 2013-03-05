@@ -16,6 +16,9 @@ body {
 .areastyle{border:1px solid #7f9db9;vertical-align:middle;margin:3px;}
 .chkstyle{vertical-align:middle;margin:3px;}
 
+.menuOpers{margin:3px;height:16px;line-height:16px;padding-left:5px;border:1px dotted #666;}
+.menuOpers input,.menuOpers label{vertical-align: middle;}
+
 .mybuttondiv {
 	border:1px solid #1393e9;
 	cursor: pointer;

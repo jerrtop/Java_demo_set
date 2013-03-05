@@ -1,63 +1,101 @@
 //表单值初始化
 function pageInit(){
-	$('#tt').tree();
+	
+	fetchMenus();
+}
+
+function fetchMenus(){
+	//var data1 = [{"id":"1","text":"系统管理","state":"open","children":[{"id":"2","text":"用户管理","state":"open"},{"id":"3","text":"菜单管理","state":"open"},{"id":"4","text":"权限管理","state":"open"},{"id":"12","text":"角色管理","state":"open"}]}];
+	var options = {
+		url:"fetchMenus?srRoleId=" + editRowId + '&' + Math.random(),
+		method:"get",
+		animate:true,
+		checkbox:true,
+		cascadeCheck:false,
+		onBeforeCollapse:function(node){
+			return false;
+		},
+		onCheck:checkedMenuOpers,
+		onLoadSuccess:function(node,data){
+			if(data != null && data != ''){
+				appendOpersToMenu(data);
+			}
+		}
+	};
+	$('#menu').tree(options);
+}
+
+//选中菜单时，选中操作复选框
+function checkedMenuOpers(node,checked){
+	// Bug1000:第一次远程载入数据时，上级选中时，导致将所有下级选中的bug
+	if(checked)
+		$(node.target).find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox1");
+	else
+		$(node.target).find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox0");
+	
+	$('input[check-id="'+ node.id +'"]').attr("checked",checked);
+	
+	var childs = $('#menu').tree("getChildren",node.target);
+	if(childs != null && childs != undefined && childs != ''){
+		$.each(childs,function(i,obj){
+			checkedMenuOpers(obj,checked);
+		});
+	}
+}
+
+//在菜单树上显示操作
+function appendOpersToMenu(data){
+	$.each(data,function(){
+		var node_id = this.id;
+		var menu = $('div[node-id="'+ node_id +'"]');
+		
+		// 重新设置checked状态，修复Bug1000
+		if(this.checked)
+			menu.find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox1");
+		else
+			menu.find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox0");
+			
+			
+		if(this.attributes != undefined){
+			var menuOpers = this.attributes.menuOpers;
+			var selectedMenuOpers = this.attributes.selectedMenuOpers;
+			if(menuOpers != undefined){
+				
+				var shtml = '<span span-id="' + node_id + '" class="menuOpers">';
+				var opers = menuOpers.split(',');
+				$.each(opers,function(i,oper){
+					if(oper != undefined){
+						var operArray = oper.split('=');
+						if(selectedMenuOpers.indexOf(operArray[1]) != -1)//操作权限
+							shtml += '<input type="checkbox" check-id="' + node_id + '" value="' + operArray[1] + '" checked="checked"/><label>'+ operArray[0] +'</label>';
+						else
+							shtml += '<input type="checkbox" check-id="' + node_id + '" value="' + operArray[1] + '" /><label>'+ operArray[0] +'</label>';
+					}
+				});
+				shtml += '</span>';
+				menu.append(shtml);
+				
+				//递归
+				if(this.children != undefined)
+					appendOpersToMenu(this.children);
+			}
+		}
+	});
 }
 
 // 检查唯一
 function checkUnique(element){
 	var chkVal = $(element).val();
-	var inputName =  $(element).attr("name");
 	if($.trim(chkVal) == '')
 		return false;
 	
-	var json = '';
-	// 检查菜单编码
-	if(inputName == 'smCode'){
-		json += '{';
-		json += '"checkProperty":"SM_CODE",';
-		json += '"checkValue":"'+ $.trim(chkVal) + '"';
-		json += '}';
-		checkUniqueBySmCode(json);
-	}else if(inputName == 'smParent'){// 检查上级菜单编码
-		json += '{';
-		json += '"checkProperty":"SM_PARENT",';
-		json += '"checkValue":"'+ $.trim(chkVal) + '"';
-		json += '}';
-		checkUniqueBySmParent(json);
-	}
-	
-}
-
-/**
- * 检查菜单编码唯一性
- * @param json
- */
-function checkUniqueBySmCode(json){
-	json = $.parseJSON(json);
-	var url = "checkUnique?checkProperty=" + json.checkProperty + "&checkValue=" + json.checkValue;
+	var url = "checkUnique?checkProperty=SR_CODE&checkValue=" + $.trim(chkVal);
 	$.get(encodeURI(url),function(data){
 		if(data.mes == 1){
 			$.messager.alert('提示',"编码存在，请重新输入.",'info');
-			$("input[name='smCode']").val('');
+			$("input[name='srCode']").val('');
 		}
 	});
-	
-}
-
-/**
- * 检查上级菜单编码是否存在
- * @param json
- */
-function checkUniqueBySmParent(json){
-	json = $.parseJSON(json);
-	var url = "checkUnique?checkProperty=" + json.checkProperty + "&checkValue=" + json.checkValue;
-	$.get(encodeURI(url),function(data){
-		if(data.mes == 0){
-			$.messager.alert('提示',"上级菜单编码不存在，请重新输入.",'info');
-			$("input[name='smParent']").val('');
-		}
-	});
-	
 }
 
 function addOrUpdate(){
@@ -66,56 +104,48 @@ function addOrUpdate(){
 		return false;
 	}
 
-	//menu
-	var menuJSON = $("#dataForm").serializeArray();
-	menuJSON = JSON.stringify(menuJSON);//讲json对象转为string
-	menuJSON = menuJSON.substring(1,menuJSON.length - 1);
-	//opers
-	var opersJSON = '';
-	var opersRow = $('#opersForm table[name="opersInfo"] tr');
-	$.each(opersRow,function(i){
-		if(i == 0) return;//表头
-		opersJSON +='{"name":"smOpers.smoName","value":"' + $(this).find("input[name='smOpers.smoName']").val()+'"},';
-		opersJSON +='{"name":"smOpers.smoOperation","value":"' + $(this).find("input[name='smOpers.smoOperation']").val()+'"},';
-		opersJSON +='{"name":"smOpers.smoValid","value":"' + ($(this).find("input[name='smOpers.smoValid']").attr("checked") == true ? $(this).find("input[name='smOpers.smoValid']").attr("value") : '') +'"},';
-	});
-	if(opersJSON.length > 0)
-		opersJSON = opersJSON.substring(0,opersJSON.length - 1);
+	var roleJSON,menuJSON;
+	//角色JSON
+	roleJSON = '{';
+	roleJSON += 	'"id":"' + $("#dataForm #uuid").val() + '",';
+	roleJSON += 	'"srCode":"' + $("#dataForm input[name='srCode']").val() + '",';
+	roleJSON += 	'"srName":"' + $("#dataForm input[name='srName']").val() + '"';
+	roleJSON += '}';
 	
-	var postJSON = '';
-	if(opersJSON != '')
-		postJSON = '[' + menuJSON + ',' + opersJSON + ']';
-	else
-		postJSON = '[' + menuJSON + ']';
+	//菜单权限JSON
+	menuJSON = '[';
+	var menus = $('#menu').tree("getChecked");
+	if(menus != '' && menus != null){
+		var menuOper = '';
+		$.each(menus,function(i,obj){
+			if(i == 0)
+				menuOper = '{';
+			else
+				menuOper += ',{';
+			
+			menuOper += '"srmMenuId":"' + obj.id + '",';
+			var opers = $('input[check-id="'+ obj.id +'"]:checked');
+			var operValues = '';
+			$.each(opers,function(k,oper){
+				if(k == 0)
+					operValues = $(oper).attr("value");
+				else
+					operValues += ',' + $(oper).attr('value');
+			});
+			menuOper += '"srmOpers":"' + operValues + '"';
+			menuOper += '}';
+		});
+		
+		menuJSON += menuOper;
+	}
+	menuJSON += ']';
 	
-	postJSON = JSON.parse(postJSON);
-	
-	
-//	$.post("addOrUpdateMenu",$("#dataForm").serializeArray(),function(data){
-//		$('#MyPopWindow').window('close');
-//		$('#listTable').datagrid('reload');  
-//		$.messager.alert('提示',data.mes,'info');
-//	});
-	
-	$.post("addOrUpdateMenu",postJSON,function(data){
+	roleJSON = JSON.parse(roleJSON);
+	roleJSON.menuopers = JSON.parse(menuJSON);
+	$.post("addOrUpdateRole","data=" + JSON.stringify(roleJSON),function(data){
 		$('#MyPopWindow').window('close');
 		$('#listTable').datagrid('reload');  
 		$.messager.alert('提示',data.mes,'info');
 	});
 	
-}
-
-function addOper(){
-	var shtml = '';
-	shtml += '<tr>';
-	shtml += '<td><input type="text" class="textstyle wb80" name="smOpers.smoName" value=""/></td>';
-	shtml += '<td><input type="text" class="textstyle wb80" name="smOpers.smoOperation" value="" /></td>';
-	shtml += '<td><input type="checkbox" class="chkstyle" name="smOpers.smoValid" value="Y" checked="checked"/></td>';
-	shtml += '<td><a href="javascript:void(0)" onclick="deleteOper(this)">删除</a></td>';
-	shtml += '</tr>';
-	$("table[name='opersInfo']").append(shtml);
-}
-
-function deleteOper(o){
-	$(o).parent().parent().remove();
 }

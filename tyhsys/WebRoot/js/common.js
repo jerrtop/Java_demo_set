@@ -43,8 +43,10 @@ Date.prototype.format = function(fmt){
 };
 
 //Grid自适应宽度
-function gridWidthAdapter(selector) {
+function gridWidthAdapter(selector) { //TODO datagrid寬度自適應IE8bug
+	/**
 	$(window).resize(function() {
+		alert("window resize");
 		var winW = 1000;
 		if (window.innerHeight) {
 			winW = window.innerWidth;
@@ -58,6 +60,7 @@ function gridWidthAdapter(selector) {
 		//$(selector).jqGrid('setGridWidth', winW - 18);
 		$(selector).datagrid('resize',{width:winW-5});  
 	});
+	*/
 }
 
 function PanShow(objname,classname,curid,maxid)
@@ -100,7 +103,7 @@ function closeWindow(selector){
 }
 
 //将jquery系列化后的值转为name:value的形式。
-function convertArray(o) {  
+function convertArrayToJson(o) {  
 	var v = {}; 
 	for (var i in o) { 
 		if (typeof (v[o[i].name]) == 'undefined') 
@@ -109,4 +112,4 @@ function convertArray(o) {
 			v[o[i].name] += "," + o[i].value; 
 	} 
 	return v; 
-} 
+}

@@ -11,29 +11,59 @@ import java.util.Set;
 public class SysMenu implements java.io.Serializable {
 
 	// Fields
-
+	//主键ID
 	private Long id;
 
+	/**
+	 * 菜单名
+	 */
 	private String smName;
-
+	/**
+	 * 菜单编码
+	 */
 	private String smCode;
 
+	/**
+	 * 菜单标题
+	 */
 	private String smTitle;
 
+	/**
+	 * 上级菜单编码
+	 */
 	private String smParent;
 
+	/**
+	 * 菜单URL
+	 */
 	private String smPage;
 
+	/**
+	 * 包含页面
+	 */
 	private String smContainPage;
-
+	/**
+	 * 是否可用
+	 */
 	private String smIsUsed;
-
+	/**
+	 * 是否顶级
+	 */
 	private String smIsTop;
 
+	/**
+	 * 菜单描述
+	 */
 	private String smDescription;
 
+	/**
+	 * 创建人
+	 */
 	private String crtC;
 
+	/**
+	 * 创建时间
+	 */
 	private String crtDate;
 	
 	private Set<SysMenuOper> sysMenuOpers = new HashSet<SysMenuOper>(0);

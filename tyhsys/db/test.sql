@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50155
 File Encoding         : 65001
 
-Date: 2013-02-25 14:39:11
+Date: 2013-03-05 10:50:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -84,7 +84,7 @@ CREATE TABLE `sys_menu` (
   `CRT_C` varchar(30) DEFAULT NULL,
   `CRT_DATE` varchar(19) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -93,12 +93,10 @@ INSERT INTO `sys_menu` VALUES ('1', '系统管理', '10', null, '', '', null, 'Y
 INSERT INTO `sys_menu` VALUES ('2', '用户管理', '1001', '用户管理', '10', 'user/list', null, 'Y', null, null, 'sys', '2013-02-20 14:15:43');
 INSERT INTO `sys_menu` VALUES ('3', '菜单管理', '1002', null, '10', 'menu/list', null, 'Y', null, '', 'jerry', '2013-02-21 11:31:15');
 INSERT INTO `sys_menu` VALUES ('4', '权限管理', '1003', null, '10', 'auth/list', null, 'Y', null, '', 'jerry', '2013-02-21 11:34:45');
-INSERT INTO `sys_menu` VALUES ('5', '测试', 'test', null, '10', '', null, 'Y', null, '', 'jerry', '2013-02-22 10:49:28');
-INSERT INTO `sys_menu` VALUES ('7', 'ce111', 'ce111', null, '', '', null, 'Y', null, '', 'jerry', '2013-02-22 13:17:07');
-INSERT INTO `sys_menu` VALUES ('8', 'ce222', 'ce222', null, '', '', null, 'Y', null, '', 'jerry', '2013-02-22 13:17:37');
-INSERT INTO `sys_menu` VALUES ('9', 'ce22', 'ce22', null, '', '', null, 'Y', null, '', 'jerry', '2013-02-22 13:20:09');
-INSERT INTO `sys_menu` VALUES ('10', 'ce88', 'ce88', null, '', '', null, 'Y', null, '', 'jerry', '2013-02-22 13:43:08');
-INSERT INTO `sys_menu` VALUES ('11', 'ce99', 'ce99', null, '', '', null, 'Y', null, '', 'jerry', '2013-02-22 13:55:23');
+INSERT INTO `sys_menu` VALUES ('12', '角色管理', '1004', null, '10', '/role/list', null, 'Y', null, '', 'jerry', '2013-02-26 09:39:11');
+INSERT INTO `sys_menu` VALUES ('13', '短信平台', '20', null, '', '', null, 'Y', null, '', 'jerry', '2013-02-27 16:21:51');
+INSERT INTO `sys_menu` VALUES ('14', '短信模板', '2002', null, '20', 'sms/templ', null, 'Y', null, '', 'jerry', '2013-02-27 16:25:33');
+INSERT INTO `sys_menu` VALUES ('15', '报表管理', '30', null, '', '', null, 'Y', null, '', 'jerry', '2013-02-27 16:25:55');
 
 -- ----------------------------
 -- Table structure for `sys_menu_oper`
@@ -113,21 +111,17 @@ CREATE TABLE `sys_menu_oper` (
   PRIMARY KEY (`ID`),
   KEY `FKF6CDAA3CEBF0C694` (`SMO_MENU_ID`),
   CONSTRAINT `FKF6CDAA3CEBF0C694` FOREIGN KEY (`SMO_MENU_ID`) REFERENCES `sys_menu` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_menu_oper
 -- ----------------------------
-INSERT INTO `sys_menu_oper` VALUES ('3', '新增', 'add', '11', 'Y');
-INSERT INTO `sys_menu_oper` VALUES ('4', '编辑', 'edit', '11', 'Y');
-INSERT INTO `sys_menu_oper` VALUES ('5', '编辑', 'edit1', '10', 'Y');
-INSERT INTO `sys_menu_oper` VALUES ('6', '新增', 'add1', '10', 'Y');
-INSERT INTO `sys_menu_oper` VALUES ('7', '新增', 'add2', '11', 'Y');
-INSERT INTO `sys_menu_oper` VALUES ('8', '编辑', 'edit2', '11', 'Y');
-INSERT INTO `sys_menu_oper` VALUES ('9', '新增', 'add', '11', 'Y');
-INSERT INTO `sys_menu_oper` VALUES ('10', '编辑', 'edit', '11', 'Y');
 INSERT INTO `sys_menu_oper` VALUES ('77', '新增', 'add', '1', 'Y');
 INSERT INTO `sys_menu_oper` VALUES ('78', '编辑', 'edit', '1', 'Y');
+INSERT INTO `sys_menu_oper` VALUES ('90', '删除', 'delete', '12', 'Y');
+INSERT INTO `sys_menu_oper` VALUES ('91', '新增', 'add', '12', 'Y');
+INSERT INTO `sys_menu_oper` VALUES ('92', '查询', 'search', '12', 'Y');
+INSERT INTO `sys_menu_oper` VALUES ('93', '编辑', 'edit', '12', 'Y');
 
 -- ----------------------------
 -- Table structure for `sys_oper_log`
@@ -176,14 +170,45 @@ CREATE TABLE `sys_role` (
   `SR_NAME` varchar(100) DEFAULT NULL,
   `SR_MEMO` longtext,
   `CRT_C` varchar(30) DEFAULT NULL,
-  `CRT_DATE` datetime DEFAULT NULL,
+  `CRT_DATE` varchar(19) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `SR_CODE` (`SR_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
+INSERT INTO `sys_role` VALUES ('17', 'sr110', '系统管理员', null, 'jerry', '2013-03-01 09:59:09');
+INSERT INTO `sys_role` VALUES ('18', 'sr111', 'IT支撑室', null, 'jerry', '2013-03-01 09:59:47');
+
+-- ----------------------------
+-- Table structure for `sys_role_menu`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_role_menu`;
+CREATE TABLE `sys_role_menu` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `SRM_ROLE_ID` bigint(20) DEFAULT NULL,
+  `SRM_MENU_ID` bigint(20) DEFAULT NULL,
+  `SRM_OPERS` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=138 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_role_menu
+-- ----------------------------
+INSERT INTO `sys_role_menu` VALUES ('125', '17', '1', 'add,edit');
+INSERT INTO `sys_role_menu` VALUES ('126', '17', '2', '');
+INSERT INTO `sys_role_menu` VALUES ('127', '17', '3', '');
+INSERT INTO `sys_role_menu` VALUES ('128', '17', '4', '');
+INSERT INTO `sys_role_menu` VALUES ('129', '17', '12', 'delete,add,search,edit');
+INSERT INTO `sys_role_menu` VALUES ('130', '17', '13', '');
+INSERT INTO `sys_role_menu` VALUES ('131', '17', '14', '');
+INSERT INTO `sys_role_menu` VALUES ('132', '17', '15', '');
+INSERT INTO `sys_role_menu` VALUES ('133', '18', '1', 'add,edit');
+INSERT INTO `sys_role_menu` VALUES ('134', '18', '2', '');
+INSERT INTO `sys_role_menu` VALUES ('135', '18', '3', '');
+INSERT INTO `sys_role_menu` VALUES ('136', '18', '4', '');
+INSERT INTO `sys_role_menu` VALUES ('137', '18', '12', 'delete,add,search,edit');
 
 -- ----------------------------
 -- Table structure for `sys_user`
@@ -192,7 +217,7 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `SU_USERNAME` varchar(30) DEFAULT NULL,
-  `SU_PASSWORD` varchar(30) DEFAULT NULL,
+  `SU_PASSWORD` varchar(32) DEFAULT NULL,
   `SU_NAME_CN` varchar(20) DEFAULT NULL,
   `SU_ACC_ENA` varchar(1) DEFAULT NULL COMMENT 'N表示不可用；Y表示可用。',
   `SU_MEMO` varchar(150) DEFAULT NULL,
@@ -200,18 +225,36 @@ CREATE TABLE `sys_user` (
   `CRT_DATE` varchar(19) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `SU_USERNAME` (`SU_USERNAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'jerry', '123456', 'jerry', 'Y', null, 'sys', '2013-02-05 14:28:23');
-INSERT INTO `sys_user` VALUES ('3', 'admin', '123456', 'admin', 'Y', null, 'sys', '2013-02-18 13:59:12');
-INSERT INTO `sys_user` VALUES ('4', 'tyh', '123456', '唐有欢', 'Y', null, 'sys', '2013-02-18 13:59:53');
-INSERT INTO `sys_user` VALUES ('5', 'test1', '123456', '测试员1', 'Y', null, 'sys', '2013-02-18 14:00:45');
-INSERT INTO `sys_user` VALUES ('6', 'test2', '123456', '测试员2', 'Y', null, 'jerry', '2013-02-19 10:07:03');
-INSERT INTO `sys_user` VALUES ('7', 'zhangsan', '123456', '张三丰', 'Y', null, 'jerry', '2013-02-19 14:33:38');
-INSERT INTO `sys_user` VALUES ('8', 'lihao', '123456', '李好1', 'Y', null, 'jerry', '2013-02-19 14:59:10');
-INSERT INTO `sys_user` VALUES ('9', 'mingbai', '123456', '明百明', 'Y', null, 'jerry', '2013-02-19 14:59:41');
-INSERT INTO `sys_user` VALUES ('10', 'leidongyi', '123456', '雷东宜', 'Y', null, 'jerry', '2013-02-25 13:29:08');
-INSERT INTO `sys_user` VALUES ('12', 'lihao1', '123456', '李好2', 'Y', null, 'jerry', '2013-02-25 14:36:22');
+INSERT INTO `sys_user` VALUES ('1', 'jerry', '25d55ad283aa400af464c76d713c07ad', 'jerry', 'Y', null, 'sys', '2013-02-05 14:28:23');
+INSERT INTO `sys_user` VALUES ('3', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'admin', 'Y', null, 'sys', '2013-02-18 13:59:12');
+INSERT INTO `sys_user` VALUES ('4', 'tyh', 'e10adc3949ba59abbe56e057f20f883e', '唐有欢', 'Y', null, 'sys', '2013-02-18 13:59:53');
+INSERT INTO `sys_user` VALUES ('5', 'test1', 'e10adc3949ba59abbe56e057f20f883e', '测试员1', 'Y', null, 'sys', '2013-02-18 14:00:45');
+INSERT INTO `sys_user` VALUES ('6', 'test2', 'e10adc3949ba59abbe56e057f20f883e', '测试员2', 'Y', null, 'jerry', '2013-02-19 10:07:03');
+INSERT INTO `sys_user` VALUES ('7', 'zhangsan', 'e10adc3949ba59abbe56e057f20f883e', '张三丰', 'Y', null, 'jerry', '2013-02-19 14:33:38');
+INSERT INTO `sys_user` VALUES ('8', 'lihao', 'e10adc3949ba59abbe56e057f20f883e', '李好1', 'Y', null, 'jerry', '2013-02-19 14:59:10');
+INSERT INTO `sys_user` VALUES ('9', 'mingbai', 'e10adc3949ba59abbe56e057f20f883e', '明百明', 'Y', null, 'jerry', '2013-02-19 14:59:41');
+INSERT INTO `sys_user` VALUES ('10', 'leidongyi', 'e10adc3949ba59abbe56e057f20f883e', '雷东宜', 'Y', null, 'jerry', '2013-02-25 13:29:08');
+INSERT INTO `sys_user` VALUES ('12', 'lihao1', 'e10adc3949ba59abbe56e057f20f883e', '李好2', 'Y', null, 'jerry', '2013-02-25 14:36:22');
+INSERT INTO `sys_user` VALUES ('13', 'jerry1', 'e10adc3949ba59abbe56e057f20f883e', 'jerry1', 'Y', null, 'jerry', '2013-02-27 09:28:32');
+INSERT INTO `sys_user` VALUES ('14', 'md5', '25d55ad283aa400af464c76d713c07ad', 'md5', 'Y', '', 'jerry', '2013-03-05 09:37');
+INSERT INTO `sys_user` VALUES ('15', 'md11', 'e10adc3949ba59abbe56e057f20f883e', 'md11', 'Y', null, 'jerry', '2013-03-05 09:43:49');
+
+-- ----------------------------
+-- Table structure for `sys_user_role`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_user_role`;
+CREATE TABLE `sys_user_role` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `SUR_USER_ID` bigint(20) DEFAULT NULL,
+  `SUR_ROLE_ID` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_user_role
+-- ----------------------------
