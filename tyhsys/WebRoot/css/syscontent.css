@@ -1,5 +1,5 @@
 body {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Arial, 宋体;
 	font-size: 12px;
 	margin: 0px;
 	padding: 0px;
@@ -15,6 +15,8 @@ body {
 .selectstyle{border:1px solid #7f9db9;height:22px;line-height:22px;vertical-align:middle;margin-left:3px;}
 .areastyle{border:1px solid #7f9db9;vertical-align:middle;margin:3px;}
 .chkstyle{vertical-align:middle;margin:3px;}
+.chkstyleIn{vertical-align:middle;margin-left:8px;margin-top:3px;margin-bottom:3px;}
+.textreadonly{border:1px solid #C0C0C0;background-color:#D3D3D3;height:16px;line-height:16px;padding-left:2px;vertical-align:middle;margin-left:3px;readonly:expression(this.readOnly=true);}
 
 .menuOpers{margin:3px;height:16px;line-height:16px;padding-left:5px;border:1px dotted #666;}
 .menuOpers input,.menuOpers label{vertical-align: middle;}
@@ -83,8 +85,12 @@ body {
 }
 .toolbtnalign{margin-right:10px;}
 /*------------- form 样式 ----------------*/
+#dataForm{
+	margin: 10;text-align: left;
+}
 .formcon{margin:0px 5px;}
-.tc_sysbox{background:#fff;margin:5px 5px}
+.tc_sysbox{background:#fff;margin:5px 5px;
+}
 .menudiv{height:19px;padding-left:3%;padding-top:10px;border:1px solid #a7d0e6;border-bottom:none;}
 .menudiv a:link,.menudiv a:visited{display:block;float:left;margin-right:15px;width:78px;height:19px;line-height:19px;background:url(../images/sys/formmenubg.gif) no-repeat left bottom;text-decoration:none;text-align:center;color:#333;}
 .menudiv a:hover{text-decoration:underline;color:#128bcb;}
@@ -100,6 +106,7 @@ body {
 .juzhong{display:block;margin:0px auto;}
 .juzhong *{margin-right:5px}
 .bgf{background-color:#fff;}
+.tooldialog{border:0px;width:96%;position:absolute;bottom:15px;}
 
 .talr{text-align:right;padding-right:6px;padding-left:16px;}
 .tall{text-align:left;}

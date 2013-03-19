@@ -19,7 +19,7 @@ import com.fsj.spring.util.MD5Util;
 @Controller
 @RequestMapping("/welcome")
 //将Model中属性名为Constants.USER_INFO_SESSION的属性放到Session属性列表中，以便这个属性可以跨请求访问
-@SessionAttributes(Constants.USER_INFO_SESSION)
+@SessionAttributes({Constants.USER_INFO_SESSION,Constants.USER_ROLE_MENUS})
 public class WelcomeController {
 	
 	private UserService userService;
@@ -44,7 +44,7 @@ public class WelcomeController {
 		}else {
 			model.addAttribute(Constants.USER_INFO_SESSION, user1); //名为Constants.USER_INFO_SESSION的属性放到Session属性列表中
 			String roleMenus = userService.getUserRoleMenus(user1);
-			System.out.println(roleMenus);
+			//System.out.println(roleMenus);
 			model.addAttribute(Constants.USER_ROLE_MENUS,roleMenus);
 			return "main";
 		}
@@ -56,9 +56,4 @@ public class WelcomeController {
 		}
 		return "relogin";
 	}
-//	
-//	@RequestMapping(value="/left",method=RequestMethod.GET)
-//	public String left(Model model) throws Exception{
-//		return "left";
-//	}
 }

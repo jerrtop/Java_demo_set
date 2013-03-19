@@ -28,10 +28,10 @@ function fetchMenus(){
 //选中菜单时，选中操作复选框
 function checkedMenuOpers(node,checked){
 	// Bug1000:第一次远程载入数据时，上级选中时，导致将所有下级选中的bug
-	if(checked)
-		$(node.target).find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox1");
-	else
-		$(node.target).find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox0");
+//	if(checked)
+//		$(node.target).find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox1");
+//	else
+//		$(node.target).find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox0");
 	
 	$('input[check-id="'+ node.id +'"]').attr("checked",checked);
 	
@@ -50,10 +50,10 @@ function appendOpersToMenu(data){
 		var menu = $('div[node-id="'+ node_id +'"]');
 		
 		// 重新设置checked状态，修复Bug1000
-		if(this.checked)
-			menu.find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox1");
-		else
-			menu.find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox0");
+//		if(this.checked)
+//			menu.find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox1");
+//		else
+//			menu.find(".tree-checkbox").attr("class","tree-checkbox tree-checkbox0");
 			
 			
 		if(this.attributes != undefined){

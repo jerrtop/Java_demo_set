@@ -43,18 +43,22 @@ function displayRoleMenus(){
 function displayModelMenus(menuIndex){
 	var menu = global_role_menus[menuIndex];
 	var shtml = '';
-	$.each(menu.children,function(index,submenu){
-		shtml += '<div class="menuitem">';
-		shtml += '<span class="fthmenu">'+ submenu.menuname +'</span>';
-		shtml += '<ul>';
-		$.each(submenu.children,function(k,ss){
-			shtml += '<li>';
-			shtml += '<a href="'+ ss.menuurl +'" target="frame_content">'+ ss.menuname +'</a>';
-			shtml += '</li>';
+	if(menu.children){//判断二级菜单是否存在
+		$.each(menu.children,function(index,submenu){
+			shtml += '<div class="menuitem">';
+			shtml += '<span class="fthmenu">'+ submenu.menuname +'</span>';
+			shtml += '<ul>';
+			if(submenu.children){//判断是否有三级菜单
+				$.each(submenu.children,function(k,ss){
+					shtml += '<li>';
+					shtml += '<a href="'+ ss.menuurl +'" target="frame_content">'+ ss.menuname +'</a>';
+					shtml += '</li>';
+				});
+			}
+			shtml += '</ul>';
+			shtml += '</div>';
 		});
-		shtml += '</ul>';
-		shtml += '</div>';
-	});
+	}
 	
 	$('#menu').html(shtml);
 	
