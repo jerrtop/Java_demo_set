@@ -15,6 +15,7 @@ body {
 .selectstyle{border:1px solid #7f9db9;height:22px;line-height:22px;vertical-align:middle;margin-left:3px;}
 .areastyle{border:1px solid #7f9db9;vertical-align:middle;margin:3px;}
 .chkstyle{vertical-align:middle;margin:3px;}
+.txtNoTBStyle{vertical-align:middle;margin:3px;}
 .chkstyleIn{vertical-align:middle;margin-left:8px;margin-top:3px;margin-bottom:3px;}
 .textreadonly{border:1px solid #C0C0C0;background-color:#D3D3D3;height:16px;line-height:16px;padding-left:2px;vertical-align:middle;margin-left:3px;readonly:expression(this.readOnly=true);}
 

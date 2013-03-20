@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50155
 File Encoding         : 65001
 
-Date: 2013-03-05 16:32:16
+Date: 2013-03-20 16:58:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -84,7 +84,7 @@ CREATE TABLE `sys_menu` (
   `CRT_C` varchar(30) DEFAULT NULL,
   `CRT_DATE` varchar(19) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_menu
@@ -92,13 +92,14 @@ CREATE TABLE `sys_menu` (
 INSERT INTO `sys_menu` VALUES ('1', '系统管理', '10', null, '', '', null, 'Y', 'Y', '系统管理子模块', 'jerry', '2013-02-25 14:37:28');
 INSERT INTO `sys_menu` VALUES ('2', '用户管理', '100101', '用户管理', '1001', 'user/list', null, 'Y', null, null, 'sys', '2013-02-20 14:15:43');
 INSERT INTO `sys_menu` VALUES ('3', '菜单管理', '100102', null, '1001', 'menu/list', null, 'Y', null, '', 'jerry', '2013-02-21 11:31:15');
-INSERT INTO `sys_menu` VALUES ('4', '权限管理', '100103', null, '1001', 'auth/list', null, 'Y', null, '', 'jerry', '2013-02-21 11:34:45');
+INSERT INTO `sys_menu` VALUES ('4', '用户角色管理', '100103', null, '1001', 'userrole/list', null, 'Y', null, '', 'jerry', '2013-02-21 11:34:45');
 INSERT INTO `sys_menu` VALUES ('12', '角色管理', '100104', null, '1001', 'role/list', null, 'Y', null, '', 'jerry', '2013-02-26 09:39:11');
 INSERT INTO `sys_menu` VALUES ('13', '短信平台', '20', null, '', '', null, 'Y', null, '', 'jerry', '2013-02-27 16:21:51');
 INSERT INTO `sys_menu` VALUES ('14', '短信模板', '2001', null, '20', '', null, 'Y', null, '', 'jerry', '2013-02-27 16:25:33');
 INSERT INTO `sys_menu` VALUES ('16', '系统管理', '1001', null, '10', null, null, 'Y', '', '系统管理', 'jerry', '2013-02-25 14:37:28');
 INSERT INTO `sys_menu` VALUES ('17', '模板管理', '200101', null, '2001', 'sms/list', null, 'Y', null, null, 'jerry', '2013-02-27 16:25:33');
 INSERT INTO `sys_menu` VALUES ('18', '模板类别', '200102', null, '2001', 'sms/catery', null, 'Y', null, null, 'jerry', '2013-02-27 16:25:33');
+INSERT INTO `sys_menu` VALUES ('19', '组织架构', '100105', null, '1001', 'org/list', null, 'Y', null, '', 'jerry', '2013-03-20 09:50:29');
 
 -- ----------------------------
 -- Table structure for `sys_menu_oper`
@@ -153,14 +154,22 @@ CREATE TABLE `sys_org` (
   `SO_NAME` varchar(30) DEFAULT NULL,
   `SO_PARENT` bigint(20) DEFAULT NULL,
   `CRT_C` varchar(30) DEFAULT NULL,
-  `CRT_TIME` datetime DEFAULT NULL,
+  `CRT_DATE` varchar(19) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `SO_CODE` (`SO_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_org
 -- ----------------------------
+INSERT INTO `sys_org` VALUES ('1', '10', '九唐科技', null, 'jerry', '2013-03-20 10:38:00');
+INSERT INTO `sys_org` VALUES ('2', '1001', '销售部', '1', 'jerry', '2013-03-20 10:38:00');
+INSERT INTO `sys_org` VALUES ('3', '1002', '研发部', '1', 'jerry', '2013-03-20 15:11:28');
+INSERT INTO `sys_org` VALUES ('4', '1003', '市场部', '1', 'jerry', '2013-03-20 15:12:10');
+INSERT INTO `sys_org` VALUES ('5', '1004', '运营分公司', '1', 'jerry', '2013-03-20 15:32:36');
+INSERT INTO `sys_org` VALUES ('7', '1005', '韩国分公司', '1', 'jerry', '2013-03-20 15:40:14');
+INSERT INTO `sys_org` VALUES ('8', '1006', '美国分公司', '1', 'jerry', '2013-03-20 15:43:09');
+INSERT INTO `sys_org` VALUES ('9', '100601', '美国洛杉矶办事处', '8', 'jerry', '2013-03-20 15:43:50');
 
 -- ----------------------------
 -- Table structure for `sys_role`
@@ -193,24 +202,25 @@ CREATE TABLE `sys_role_menu` (
   `SRM_MENU_ID` bigint(20) DEFAULT NULL,
   `SRM_OPERS` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=197 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_role_menu
 -- ----------------------------
-INSERT INTO `sys_role_menu` VALUES ('138', '17', '1', 'add,edit');
-INSERT INTO `sys_role_menu` VALUES ('139', '17', '16', '');
-INSERT INTO `sys_role_menu` VALUES ('140', '17', '2', '');
-INSERT INTO `sys_role_menu` VALUES ('141', '17', '3', '');
-INSERT INTO `sys_role_menu` VALUES ('142', '17', '4', '');
-INSERT INTO `sys_role_menu` VALUES ('143', '17', '12', '');
-INSERT INTO `sys_role_menu` VALUES ('150', '18', '1', 'add,edit');
-INSERT INTO `sys_role_menu` VALUES ('151', '18', '16', '');
-INSERT INTO `sys_role_menu` VALUES ('152', '18', '2', '');
-INSERT INTO `sys_role_menu` VALUES ('153', '18', '13', '');
-INSERT INTO `sys_role_menu` VALUES ('154', '18', '14', '');
-INSERT INTO `sys_role_menu` VALUES ('155', '18', '17', '');
-INSERT INTO `sys_role_menu` VALUES ('156', '18', '18', '');
+INSERT INTO `sys_role_menu` VALUES ('183', '18', '1', 'add,edit');
+INSERT INTO `sys_role_menu` VALUES ('184', '18', '16', '');
+INSERT INTO `sys_role_menu` VALUES ('185', '18', '2', '');
+INSERT INTO `sys_role_menu` VALUES ('186', '18', '3', '');
+INSERT INTO `sys_role_menu` VALUES ('187', '18', '12', '');
+INSERT INTO `sys_role_menu` VALUES ('188', '18', '13', '');
+INSERT INTO `sys_role_menu` VALUES ('189', '18', '14', '');
+INSERT INTO `sys_role_menu` VALUES ('190', '17', '1', 'add,edit');
+INSERT INTO `sys_role_menu` VALUES ('191', '17', '16', '');
+INSERT INTO `sys_role_menu` VALUES ('192', '17', '2', '');
+INSERT INTO `sys_role_menu` VALUES ('193', '17', '3', '');
+INSERT INTO `sys_role_menu` VALUES ('194', '17', '4', '');
+INSERT INTO `sys_role_menu` VALUES ('195', '17', '12', '');
+INSERT INTO `sys_role_menu` VALUES ('196', '17', '19', '');
 
 -- ----------------------------
 -- Table structure for `sys_user`
@@ -255,7 +265,7 @@ CREATE TABLE `sys_user_role` (
   `SUR_USER_ID` bigint(20) DEFAULT NULL,
   `SUR_ROLE_ID` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_user_role
@@ -263,3 +273,4 @@ CREATE TABLE `sys_user_role` (
 INSERT INTO `sys_user_role` VALUES ('1', '1', '18');
 INSERT INTO `sys_user_role` VALUES ('2', '3', '17');
 INSERT INTO `sys_user_role` VALUES ('3', '1', '17');
+INSERT INTO `sys_user_role` VALUES ('5', '15', '18');

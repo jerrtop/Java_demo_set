@@ -1,91 +1,115 @@
 package com.fsj.spring.service.sys.impl;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Service;
 
-import com.fsj.spring.dao.BaseDao;
 import com.fsj.spring.model.sys.SysOrg;
-import com.fsj.spring.model.sys.SysUser;
+import com.fsj.spring.service.TServiceImpl;
 import com.fsj.spring.service.sys.OrgService;
-import com.fsj.spring.util.DataGridModel;
 
 @Service("orgService")
-public class OrgServiceImpl implements OrgService {
-
-	private BaseDao baseDao;
-
-	public BaseDao getBaseDao() {
-		return baseDao;
-	}
-
-	public void setBaseDao(BaseDao baseDao) {
-		this.baseDao = baseDao;
-	}
-
-	public Map<String, Object> getPageListByExemple(DataGridModel dgm, SysOrg org) throws Exception {
-		return baseDao.getPageListByExemple(dgm, org);
-	}
-
-	public Map<String, Object> getPageList(DataGridModel dgm, SysOrg org) throws Exception {
-		String totalQuery = "select count(*) from SysUser user";
-		String fullQuery = "select new map(user as user,user.id as uid,user.dept.name as deptName) from SysUser user";
-		StringBuffer sb = new StringBuffer();
-		Map<String, Object> params = new HashMap<String, Object>();
-
-		if (org != null) {
-//			if (StringUtils.isNotBlank(user.getName())) {
-//				sb.append(" and user.name like :userName");
-//				params.put("userName", "%" + user.getName() + "%");
-//			}
-//			if (user.getAge() != null) {
-//				sb.append(" and user.age = :age");
-//				params.put("age", user.getAge());
-//			}
-//			if (user.getBirthday() != null) {
-//				sb.append(" and user.birthday = :birthday");
-//				params.put("birthday", user.getBirthday());
-//			}
-//			if(user.getDept() != null && user.getDept().getId() != null){
-//				sb.append(" and user.dept.id = :deptId");
-//				params.put("deptId", user.getDept().getId());
-//			}
-//			if (user.getDeptId() != null) {
-//				sb.append(" and dept.id = :deptId");
-//				params.put("deptId", user.getDeptId());
-//			}
+public class OrgServiceImpl extends TServiceImpl implements OrgService {
+	/**
+	 *检查值唯一性
+	 *@param property 被检查的属性
+	 *@param toBeCheckVal 被检查的值
+	 *@return int 
+	 */
+	@Override
+	public int checkUnique(String property,Object toBeCheckVal) {
+		String countSql = "select count(*) from sys_org org where " + property + "= ?";
+		java.util.List pl = new ArrayList();
+		pl.add(toBeCheckVal);
+		int count = baseDao.findObjectsCount(countSql,pl);
+		if(count >=1){
+			count = 1;
 		}
-		
-		if(sb.toString().startsWith(" and")){
-			sb.delete(0, 4);
-			sb.insert(0, " where ");
+		return count;
+	}
+	@Override
+	public String fetchOrgs(Long parentId) throws Exception {
+		JSONArray orgs = new JSONArray();
+		String sql = "select org.*,orgParent.so_name as 'PARENTNAME' from sys_org org left join sys_org orgParent on org.so_parent = orgParent.id ";
+		List params = new ArrayList();
+		if(parentId != null){
+			sql += " where org.so_parent = ?";
+			params.add(parentId);
+		}else{
+			sql += " where org.so_parent is null or org.so_parent = ''";
 		}
-		totalQuery += sb.toString();
-		fullQuery += sb.toString();
-		return baseDao.getPageList(dgm, totalQuery, fullQuery, params);
-	}
-
-	public SysOrg getOrgById(int id) throws Exception {
-		return (SysOrg) baseDao.findById(SysOrg.class, id);
-	}
-
-	public SysOrg getOrgByName(String name) throws Exception {
-		List<SysOrg> list = baseDao.findByProperty(SysUser.class, "suUsername", name);
-		return list == null || list.size() == 0 ? null : (SysOrg) list.get(0);
-	}
-
-	public void addOrUpdate(SysOrg org) throws Exception {
-		baseDao.saveOrUpdate(org);
-	}
-
-	public void deleteOrgs(List<Integer> orgsId) throws Exception {
-		if(orgsId != null && orgsId.size() > 0) {
-			for (Integer id : orgsId) {
-				baseDao.delete(getOrgById(id));
+		sql = "select * from (" + sql + ") t";
+		List result = baseDao.findBySQL(sql, params);
+		for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+			Map orgMap = (Map) iterator.next();
+			JSONObject json = new JSONObject();
+			json.put("id", orgMap.get("ID"));
+			json.put("text", orgMap.get("SO_NAME"));
+			JSONObject attributes = new JSONObject();
+			attributes.put("soCode", orgMap.get("SO_CODE"));
+			attributes.put("parentName", orgMap.get("PARENTNAME"));
+			attributes.put("parentId", orgMap.get("SO_PARENT"));
+			json.put("attributes", attributes);
+			int childCount = getChildrenCount(Long.parseLong(orgMap.get("ID").toString()));
+			if(childCount > 0){
+				json.put("state", "closed");
+				json.put("children", new JSONArray());
 			}
+			orgs.add(json);
 		}
+		return orgs.toString();
 	}
-
+	/**
+	 * 查询子记录条数
+	 * @param parentId
+	 * @return
+	 */
+	private int getChildrenCount(Long parentId){
+		int count = 0;
+		String sql = "select count(1) from sys_org where so_parent = ?";
+		List params = new ArrayList();
+		params.add(parentId);
+		count = baseDao.findObjectsCount(sql, params);
+		return count;
+	}
+	/**
+	 * 保存并返回Org
+	 */
+	public SysOrg saveOrUpdateCustom(SysOrg o) {
+		Object[] objs = new Object[] { o };
+		setObjectSaveValue(objs);
+		baseDao.saveOrUpdate(objs[0]);
+		List result = (List) baseDao.findByProperty(SysOrg.class, "soCode", o.getSoCode());
+		return (SysOrg) result.get(0);
+	}
+	/**
+	 * 删除节点及子节点
+	 */
+	@Override
+	public void deleteOrgs(Long id) {
+		String sql = "select id from (";
+		sql += " select "+ id +" as id";
+		sql += " union";
+		sql += " select org2.id from sys_org org1,sys_org org2 where org1.id = org2.so_parent and (org1.id = ? or org1.so_parent = ?)";
+		sql += "  ) t";
+		
+		List params = new ArrayList();
+		params.add(id);
+		params.add(id);
+		List orgs = baseDao.findBySQL(sql, params);
+		List toBeDeletedEntis = new ArrayList();
+		for (Iterator iterator = orgs.iterator(); iterator.hasNext();) {
+			Map orgMap = (Map) iterator.next();
+			SysOrg org = new SysOrg();
+			org.setId(Long.parseLong(orgMap.get("ID").toString()));
+			toBeDeletedEntis.add(org);
+		}
+		baseDao.deleteAll(toBeDeletedEntis);
+	}
 }
