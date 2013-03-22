@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50155
 File Encoding         : 65001
 
-Date: 2013-03-20 16:58:20
+Date: 2013-03-22 14:25:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,25 +29,40 @@ CREATE TABLE `person_info` (
   `PI_EMAIL` varchar(30) DEFAULT NULL,
   `PI_IDCARD` varchar(20) DEFAULT NULL,
   `PI_SEX` varchar(1) DEFAULT NULL COMMENT 'M表示男性；F表示女性',
-  `PI_JOIN_DATE` datetime DEFAULT NULL,
-  `PI_BIRTH_DATE` datetime DEFAULT NULL,
+  `PI_JOIN_DATE` varchar(10) DEFAULT NULL,
+  `PI_BIRTH_DATE` varchar(10) DEFAULT NULL,
   `PI_DEGREE` varchar(30) DEFAULT NULL,
-  `PI_TYPE` bigint(20) DEFAULT NULL,
+  `PI_TYPE` varchar(30) DEFAULT '',
   `PI_NATION` varchar(100) DEFAULT NULL,
   `PI_ADDRESS` varchar(100) DEFAULT NULL,
-  `PI_MEMO` longtext,
   `PI_SUP` varchar(36) DEFAULT NULL,
   `PI_ORG` bigint(20) DEFAULT NULL,
-  `PI_USER` varchar(30) DEFAULT NULL,
   `CRT_C` varchar(30) DEFAULT NULL,
-  `CRT_DATE` datetime DEFAULT NULL,
-  PRIMARY KEY (`ID`),
-  UNIQUE KEY `PI_CODE` (`PI_CODE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `CRT_DATE` varchar(19) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of person_info
 -- ----------------------------
+INSERT INTO `person_info` VALUES ('1', 'admin', 'admin', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('2', 'jerry', 'jerry', null, null, null, null, null, null, null, null, null, null, null, null, null, '1', null, null);
+INSERT INTO `person_info` VALUES ('3', 'jerry1', 'jerry1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('4', 'leidongyi', 'leidongyi', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('5', 'lihao', 'lihao', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('6', 'lihao1', 'lihao1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('7', 'md11', 'md11', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('8', 'md5', 'md5', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('9', 'mingbai', 'mingbai', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('10', 'test1', 'test1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('11', 'test2', 'test2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('12', 'tyh', 'tyh', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('13', 'zhangsan', 'zhangsan', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `person_info` VALUES ('18', '', '测试1', '', '', '', '', '', null, '', '', '', null, '', '', '', '1', null, null);
+INSERT INTO `person_info` VALUES ('19', '1111', '1111', '', '', '', '', '', null, '', '', '', null, '', '', '', '11', 'jerry', '2013-03-21 15:38:21');
+INSERT INTO `person_info` VALUES ('21', '', '测试3', '', '', '', '', '', null, '2013-03-21', '2013-03-20', '', null, '', '', '18', '5', 'jerry', '2013-03-22 11:00:31');
+INSERT INTO `person_info` VALUES ('22', '', '测试3', '', '', '1111', '1111@qq.com', '', null, '2013-03-22', '2013-03-22', '', null, '', '', '', '5', 'jerry', '2013-03-22 11:34:22');
+INSERT INTO `person_info` VALUES ('24', '11101', '测试111', '123', '123', '', '123@qq.com', '', 'M', '2013-03-22', '2013-03-21', '', '', '', '', '20', '2', null, null);
 
 -- ----------------------------
 -- Table structure for `person_type`
@@ -157,7 +172,7 @@ CREATE TABLE `sys_org` (
   `CRT_DATE` varchar(19) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `SO_CODE` (`SO_CODE`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_org
@@ -230,31 +245,36 @@ CREATE TABLE `sys_user` (
   `ID` bigint(20) NOT NULL AUTO_INCREMENT,
   `SU_USERNAME` varchar(30) DEFAULT NULL,
   `SU_PASSWORD` varchar(32) DEFAULT NULL,
-  `SU_NAME_CN` varchar(20) DEFAULT NULL,
   `SU_ACC_ENA` varchar(1) DEFAULT NULL COMMENT 'N表示不可用；Y表示可用。',
   `SU_MEMO` varchar(150) DEFAULT NULL,
   `CRT_C` varchar(30) DEFAULT NULL,
   `CRT_DATE` varchar(19) DEFAULT NULL,
+  `SU_PERSON_ID` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`ID`),
-  UNIQUE KEY `SU_USERNAME` (`SU_USERNAME`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `SU_USERNAME` (`SU_USERNAME`),
+  KEY `FK74A81DFD15D3989C` (`SU_PERSON_ID`),
+  CONSTRAINT `FK74A81DFD15D3989C` FOREIGN KEY (`SU_PERSON_ID`) REFERENCES `person_info` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', 'jerry', '25d55ad283aa400af464c76d713c07ad', 'jerry', 'Y', null, 'sys', '2013-02-05 14:28:23');
-INSERT INTO `sys_user` VALUES ('3', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'admin', 'Y', null, 'sys', '2013-02-18 13:59:12');
-INSERT INTO `sys_user` VALUES ('4', 'tyh', 'e10adc3949ba59abbe56e057f20f883e', '唐有欢', 'Y', null, 'sys', '2013-02-18 13:59:53');
-INSERT INTO `sys_user` VALUES ('5', 'test1', 'e10adc3949ba59abbe56e057f20f883e', '测试员1', 'Y', null, 'sys', '2013-02-18 14:00:45');
-INSERT INTO `sys_user` VALUES ('6', 'test2', 'e10adc3949ba59abbe56e057f20f883e', '测试员2', 'Y', null, 'jerry', '2013-02-19 10:07:03');
-INSERT INTO `sys_user` VALUES ('7', 'zhangsan', 'e10adc3949ba59abbe56e057f20f883e', '张三丰', 'Y', null, 'jerry', '2013-02-19 14:33:38');
-INSERT INTO `sys_user` VALUES ('8', 'lihao', 'e10adc3949ba59abbe56e057f20f883e', '李好1', 'Y', null, 'jerry', '2013-02-19 14:59:10');
-INSERT INTO `sys_user` VALUES ('9', 'mingbai', 'e10adc3949ba59abbe56e057f20f883e', '明百明', 'Y', null, 'jerry', '2013-02-19 14:59:41');
-INSERT INTO `sys_user` VALUES ('10', 'leidongyi', 'e10adc3949ba59abbe56e057f20f883e', '雷东宜', 'Y', null, 'jerry', '2013-02-25 13:29:08');
-INSERT INTO `sys_user` VALUES ('12', 'lihao1', 'e10adc3949ba59abbe56e057f20f883e', '李好2', 'Y', null, 'jerry', '2013-02-25 14:36:22');
-INSERT INTO `sys_user` VALUES ('13', 'jerry1', 'e10adc3949ba59abbe56e057f20f883e', 'jerry1', 'Y', null, 'jerry', '2013-02-27 09:28:32');
-INSERT INTO `sys_user` VALUES ('14', 'md5', '25d55ad283aa400af464c76d713c07ad', 'md5', 'Y', '', 'jerry', '2013-03-05 09:37');
-INSERT INTO `sys_user` VALUES ('15', 'md11', 'e10adc3949ba59abbe56e057f20f883e', 'md11', 'Y', null, 'jerry', '2013-03-05 09:43:49');
+INSERT INTO `sys_user` VALUES ('1', 'jerry', '25d55ad283aa400af464c76d713c07ad', 'Y', null, 'sys', '2013-02-05 14:28:23', '2');
+INSERT INTO `sys_user` VALUES ('3', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'sys', '2013-02-18 13:59:12', '1');
+INSERT INTO `sys_user` VALUES ('4', 'tyh', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'sys', '2013-02-18 13:59:53', '12');
+INSERT INTO `sys_user` VALUES ('5', 'test1', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'sys', '2013-02-18 14:00:45', '10');
+INSERT INTO `sys_user` VALUES ('6', 'test2', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'jerry', '2013-02-19 10:07:03', '11');
+INSERT INTO `sys_user` VALUES ('7', 'zhangsan', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'jerry', '2013-02-19 14:33:38', '13');
+INSERT INTO `sys_user` VALUES ('8', 'lihao', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'jerry', '2013-02-19 14:59:10', '5');
+INSERT INTO `sys_user` VALUES ('9', 'mingbai', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'jerry', '2013-02-19 14:59:41', '9');
+INSERT INTO `sys_user` VALUES ('10', 'leidongyi', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'jerry', '2013-02-25 13:29:08', '4');
+INSERT INTO `sys_user` VALUES ('12', 'lihao1', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'jerry', '2013-02-25 14:36:22', '6');
+INSERT INTO `sys_user` VALUES ('13', 'jerry1', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'jerry', '2013-02-27 09:28:32', '3');
+INSERT INTO `sys_user` VALUES ('14', 'md5', '25d55ad283aa400af464c76d713c07ad', 'Y', '', 'jerry', '2013-03-05 09:37', '8');
+INSERT INTO `sys_user` VALUES ('15', 'md11', 'e10adc3949ba59abbe56e057f20f883e', 'Y', null, 'jerry', '2013-03-05 09:43:49', '7');
+INSERT INTO `sys_user` VALUES ('18', 'testp1', '25d55ad283aa400af464c76d713c07ad', 'Y', null, 'jerry', '2013-03-21 15:34:00', '18');
+INSERT INTO `sys_user` VALUES ('19', 'testp2', '25d55ad283aa400af464c76d713c07ad', 'Y', null, 'jerry', '2013-03-21 15:38:21', '19');
+INSERT INTO `sys_user` VALUES ('21', '123456', '25d55ad283aa400af464c76d713c07ad', 'Y', null, 'jerry', '2013-03-22 14:19:06', '24');
 
 -- ----------------------------
 -- Table structure for `sys_user_role`

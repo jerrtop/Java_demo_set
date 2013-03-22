@@ -12,6 +12,7 @@ import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.fsj.spring.model.person.PersonInfo;
 import com.fsj.spring.model.sys.SysUser;
 import com.fsj.spring.service.TServiceImpl;
 import com.fsj.spring.service.sys.UserService;
@@ -28,48 +29,50 @@ public class UserServiceImpl extends TServiceImpl implements UserService {
 	/**
 	 * 使用HQL分页查询的例子
 	 */
-	public Map<String, Object> getPageList(DataGridModel dgm, SysUser user) throws Exception {
-		String totalQuery = "select count(*) from SysUser user";
-		String fullQuery = "select new map(user as user,user.id as uid) from SysUser user";
-		StringBuffer sb = new StringBuffer();
-		Map<String, Object> params = new HashMap<String, Object>();
-
-		if (user != null) {
-			if (StringUtils.isNotBlank(user.getSuUsername())) {
-				sb.append(" and user.suUsername like :userName");
-				params.put("userName", "%" + user.getSuUsername() + "%");
-			}
-			if (StringUtils.isNotBlank(user.getSuNameCn())) {
-				sb.append(" and user.suNameCn like :suNameCn");
-				params.put("suNameCn", "%" + user.getSuNameCn() + "%");
-			}
-		}
-
-		if (sb.toString().startsWith(" and")) {
-			sb.delete(0, 4);
-			sb.insert(0, " where ");
-		}
-		totalQuery += sb.toString();
-		fullQuery += sb.toString();
-		return baseDao.getPageList(dgm, totalQuery, fullQuery, params);
-	}
+//	public Map<String, Object> getPageList(DataGridModel dgm, SysUser user) throws Exception {
+//		String totalQuery = "select count(*) from SysUser user";
+//		String fullQuery = "select new map(user as user,user.id as uid) from SysUser user";
+//		StringBuffer sb = new StringBuffer();
+//		Map<String, Object> params = new HashMap<String, Object>();
+//
+//		if (user != null) {
+//			if (StringUtils.isNotBlank(user.getSuUsername())) {
+//				sb.append(" and user.suUsername like :userName");
+//				params.put("userName", "%" + user.getSuUsername() + "%");
+//			}
+//			if (StringUtils.isNotBlank(user.getSuNameCn())) {
+//				sb.append(" and user.suNameCn like :suNameCn");
+//				params.put("suNameCn", "%" + user.getSuNameCn() + "%");
+//			}
+//		}
+//
+//		if (sb.toString().startsWith(" and")) {
+//			sb.delete(0, 4);
+//			sb.insert(0, " where ");
+//		}
+//		totalQuery += sb.toString();
+//		fullQuery += sb.toString();
+//		return baseDao.getPageList(dgm, totalQuery, fullQuery, params);
+//	}
 	/**
 	 * 使用SQL分页查询的例子
 	 */
 	public Map<String, Object> getPageListBySQL(DataGridModel dgm, SysUser user) throws Exception {
-		String totalQuery = "select count(*) from sys_user user";
-		String fullQuery = "select user.*,user.id as uid from sys_user user";
+		String totalQuery = "select count(*) from sys_user user join person_info pi on user.su_person_id = pi.id";
+		String fullQuery = "select USER.ID,USER.SU_USERNAME,USER.SU_PASSWORD,USER.SU_ACC_ENA,USER.SU_MEMO,USER.SU_PERSON_ID,USER.ID AS uid,pi.*,pi.ID as PERSONID from sys_user user join person_info pi on user.su_person_id = pi.id";
 		StringBuffer sb = new StringBuffer();
 		Map<String, Object> params = new HashMap<String, Object>();
 		
+		PersonInfo person = user.getPerson();
 		if (user != null) {
 			if (StringUtils.isNotBlank(user.getSuUsername())) {
 				sb.append(" and user.su_username like :suUsername");
 				params.put("suUsername", "%" + user.getSuUsername() + "%");
 			}
-			if (StringUtils.isNotBlank(user.getSuNameCn())) {
-				sb.append(" and user.su_name_cn like :suNameCn");
-				params.put("suNameCn", "%" + user.getSuNameCn() + "%");
+			
+			if (person!= null && StringUtils.isNotBlank(person.getPiName())) {
+				sb.append(" and pi.pi_name like :piName");
+				params.put("piName", "%" + person.getPiName() + "%");
 			}
 		}
 		
@@ -117,6 +120,12 @@ public class UserServiceImpl extends TServiceImpl implements UserService {
 			//MD5加密
 			String md5PassWord = MD5Util.getMD5String(user.getSuPassword());
 			user.setSuPassword(md5PassWord);
+		}
+		
+		PersonInfo person = user.getPerson();
+		if(person != null){
+			Object[] obj = new Object[]{person};
+			setObjectSaveValue(obj);
 		}
 		super.saveOrUpdate(user);
 	}
@@ -175,5 +184,74 @@ public class UserServiceImpl extends TServiceImpl implements UserService {
 		}
 		
 		return submenus;
+	}
+	
+	@Override
+	public String getUserOrgs() throws Exception {
+		JSONArray orgs = new JSONArray();
+		orgs = fetchOrgIterator(null,this.sysUser.getPerson().getPiOrg());
+		return orgs.toString();
+	}
+	
+	/**
+	 * 递归部门（组织结构）信息
+	 * @param soParentId	上级部门id
+	 * @param currUserOrgId 当前用户部门id	
+	 * @return
+	 */
+	private JSONArray fetchOrgIterator(Long soParentId,Long currUserOrgId){
+		List pl = new ArrayList();
+		String sql = "select so.id,so.so_name from sys_org so";
+		if(soParentId != null){
+			sql += " where so.SO_PARENT = ?";
+			pl.add(soParentId);
+		}else{
+			//过滤当前登录用户的部门
+			sql += " where so.id = ?";
+			pl.add(currUserOrgId);
+		}
+		
+		sql += " order by so.so_code asc";
+		
+		
+		List result = baseDao.findBySQL(sql, pl);
+		JSONArray suborgs = null;
+		if(result != null && result.size() > 0){
+			suborgs = new JSONArray();
+			for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+				Map orgMap = (Map) iterator.next();
+				
+				JSONObject json = new JSONObject();
+				Long parentId = Long.parseLong(orgMap.get("ID").toString());
+				json.put("id", parentId);
+				json.put("text", orgMap.get("SO_NAME"));
+				json.put("state", "open");
+				
+				json.put("children", fetchOrgIterator(parentId,currUserOrgId));
+				suborgs.add(json);
+			}
+		}
+		
+		return suborgs;
+	}
+	
+	@Override
+	public String getSups(Long userId) {
+		JSONArray sups = new JSONArray();
+		String hql = "from SysUser info";
+		List pl = new ArrayList();
+		if(userId != null){
+			hql += " where info.id != ?";
+			pl.add(userId);
+		}
+		List result = baseDao.findByHQL(hql, pl);
+		for (Iterator iterator = result.iterator(); iterator.hasNext();) {
+			SysUser user = (SysUser) iterator.next();
+			JSONObject item = new JSONObject();
+			item.put("id", user.getId());
+			item.put("text", user.getPerson().getPiName());
+			sups.add(item);
+		}
+		return sups.toString();
 	}
 }

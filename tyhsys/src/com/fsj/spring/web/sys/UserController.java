@@ -1,9 +1,13 @@
 package com.fsj.spring.web.sys;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fsj.spring.model.person.PersonInfo;
 import com.fsj.spring.model.sys.SysUser;
 import com.fsj.spring.service.sys.UserService;
 import com.fsj.spring.util.Constants;
@@ -41,8 +46,6 @@ public class UserController extends TUserAwareImpl {
 		
 		//设置会话用户信息 ， 用于数据过滤
 		userService.setLoginUser(sessionUser);
-		
-		//return userService.getPageList(dgm, user);
 		return userService.getPageListBySQL(dgm, user);
 	}
 
@@ -105,7 +108,49 @@ public class UserController extends TUserAwareImpl {
 		}
 		return "relogin";
 	}
-
+	
+	//查询部门树
+	@RequestMapping(value = "/queryOrgs", method = RequestMethod.POST)
+	public void queryOrgs(HttpServletRequest request,HttpServletResponse response){
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+			userService.setLoginUser(sessionUser);
+			String orgsJsonString = userService.getUserOrgs();
+			out.print(orgsJsonString);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(out != null){
+				out.flush();
+				out.close();
+			}
+		}
+	}
+	
+	//查询部门树
+		@RequestMapping(value = "/querySups", method = RequestMethod.GET)
+		public void querySups(HttpServletRequest request,HttpServletResponse response){
+			PrintWriter out = null;
+			try {
+				out = response.getWriter();
+				userService.setLoginUser(sessionUser);
+				Long userId = null;
+				if(request.getParameter("userId") != null){
+					userId = Long.parseLong(request.getParameter("userId"));
+				}
+				String supsJsonString = userService.getSups(userId);
+				out.print(supsJsonString);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				if(out != null){
+					out.flush();
+					out.close();
+				}
+			}
+		}
+		
 	private UserService userService;
 
 	public UserService getUserService() {

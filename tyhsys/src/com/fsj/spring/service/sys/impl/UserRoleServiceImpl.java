@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.fsj.spring.model.person.PersonInfo;
 import com.fsj.spring.model.sys.SysUser;
 import com.fsj.spring.model.sys.SysUserRole;
 import com.fsj.spring.service.TServiceImpl;
@@ -26,19 +27,21 @@ import com.fsj.spring.util.DataGridModel;
 public class UserRoleServiceImpl extends TServiceImpl implements UserRoleService {
 
 	public Map<String, Object> getPageListBySQL(DataGridModel dgm, SysUser user) throws Exception {
-		String totalQuery = "select count(*) from sys_user user";
-		String fullQuery = "select user.*,user.id as uid from sys_user user";
+		String totalQuery = "select count(*) from sys_user user join person_info pi on user.su_person_id = pi.id";
+		String fullQuery = "select USER.ID,USER.SU_USERNAME,USER.SU_PASSWORD,USER.SU_ACC_ENA,USER.SU_MEMO,USER.SU_PERSON_ID,USER.ID AS uid,pi.*,pi.ID as PERSONID from sys_user user join person_info pi on user.su_person_id = pi.id";
 		StringBuffer sb = new StringBuffer();
 		Map<String, Object> params = new HashMap<String, Object>();
 		
+		PersonInfo person = user.getPerson();
 		if (user != null) {
 			if (StringUtils.isNotBlank(user.getSuUsername())) {
 				sb.append(" and user.su_username like :suUsername");
 				params.put("suUsername", "%" + user.getSuUsername() + "%");
 			}
-			if (StringUtils.isNotBlank(user.getSuNameCn())) {
-				sb.append(" and user.su_name_cn like :suNameCn");
-				params.put("suNameCn", "%" + user.getSuNameCn() + "%");
+			
+			if (person!= null && StringUtils.isNotBlank(person.getPiName())) {
+				sb.append(" and pi.pi_name like :piName");
+				params.put("piName", "%" + person.getPiName() + "%");
 			}
 		}
 		

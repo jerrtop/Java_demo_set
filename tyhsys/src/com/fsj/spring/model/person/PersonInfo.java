@@ -10,49 +10,45 @@ import java.util.Date;
 public class PersonInfo implements java.io.Serializable {
 
 	// Fields
-
+	// ID
 	private Long id;
-
+	//员工编号
 	private String piCode;
-
+	//员工姓名
 	private String piName;
-
+	//电话
 	private String piPhone;
-
+	//手机
 	private String piMobile;
-
+	//QQ
 	private String piQq;
-
+	//邮件
 	private String piEmail;
-
+	//身份证
 	private String piIdcard;
-
+	//性别
 	private String piSex;
-
-	private Date piJoinDate;
-
-	private Date piBirthDate;
-
+	//入职日期
+	private String piJoinDate;
+	//出生日期
+	private String piBirthDate;
+	//学历
 	private String piDegree;
-
-	private Long piType;
-
+	//类型
+	private String piType;
+	//籍贯
 	private String piNation;
-
+	//地址
 	private String piAddress;
-
-	private String piMemo;
-
+	//主管人
 	private String piSup;
-
+	//组织架构
 	private Long piOrg;
 
-	private String piUser;
-
+	//创建人、创建时间
 	private String crtC;
 
-	private Date crtDate;
-
+	private String crtDate;
 	// Constructors
 
 	/** default constructor */
@@ -65,8 +61,8 @@ public class PersonInfo implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public PersonInfo(Long id, String piCode, String piName, String piPhone, String piMobile, String piQq, String piEmail, String piIdcard, String piSex, Date piJoinDate, Date piBirthDate,
-			String piDegree, Long piType, String piNation, String piAddress, String piMemo, String piSup, Long piOrg, String piUser, String crtC, Date crtDate) {
+	public PersonInfo(Long id, String piCode, String piName, String piPhone, String piMobile, String piQq, String piEmail, String piIdcard, String piSex, String piJoinDate, String piBirthDate,
+			String piDegree, String piType, String piNation, String piAddress, String piMemo, String piSup, Long piOrg, String crtC, String crtDate) {
 		this.id = id;
 		this.piCode = piCode;
 		this.piName = piName;
@@ -82,10 +78,8 @@ public class PersonInfo implements java.io.Serializable {
 		this.piType = piType;
 		this.piNation = piNation;
 		this.piAddress = piAddress;
-		this.piMemo = piMemo;
 		this.piSup = piSup;
 		this.piOrg = piOrg;
-		this.piUser = piUser;
 		this.crtC = crtC;
 		this.crtDate = crtDate;
 	}
@@ -164,19 +158,21 @@ public class PersonInfo implements java.io.Serializable {
 		this.piSex = piSex;
 	}
 
-	public Date getPiJoinDate() {
-		return this.piJoinDate;
+	
+
+	public String getPiJoinDate() {
+		return piJoinDate;
 	}
 
-	public void setPiJoinDate(Date piJoinDate) {
+	public void setPiJoinDate(String piJoinDate) {
 		this.piJoinDate = piJoinDate;
 	}
 
-	public Date getPiBirthDate() {
-		return this.piBirthDate;
+	public String getPiBirthDate() {
+		return piBirthDate;
 	}
 
-	public void setPiBirthDate(Date piBirthDate) {
+	public void setPiBirthDate(String piBirthDate) {
 		this.piBirthDate = piBirthDate;
 	}
 
@@ -188,11 +184,11 @@ public class PersonInfo implements java.io.Serializable {
 		this.piDegree = piDegree;
 	}
 
-	public Long getPiType() {
+	public String getPiType() {
 		return this.piType;
 	}
 
-	public void setPiType(Long piType) {
+	public void setPiType(String piType) {
 		this.piType = piType;
 	}
 
@@ -212,14 +208,6 @@ public class PersonInfo implements java.io.Serializable {
 		this.piAddress = piAddress;
 	}
 
-	public String getPiMemo() {
-		return this.piMemo;
-	}
-
-	public void setPiMemo(String piMemo) {
-		this.piMemo = piMemo;
-	}
-
 	public String getPiSup() {
 		return this.piSup;
 	}
@@ -236,14 +224,6 @@ public class PersonInfo implements java.io.Serializable {
 		this.piOrg = piOrg;
 	}
 
-	public String getPiUser() {
-		return this.piUser;
-	}
-
-	public void setPiUser(String piUser) {
-		this.piUser = piUser;
-	}
-
 	public String getCrtC() {
 		return this.crtC;
 	}
@@ -252,11 +232,11 @@ public class PersonInfo implements java.io.Serializable {
 		this.crtC = crtC;
 	}
 
-	public Date getCrtDate() {
+	public String getCrtDate() {
 		return this.crtDate;
 	}
 
-	public void setCrtDate(Date crtDate) {
+	public void setCrtDate(String crtDate) {
 		this.crtDate = crtDate;
 	}
 

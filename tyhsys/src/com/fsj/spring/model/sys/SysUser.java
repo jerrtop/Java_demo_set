@@ -1,4 +1,6 @@
 package com.fsj.spring.model.sys;
+
+import com.fsj.spring.model.person.PersonInfo;
 // default package
 
 
@@ -19,10 +21,8 @@ public class SysUser implements java.io.Serializable {
 	 * 用户密码
 	 */
 	private String suPassword;
-	/**
-	 * 用户姓名
-	 */
-	private String suNameCn;
+	
+	private PersonInfo person;
 	/**
 	 * 用户激活
 	 */
@@ -52,15 +52,15 @@ public class SysUser implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public SysUser(Long id, String suUsername, String suPassword, String suNameCn, String suAccEna, String suMemo, String crtC, String crtDate) {
+	public SysUser(Long id, String suUsername,PersonInfo person, String suPassword, String suAccEna, String suMemo, String crtC, String crtDate) {
 		this.id = id;
 		this.suUsername = suUsername;
 		this.suPassword = suPassword;
-		this.suNameCn = suNameCn;
 		this.suAccEna = suAccEna;
 		this.suMemo = suMemo;
 		this.crtC = crtC;
 		this.crtDate = crtDate;
+		this.person = person;
 	}
 
 	// Property accessors
@@ -77,6 +77,14 @@ public class SysUser implements java.io.Serializable {
 		return this.suUsername;
 	}
 
+	public PersonInfo getPerson() {
+		return person;
+	}
+
+	public void setPerson(PersonInfo person) {
+		this.person = person;
+	}
+
 	public void setSuUsername(String suUsername) {
 		this.suUsername = suUsername;
 	}
@@ -87,14 +95,6 @@ public class SysUser implements java.io.Serializable {
 
 	public void setSuPassword(String suPassword) {
 		this.suPassword = suPassword;
-	}
-
-	public String getSuNameCn() {
-		return this.suNameCn;
-	}
-
-	public void setSuNameCn(String suNameCn) {
-		this.suNameCn = suNameCn;
 	}
 
 	public String getSuAccEna() {

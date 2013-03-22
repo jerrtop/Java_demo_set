@@ -36,7 +36,7 @@
 					<td class="talr">用户名:</td>
 					<td><input type="text"  class="textstyle" name="suUsername"/></td>
 					<td class="talr">姓名:</td>
-					<td><input type="text" class="textstyle" name="suNameCn"/></td>
+					<td><input type="text" class="textstyle" name="person.piName"/></td>
 					<td class="talr"><input class="Btn BtnNml toolbtnalign" type="button" value="查 询" onclick="searchUser()"/><input class="Btn BtnNml toolbtnalign" type="button" value="重 置" onclick="clearForm()"/></td>
 				  </tr>
 				</table>

@@ -1,7 +1,39 @@
-//表单值初始化
-function pageInit(){
-	//alert("page init ...");
-	//alert($('#userForm').length);
+//表单初始化
+function pageLoader(){
+
+	controlInit();
+}
+
+//控件初始化
+function controlInit(){
+	$('input[name="person.piJoinDate"]').datebox({
+		formatter:function(str){
+			var d = new Date(str);
+			return d.format('yyyy-MM-dd');
+		}
+	});
+	$('input[name="person.piBirthDate"]').datebox({
+		formatter:function(str){
+			var d = new Date(str);
+			return d.format('yyyy-MM-dd');
+		}
+	});
+	
+	$('#org').combotree({
+		url:'queryOrgs',
+		onBeforeCollapse:false
+	});
+	
+	var supUrl = 'querySups';
+	if(editUserId != ''){
+		supUrl += '?userId=' + editUserId;
+	}
+	$('#sup').combobox({
+		method:'post',
+		url:supUrl,  
+	    valueField:'id',  
+	    textField:'text'
+	});
 }
 
 function addOrUpdateUser(){

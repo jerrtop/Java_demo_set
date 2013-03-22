@@ -10,7 +10,7 @@
 			striped: true, //奇偶行颜色不同
 			collapsible:false,//可折叠
 			url:"queryUserList", //数据来源
-			sortName: 'id', //排序的列
+			sortName: 'user.id', //排序的列
 			sortOrder: 'desc', //倒序
 			remoteSort: true, //服务器端排序
 			idField:'uid', //主键字段
@@ -21,7 +21,7 @@
 			columns:[[
 				{field:'ck',checkbox:true,width:2}, //显示复选框
 				{field:'SU_USERNAME',align:'center',title:'账号',width:20,sortable:true},
-				{field:'SU_NAME_CN',align:'center',title:'姓名',width:20,sortable:true},
+				{field:'PI_NAME',align:'center',title:'姓名',width:20,sortable:true},
 				{field:'SU_ACC_ENA',align:'center',title:'激活',width:18,sortable:true,
 					formatter:function(value,row,index){return row.SU_ACC_ENA == 'Y' ? '是' : '否';}
 				},
@@ -57,7 +57,7 @@
 	function setformVals(dataRow){
 		$("#dataForm input[name='id']").val(dataRow.uid);
 		$("#dataForm input[name='suUsername']").val(dataRow.SU_USERNAME);
-		$("#dataForm input[name='suNameCn']").val(dataRow.SU_NAME_CN);
+		$("#dataForm input[name='suNameCn']").val(dataRow.PI_NAME);
 		
 		var url = 'getUserRoles?userId=' + dataRow.uid + '&' + Math.random(); 
 		$.get(url,function(data){
