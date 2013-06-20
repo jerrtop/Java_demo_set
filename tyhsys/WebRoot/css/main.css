@@ -66,12 +66,10 @@ ul{
 }
 .sysbtn {
 	float: right;
-	width: 60%;
 	padding-right: 3px;
 	text-align: right;
 }
 #toprightbox .userInfo {
-	width: 30%;
 	float: left;
 }
 .sysbtn a {

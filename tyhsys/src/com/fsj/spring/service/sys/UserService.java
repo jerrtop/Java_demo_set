@@ -43,4 +43,6 @@ public interface UserService extends TService{
 	 * @return
 	 */
 	String getSups(Long userId);
+	
+	void updatePWD(Long id,String pwd);
 }

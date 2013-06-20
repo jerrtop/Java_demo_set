@@ -19,6 +19,7 @@ $(document).ready(function () {
 	
 });
 
+
 //显示菜单
 function displayRoleMenus(){
 	if(global_role_menus.length == 0){

@@ -254,4 +254,14 @@ public class UserServiceImpl extends TServiceImpl implements UserService {
 		}
 		return sups.toString();
 	}
+	
+	@Override
+	public void updatePWD(Long id, String pwd) {
+		String sql = "update sys_user set su_password = ? where id = ?";
+		List pl =new ArrayList();
+		pl.add(pwd);
+		pl.add(id);
+		baseDao.updateBySQL(sql, pl);
+		
+	}
 }

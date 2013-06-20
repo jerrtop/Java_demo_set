@@ -1,11 +1,16 @@
 package com.fsj.spring.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.fsj.spring.model.sys.SysUser;
@@ -44,8 +49,8 @@ public class WelcomeController {
 		}else {
 			model.addAttribute(Constants.USER_INFO_SESSION, user1); //名为Constants.USER_INFO_SESSION的属性放到Session属性列表中
 			String roleMenus = userService.getUserRoleMenus(user1);
-			//System.out.println(roleMenus);
 			model.addAttribute(Constants.USER_ROLE_MENUS,roleMenus);
+			model.addAttribute("systemTime",System.currentTimeMillis());
 			return "main";
 		}
 	}
@@ -55,5 +60,38 @@ public class WelcomeController {
 			return "main";
 		}
 		return "relogin";
+	}
+	
+	@RequestMapping(value="checkOldPwd",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Integer> checkOldPwd(@RequestParam("pwd") String pwd,HttpSession session){
+		Map result = new HashMap();
+		if(session != null && session.getAttribute(Constants.USER_INFO_SESSION) != null){
+			SysUser sessionUser = (SysUser) session.getAttribute(Constants.USER_INFO_SESSION);
+			pwd = MD5Util.getMD5String(pwd);
+			if(!sessionUser.getSuPassword().equals(pwd)){
+				result.put("mes",0);
+			}else{
+				result.put("mes",1);
+			}
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="updatePwd",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Integer> updatePwd(@RequestParam("pwd") String pwd,HttpSession session){
+		Map result = new HashMap();
+		if(session != null && session.getAttribute(Constants.USER_INFO_SESSION) != null){
+			SysUser sessionUser = (SysUser) session.getAttribute(Constants.USER_INFO_SESSION);
+			pwd = MD5Util.getMD5String(pwd);
+			userService.updatePWD(sessionUser.getId(), pwd);
+			
+			sessionUser.setSuPassword(pwd);
+			session.setAttribute(Constants.USER_INFO_SESSION, sessionUser);
+			
+			result.put("mes",1);
+		}
+		return result;
 	}
 }
