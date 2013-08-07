@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title> New Document </title>
+		<meta charset="utf-8">
+		<meta name="Author" content="">
+		<meta name="Keywords" content="">
+		<meta name="Description" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="css/style.css" rel="stylesheet">
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+		<style type="text/css">
+			html,body{height: 100%;}
+			#bdmap{height: 100%;}
+		</style>
+	</head>
+<body class="main">
+	<div id="bdmap"></div>				
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/js.js"></script>
+	<script type="text/javascript">
+
+	;(function(){
+		var point,map;
+		function init(){
+			map=new BMap.Map("bdmap");
+			point = new BMap.Point(116.404, 39.915); // 创建点坐标	
+			map.centerAndZoom(point, 15);		
+			control();
+			var bounds = map.getBounds();
+			var sw = bounds.getSouthWest();
+			var ne = bounds.getNorthEast();			
+			var lngSpan = Math.abs(sw.lng - ne.lng);
+			var latSpan = Math.abs(ne.lat - sw.lat);
+			for (var i = 0; i < 25; i ++) {
+			  var p = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+			  addMark(p);
+			}			
+			//addMark(116.404,39.915);
+		};
+		function control(){//创建地图控件
+			map.addControl(new BMap.NavigationControl());  
+			map.addControl(new BMap.ScaleControl());  
+			map.addControl(new BMap.OverviewMapControl());  
+			map.addControl(new BMap.MapTypeControl());  
+			map.setCurrentCity("北京"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
+		}
+		function addMark(p){ // 创建标注 
+			// var marker = new BMap.Marker(point);        // 创建标注  
+			// map.addOverlay(marker); // 将标注添加到地图中 
+			//var p=new BMap.Point(x,y)
+			var mySquare = new SquareOverlay(p,100,40,"red");  
+			map.addOverlay(mySquare);		
+		}
+
+		function  SquareOverlay(center,width,height,color){
+			this._center=center;
+			this._width=width;
+			this._height=height;
+			this._color=color;
+		}
+		SquareOverlay.prototype=new BMap.Overlay();
+		SquareOverlay.prototype.initialize=function(){
+			this._map=map;
+			var span=document.createElement("span");
+			span.style.position="absolute";
+			span.style.width=this._width+"px";
+			span.style.height=this._height+"px";
+			span.style.background=this._color;
+			map.getPanes().markerPane.appendChild(span);//我们自定义的方形覆盖物可以添加到任意图层上，这里我们选择添加到markerPane上，作为其一个子结点。
+			this._span=span;
+			return span;
+		}
+		SquareOverlay.prototype.draw = function(){  
+		// 通过map.pointToOverlayPixel方法可以将地理坐标转换到覆盖物的所需要的像素坐标。并设置给容器  
+			 var position = this._map.pointToOverlayPixel(this._center);  
+			 this._span.style.left = position.x - this._width / 2 + "px";  
+			 this._span.style.top = position.y - this._height / 2 + "px";  
+		}
+
+
+		window.onload=init;	
+	})();
+		
+	</script>
+</body>
+</html>
