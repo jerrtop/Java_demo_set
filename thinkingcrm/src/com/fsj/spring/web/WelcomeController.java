@@ -54,6 +54,7 @@ public class WelcomeController {
 			model.addAttribute(Constants.USER_INFO_SESSION, user1); //名为Constants.USER_INFO_SESSION的属性放到Session属性列表中
 			String roleMenus = userService.getUserRoleMenus(user1);
 			model.addAttribute(Constants.USER_ROLE_MENUS,roleMenus);
+			model.addAttribute("systemTime",System.currentTimeMillis());
 			return "main";
 		}
 	}

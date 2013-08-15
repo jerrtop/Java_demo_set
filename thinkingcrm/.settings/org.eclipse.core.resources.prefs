@@ -2,5 +2,7 @@ eclipse.preferences.version=1
 encoding//WebRoot/index.jsp=UTF-8
 encoding//WebRoot/view=UTF-8
 encoding//WebRoot/view/breadcrumb.jsp=UTF-8
+encoding//WebRoot/view/content.jsp=UTF-8
 encoding//WebRoot/view/left.jsp=UTF-8
 encoding//WebRoot/view/right.jsp=UTF-8
+encoding//WebRoot/view/top.jsp=UTF-8

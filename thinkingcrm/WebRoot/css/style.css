@@ -7,6 +7,7 @@ html,body{
 /*login page css*/
 .login{
   background: rgba(4,99,147,1);
+  background: #1570a5;
   background-size: 8px 8px;
   /*background-image:-moz-linear-gradient(top left,rgba(4,99,147,0.5) 25%,rgba(4,99,147,0) 25%,rgba(4,99,147,0) 100%),-moz-linear-gradient(top right,rgba(4,99,147,0.5) 25%,rgba(4,99,147,0) 25%,rgba(4,99,147,0) 100%),-moz-linear-gradient(bottom left,rgba(4,99,147,0.5) 25%,rgba(4,99,147,0) 25%,rgba(4,99,147,0) 100%),-moz-linear-gradient(bottom right,rgba(4,99,147,0.5) 25%,rgba(4,99,147,0) 25%,rgba(4,99,147,0) 100%);*/
 }
@@ -22,10 +23,10 @@ html,body{
   box-shadow: -5px 8px 5px rgba(0,0,0,0.2),5px 8px 5px rgba(0,0,0,0.2);
 }
 .login .login-box .form-horizontal .controls{
-  margin-left: 120px;
+/*   margin-left: 80px; */
 }
 .login .login-box .form-horizontal .control-label{
-  width: 100px
+/*   width: 100px */
 }
 
 
@@ -38,8 +39,11 @@ html,body{
   color: #fff;
   font-weight: bolder;
   text-shadow: 1px 1px 1px rgba(0,0,0,1);
-  font: 36px/70px "微软雅黑";
+  font: 36px/60px "微软雅黑";
   padding-left: 30px;
+}
+.login-info{
+	height:35px;
 }
 .login-info .nav{
   float: right;
@@ -48,7 +52,7 @@ html,body{
   float: left;
   padding: 0 8px;
   color: #f8f8f8;
-  line-height: 70px;
+  line-height: 60px;
   font-size: 12px;
 }
 .login-info .nav li a{
@@ -58,21 +62,25 @@ html,body{
   background: transparent;
 }
 .top .login-info li:last-child{
-  border-left: 1px solid #4188b2;
-  padding-top: 7px;
+/*   border-left: 1px solid #4188b2; */
+/*   padding-top: 7px; */
 }
 .top .login-info li:nth-child(5){
-  border-right: 1px solid #035988
+/*   border-right: 1px solid #035988 */
 }
 
-/*left page css*/
+/*navigator css*/
 
-.left .wrap{
-  width: 193px;
+
+/*left page css*/
+.left .sidebar{
+  width: 13%;
   border: 1px solid #b9ccdb;
-  border-width: 0 1px 0 1px;
-  height: 100%;
-  position: relative;
+  border-width: 1px 1px 0 1px;
+  min-height: 85%;
+  height:auto;
+  position: absolute;
+  z-index: 10;
 }
 .left .nav-control{
   line-height: 40px;
@@ -94,11 +102,7 @@ html,body{
 .left .nav{
   padding: 0 10px;
 }
-.left .sidebar{
-  position: absolute;
-  z-index: 10;
-  width: 193px;
-}
+
 .left .nav h4{
   border-bottom: 1px dashed #ddd;
   padding: 5px;
@@ -139,6 +143,19 @@ html,body{
 .scrolllink span:first-child{
   border-right: 1px solid #ddd;
 }
+/* content css */
+.content{
+  border: 1px solid #b9ccdb;
+  border-width: 1px 1px 0px 1px;
+  min-width:85%;
+  width:auto;
+  min-height: 85%;
+  height:auto;
+  position: absolute;
+  margin-left:14%;
+  background: #fcfcfc;
+}
+
 /*breadcrumb css*/
 .breadcrumb{
   line-height: 40px;
@@ -239,6 +256,9 @@ html,body{
   margin-right: 10px;
 }
 
-
+/*content ie6 ie7 ff*/
+ #compat-width{width:100%}/*firefox ie8*/  
+*+html #compat-width{width:86%}/*ie7*/
+* html #compat-width{width:100%}/*ie6*/
 
 

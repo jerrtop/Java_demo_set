@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * <p>
  * 		加载jsp
@@ -15,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class CommonController {
-	@RequestMapping(method=RequestMethod.GET,value="{name}")
+	@RequestMapping(value="{name}")
 	public String execute(@PathVariable("name") String name,Model model) throws Exception{
 		if(name.equals("top")){
 			model.addAttribute("systemTime",System.currentTimeMillis());

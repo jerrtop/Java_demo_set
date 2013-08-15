@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 	<head>
 		<title>Thinking CRM,the crm is thinking</title>
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<link href="css/style.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet" media="screen">
 		<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="js/main.js" type="text/javascript"></script>
@@ -48,7 +48,7 @@
 			<div class="login-content">
 				<h4 style="color:white">Thinking CRM-用户登录</h4>
 				<div class="login-box">
-					<div class="">
+					<div>
 						<form class="form-horizontal" id="loginForm" method="post">
 						  <div class="control-group">
 						    <label class="control-label" for="userName">用户名</label>
