@@ -59,8 +59,9 @@ public class WelcomeController {
 		}
 	}
 	@RequestMapping(method=RequestMethod.GET)
-	public String refresh(HttpSession session) throws Exception{
+	public String refresh(HttpSession session,Model model) throws Exception{
 		if(session != null && session.getAttribute(Constants.USER_INFO_SESSION) != null){
+			model.addAttribute("systemTime",System.currentTimeMillis());
 			return "main";
 		}
 		return "relogin";

@@ -10,6 +10,12 @@
 		<link href="css/style.css" rel="stylesheet">
 		<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
+		
+		<!-- bootstrap datatables -->
+		<link href="css/bootstrap-datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
+		<script src="js/bootstrap-datatables/jquery.dataTables.js" type="text/javascript"></script>
+		<script src="js/bootstrap-datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+		
 		<script type="text/javascript">
 			var d = '${systemTime}';
 			/**
@@ -29,17 +35,6 @@
 			    d.getHours() + ":" + d.getMinutes() + ":" + ((ss<10)?('0'+ss):ss)
 			    );
 			 }  
-			$(function(){
-				window.setInterval(setClock, 1000);
-				loadcontent('content');
-				
-				if($('.sidebar').height() > $('#workspace').height()){
-					$('#workspace').height($('.sidebar').height());
-				}else{
-					$('.sidebar').height($('#workspace').height());
-				}
-			}); 
-			 
 			
 			 function loginOut(){
 				 if(confirm("确定要退出吗？")){
@@ -50,6 +45,61 @@
 			 function loadcontent(url){
 				 $('#workspace').load(url);
 			 }
+			 
+			
+			//显示菜单
+			 var global_role_menus = ${userSessionRoleMenus};
+			 function displayRoleMenus(){
+			 	if(global_role_menus.length == 0){
+			 		alert("该用户无菜单权限!");
+			 		return;
+			 	}
+			 	var shtml = '';
+			 	$.each(global_role_menus,function(index,menu){
+			 		shtml += '<li><a href="#" onclick="displayModelMenus('+ index +')">'+ menu.menuname +'</a></li>';
+			 	});
+			 	$('#top_menus').html(shtml);
+			 	$('#top_menus li:first').addClass("active");
+			 	displayModelMenus(0);
+			 }
+
+			 //显示模块菜单
+			 function displayModelMenus(menuIndex){
+			 	var menu = global_role_menus[menuIndex];
+			 	var shtml = '';
+			 	if(menu.children){//判断二级菜单是否存在
+			 		$.each(menu.children,function(index,submenu){
+			 			shtml += '</ul>';
+			 			shtml += '</div>';
+			 			
+			 			shtml += '<li>';
+		 				shtml += '<h4><i class="icon-user"></i>'+ submenu.menuname +'</h4>';
+		 				shtml += '<ul class="nav nav-list sub-nav">';
+		 				if(submenu.children){//判断是否有三级菜单
+			 				$.each(submenu.children,function(k,ss){
+		 						shtml += '<li><a href="#" onclick="loadcontent(\''+ ss.menuurl +'\')">'+ ss.menuname +'</a></li>';
+			 				});
+		 				}
+		 				shtml += '</ul>';					
+		 				shtml += '</li>';
+			 		});
+			 	}
+			 	$('#model_menus').html(shtml);
+			 }
+			 
+			 $(function(){
+					window.setInterval(setClock, 1000);
+					displayRoleMenus();
+					loadcontent('content');
+					
+					if($('.sidebar').height() > $('#workspace').height()){
+						$('#workspace').height($('.sidebar').height());
+					}else{
+						$('.sidebar').height($('#workspace').height());
+					}
+					
+					
+				}); 
 		</script>
 	</head>
 <body>
@@ -60,7 +110,7 @@
 					</div>
 					<div class="login-info pull-right">
 						<ul class="nav">
-							<li id="clock"></li>
+							<li id="clock">正在加载...</li>
 							<li>${userSessionInfo.person.piName}</li>
 							<li><a href="#" onclick="loginOut()">退出</a></li>
 							<li></li>
@@ -72,15 +122,9 @@
 				<div class="span12">
 					<div class="navbar">
 						<div class="navbar-inner">
-							<ul class="nav">
-								<li class="active">
-									<a href="#">系统管理</a>
-								</li>
+							<ul class="nav" id="top_menus">
 								<li>
-									<a href="#">链接</a>
-								</li>
-								<li>
-									<a href="#">链接</a>
+									<a href="#">正在加载...</a>
 								</li>
 							</ul>
 						</div>
@@ -91,49 +135,9 @@
 				<div class="span12">
 				  <div class="left">
 					<div class="sidebar" id="sidebar">
-						<ul class="nav">
+						<ul class="nav" id="model_menus">
 							<li>
-								<h4><i class="icon-user"></i>用户管理</h4>
-								<ul class="nav nav-list sub-nav">
-									<li><a href="user_list.html" target="mainFrame">用户列表</a></li>
-									<li><a href="admin_list.html" target="mainFrame">管理员列表</a></li>
-									<li><a href="add_admin.html" target="mainFrame">添加管理员</a></li>
-								</ul>					
-							</li>
-							<li>
-								<h4><i class="icon-tags"></i>店铺管理</h4>
-								<ul class="nav nav-list sub-nav">
-									<li><a href="shop_list.html" target="mainFrame">店铺列表</a></li>
-									<li><a href="add_shop.html" target="mainFrame">添加店铺</a></li>
-								</ul>				
-							</li>
-							<li>
-								<h4><i class="icon-tags"></i>店铺管理</h4>
-								<ul class="nav nav-list sub-nav">
-									<li><a href="shop_list.html" target="mainFrame">店铺列表</a></li>
-									<li><a href="add_shop.html" target="mainFrame">添加店铺</a></li>
-								</ul>				
-							</li>
-							<li>
-								<h4><i class="icon-tags"></i>店铺管理</h4>
-								<ul class="nav nav-list sub-nav">
-									<li><a href="shop_list.html" target="mainFrame">店铺列表</a></li>
-									<li><a href="add_shop.html" target="mainFrame">添加店铺</a></li>
-								</ul>				
-							</li>
-							<li>
-								<h4><i class="icon-tags"></i>店铺管理</h4>
-								<ul class="nav nav-list sub-nav">
-									<li><a href="shop_list.html" target="mainFrame">店铺列表</a></li>
-									<li><a href="add_shop.html" target="mainFrame">添加店铺</a></li>
-								</ul>				
-							</li>
-							<li>
-								<h4><i class="icon-tags"></i>店铺管理</h4>
-								<ul class="nav nav-list sub-nav">
-									<li><a href="shop_list.html" target="mainFrame">店铺列表</a></li>
-									<li><a href="add_shop.html" target="mainFrame">添加店铺</a></li>
-								</ul>				
+								<h4>正在加载...</h4>					
 							</li>
 						</ul>
 					</div>
