@@ -1,6 +1,5 @@
 package com.fsj.spring.web.sys;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -12,41 +11,42 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fsj.spring.model.person.PersonInfo;
 import com.fsj.spring.model.sys.SysUser;
 import com.fsj.spring.service.sys.UserService;
 import com.fsj.spring.util.Constants;
-import com.fsj.spring.util.DataGridModel;
+import com.fsj.spring.util.ConversionUtils;
+import com.fsj.spring.util.DataTableParam;
 import com.fsj.spring.web.TUserAwareImpl;
 /**
- * Title:用户管理控制层
+ * 用户管理控制层
  * 继承TUserAwareImpl，提供会话用户信息
  *
  * @author 唐有欢
  * @version 1.0 , 2013-1-21 创建
+ * www.9tang.info
  */
 @Controller
 @RequestMapping("/user")
 public class UserController extends TUserAwareImpl {
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/list", method = {RequestMethod.GET,RequestMethod.POST})
 	public String list(Model model) throws Exception {
 		return "sys/sysuserlist";
 	}
 
 	@RequestMapping(value = "/queryUserList", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> queryList(DataGridModel dgm, SysUser user) throws Exception {
-		// spring可以自动装配两个对象 会自动的装返回的Map转换成JSON对象
-		
+	public Map<String, Object> queryList(@RequestBody DataTableParam[] dp) throws Exception {
 		//设置会话用户信息 ， 用于数据过滤
 		userService.setLoginUser(sessionUser);
-		return userService.getPageListBySQL(dgm, user);
+		
+		return userService.getPageListBySQL(ConversionUtils.convertToMap(dp));
 	}
 
 	@RequestMapping(value = "/sysuser-edit", method = RequestMethod.GET)

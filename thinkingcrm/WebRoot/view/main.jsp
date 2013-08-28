@@ -5,10 +5,11 @@
 	<head>
 		<title>Thinking CRM,the crm is thinking</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
-		<link href="css/bootstrap-responsive.min.css" rel="stylesheet" media="screen">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 		<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+		<script src="js/json2.js" type="text/javascript"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
 		
 		<!-- bootstrap datatables -->
@@ -41,11 +42,21 @@
 					 location.href = "user/loginOut";
 				 }
 			 }
-			 
+			 //加载内容
 			 function loadcontent(url){
-				 $('#workspace').load(url);
+				 $('#workspace').load(url,{random:Math.random()},function(){
+					 window.setTimeout(recasHeight,1000);
+				 });
 			 }
 			 
+			//统一高度
+			 function recasHeight(){
+					if($('.sidebar').height() > $('#workspace').height()){
+						$('#workspace').height($('.sidebar').height());
+					}else{
+						$('.sidebar').height($('#workspace').height());
+					}
+			 }
 			
 			//显示菜单
 			 var global_role_menus = ${userSessionRoleMenus};
@@ -87,18 +98,10 @@
 			 	$('#model_menus').html(shtml);
 			 }
 			 
-			 $(function(){
+			 $(document).ready(function(){
 					window.setInterval(setClock, 1000);
 					displayRoleMenus();
 					loadcontent('content');
-					
-					if($('.sidebar').height() > $('#workspace').height()){
-						$('#workspace').height($('.sidebar').height());
-					}else{
-						$('.sidebar').height($('#workspace').height());
-					}
-					
-					
 				}); 
 		</script>
 	</head>

@@ -67,7 +67,7 @@
 						      <label class="checkbox">
 						        <input type="checkbox"> 记住我
 						      </label>
-						      <button type="button" class="btn" onclick="login()">登录</button>
+						      <button type="button" class="btn btn-primary" onclick="login()">登录</button>
 						    </div>
 						    <p class="text-error controls" id="message">
 						    	${message }

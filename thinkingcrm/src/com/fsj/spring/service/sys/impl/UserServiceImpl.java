@@ -16,64 +16,38 @@ import com.fsj.spring.model.person.PersonInfo;
 import com.fsj.spring.model.sys.SysUser;
 import com.fsj.spring.service.TServiceImpl;
 import com.fsj.spring.service.sys.UserService;
-import com.fsj.spring.util.DataGridModel;
 import com.fsj.spring.util.MD5Util;
 /**
- * Title:用户管理服务层实现类
- *
- * @author 唐有欢
- * @version 1.0 , 2013-1-18 创建
+ * <p>
+ * 	用户管理
+ * </p>
+ * @author Jerry
+ * 微博/微信：九唐时光
+ * Email:jerrtop@163.com
+ * wwww.9tang.info
  */
 @Service("userService")
 public class UserServiceImpl extends TServiceImpl implements UserService {
 	/**
-	 * 使用HQL分页查询的例子
+	 * 分页查询用户信息
+	 * @param params Map参数
+	 * @param user	用户VO
+	 * @return	Map
+	 * @throws Exception
 	 */
-//	public Map<String, Object> getPageList(DataGridModel dgm, SysUser user) throws Exception {
-//		String totalQuery = "select count(*) from SysUser user";
-//		String fullQuery = "select new map(user as user,user.id as uid) from SysUser user";
-//		StringBuffer sb = new StringBuffer();
-//		Map<String, Object> params = new HashMap<String, Object>();
-//
-//		if (user != null) {
-//			if (StringUtils.isNotBlank(user.getSuUsername())) {
-//				sb.append(" and user.suUsername like :userName");
-//				params.put("userName", "%" + user.getSuUsername() + "%");
-//			}
-//			if (StringUtils.isNotBlank(user.getSuNameCn())) {
-//				sb.append(" and user.suNameCn like :suNameCn");
-//				params.put("suNameCn", "%" + user.getSuNameCn() + "%");
-//			}
-//		}
-//
-//		if (sb.toString().startsWith(" and")) {
-//			sb.delete(0, 4);
-//			sb.insert(0, " where ");
-//		}
-//		totalQuery += sb.toString();
-//		fullQuery += sb.toString();
-//		return baseDao.getPageList(dgm, totalQuery, fullQuery, params);
-//	}
-	/**
-	 * 使用SQL分页查询的例子
-	 */
-	public Map<String, Object> getPageListBySQL(DataGridModel dgm, SysUser user) throws Exception {
+	public Map<String, Object> getPageListBySQL(Map<String,Object> params) throws Exception {
 		String totalQuery = "select count(*) from sys_user user join person_info pi on user.su_person_id = pi.id";
 		String fullQuery = "select USER.ID,USER.SU_USERNAME,USER.SU_PASSWORD,USER.SU_ACC_ENA,USER.SU_MEMO,USER.SU_PERSON_ID,USER.ID AS uid,pi.*,pi.ID as PERSONID from sys_user user join person_info pi on user.su_person_id = pi.id";
 		StringBuffer sb = new StringBuffer();
-		Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, Object> queryParams = new HashMap<String, Object>();
 		
-		PersonInfo person = user.getPerson();
-		if (user != null) {
-			if (StringUtils.isNotBlank(user.getSuUsername())) {
-				sb.append(" and user.su_username like :suUsername");
-				params.put("suUsername", "%" + user.getSuUsername() + "%");
-			}
-			
-			if (person!= null && StringUtils.isNotBlank(person.getPiName())) {
-				sb.append(" and pi.pi_name like :piName");
-				params.put("piName", "%" + person.getPiName() + "%");
-			}
+		if (params.get("searchUserName") != null && StringUtils.isNotBlank(params.get("searchUserName").toString())) {
+			sb.append(" and user.su_username like :suUsername");
+			queryParams.put("suUsername", "%" + params.get("searchUserName").toString() + "%");
+		}
+		if (params.get("searchFamliyName") != null && StringUtils.isNotBlank(params.get("searchFamliyName").toString())) {
+			sb.append(" and pi.pi_name like :piName");
+			queryParams.put("piName", "%" + params.get("searchFamliyName").toString() + "%");
 		}
 		
 		if (sb.toString().startsWith(" and")) {
@@ -82,9 +56,9 @@ public class UserServiceImpl extends TServiceImpl implements UserService {
 		}
 		totalQuery += sb.toString();
 		fullQuery += sb.toString();
-		return baseDao.getPageListBySQL(dgm, totalQuery, fullQuery, params);
+		return baseDao.getPageListBySQL(params, totalQuery, fullQuery, queryParams);
 	}
-
+	
 	public SysUser getUserByName(String name) throws Exception {
 		List<SysUser> list = baseDao.findByProperty(SysUser.class, "suUsername", name);
 		return list == null || list.size() == 0 ? null : (SysUser) list.get(0);

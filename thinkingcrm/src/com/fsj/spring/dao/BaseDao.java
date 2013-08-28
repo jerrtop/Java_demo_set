@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import com.fsj.spring.util.DataGridModel;
-
 @SuppressWarnings("rawtypes")
 public interface BaseDao {
 	public void saveOrUpdate(Object transientInstance);
@@ -36,10 +34,7 @@ public interface BaseDao {
 
 	public int updateBySQL(String sql, List pl);
 
-	public Map<String, Object> getPageListByExemple(DataGridModel dgm, Object instance) throws Exception;
-
-	public Map<String, Object> getPageList(DataGridModel dgm, String countQuery, String resultQuery,Map<String , Object> params) throws Exception;
+	public Map<String, Object> getPageListBySQL(Map<String , Object> params, String countQuery, String resultQuery,Map<String , Object> queryParams) throws Exception;
 	
-	public Map<String, Object> getPageListBySQL(DataGridModel dgm, String countQuery, String resultQuery,Map<String , Object> params) throws Exception;
 
 }

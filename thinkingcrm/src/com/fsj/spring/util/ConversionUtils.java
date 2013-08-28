@@ -2,14 +2,19 @@ package com.fsj.spring.util;
 
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
- * Title:复制Pojo属性值工具类
- * 
- * @author 唐有欢
- * @version 1.0 , 2013-1-21 创建
+ * <p>
+ * 	转换工具类
+ * </p>
+ * @author Jerry
+ * 微博/微信：九唐时光
+ * Email:jerrtop@163.com
+ * www.9tang.info
  */
 public class ConversionUtils {
 	public static final short GOAL = 1;
@@ -107,5 +112,16 @@ public class ConversionUtils {
 
 		return convertType;
 	}
-
+	/**
+	 * 转换dataTables表格参数为Map
+	 * @param params 参数数组
+	 * @return	Map
+	 */
+	public static Map<String,Object> convertToMap(DataTableParam[] params){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		for (DataTableParam param : params) {
+			map.put(param.getName(), param.getValue());
+		}
+		return map;
+	}
 }

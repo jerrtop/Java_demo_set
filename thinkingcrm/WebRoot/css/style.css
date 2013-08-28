@@ -70,13 +70,24 @@ html,body{
 }
 
 /*navigator css*/
-
-
+.navbar{
+	margin-bottom:0px!important;
+}
+.navbar-inner{
+	min-height:30px!important;
+	height:30px!important;
+}
+.navbar-inner .nav{
+	height:30px!important;
+}
+.navbar-inner .nav li{
+	line-height:10px!important;
+}
 /*left page css*/
 .left .sidebar{
-  width: 13%;
+  width: 14%;
   border: 1px solid #b9ccdb;
-  border-width: 1px 1px 0 1px;
+  border-width: 0px 1px 0 1px;
   min-height: 85%;
   height:auto;
   position: absolute;
@@ -146,7 +157,7 @@ html,body{
 /* content css */
 .content{
   border: 1px solid #b9ccdb;
-  border-width: 1px 1px 0px 1px;
+  border-width: 0px 1px 0px 0px;
   min-width:85%;
   width:auto;
   min-height: 85%;
@@ -261,4 +272,7 @@ html,body{
 *+html #compat-width{width:86%}/*ie7*/
 * html #compat-width{width:100%}/*ie6*/
 
+.form-inline span{
+	margin-left:12px;
+}
 
