@@ -272,7 +272,18 @@ html,body{
 *+html #compat-width{width:86%}/*ie7*/
 * html #compat-width{width:100%}/*ie6*/
 
+
+/** dialog */
+#dialog-form .form-inline{
+	line-height:33px;
+}
 .form-inline span{
 	margin-left:12px;
+}
+#dialog-form .form-inline label{
+	width:60px;
+}
+*+html #dialog-form .form-inline label{
+	width:62px;
 }
 

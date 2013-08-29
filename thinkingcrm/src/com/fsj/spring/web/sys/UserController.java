@@ -24,12 +24,13 @@ import com.fsj.spring.util.ConversionUtils;
 import com.fsj.spring.util.DataTableParam;
 import com.fsj.spring.web.TUserAwareImpl;
 /**
- * 用户管理控制层
- * 继承TUserAwareImpl，提供会话用户信息
- *
- * @author 唐有欢
- * @version 1.0 , 2013-1-21 创建
- * www.9tang.info
+ * <p>
+ * 		用户管理控制层
+ * </p>
+ * @author Jerry
+ * 微博/微信：九唐时光
+ * Email:jerrtop@163.com
+ * wwww.9tang.info
  */
 @Controller
 @RequestMapping("/user")

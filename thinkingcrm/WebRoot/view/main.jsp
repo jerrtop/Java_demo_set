@@ -17,6 +17,10 @@
 		<script src="js/bootstrap-datatables/jquery.dataTables.js" type="text/javascript"></script>
 		<script src="js/bootstrap-datatables/dataTables.bootstrap.js" type="text/javascript"></script>
 		
+		<!-- jquery UI  -->
+		<link href="css/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet">
+		<script src="js/jquery-ui-1.10.3.custom.js"></script>
+		
 		<script type="text/javascript">
 			var d = '${systemTime}';
 			/**
