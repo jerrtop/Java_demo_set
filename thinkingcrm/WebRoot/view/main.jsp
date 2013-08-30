@@ -5,8 +5,6 @@
 	<head>
 		<title>Thinking CRM,the crm is thinking</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link href="css/style.css" rel="stylesheet">
 		<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
 		<script src="js/json2.js" type="text/javascript"></script>
@@ -20,6 +18,11 @@
 		<!-- jquery UI  -->
 		<link href="css/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet">
 		<script src="js/jquery-ui-1.10.3.custom.js"></script>
+		
+		<!-- jquery &bootstrap ui validate -->
+		<script src="js/jquery-validate/jquery.validate.min.js"></script>
+		<script src="js/jquery-validate/messages_cn.js"></script>
+		
 		
 		<script type="text/javascript">
 			var d = '${systemTime}';

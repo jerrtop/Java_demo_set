@@ -6,7 +6,6 @@
 	<head>
 		<title>Thinking CRM,the crm is thinking</title>
 		<!-- Bootstrap -->
-		<link href="${ctx}/css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<link href="${ctx}/css/style.css" rel="stylesheet" media="screen">
 		<script src="${ctx}/js/jquery-1.9.1.min.js" type="text/javascript"></script>
 		<script src="${ctx}/js/bootstrap.min.js" type="text/javascript"></script>
@@ -40,6 +39,10 @@
 				if((e.keyCode || e.which) == 13)
 					login();
 			};
+			
+			$(function(){
+				$('#userName').focus();
+			});
 		</script>		
 	</head>
 	<body class="login">

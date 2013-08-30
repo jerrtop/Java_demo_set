@@ -1,3 +1,9 @@
+/**
+ *	import twitter bootstrap css
+ */
+@import url('bootstrap.min.css');
+@import url('bootstrap-responsive.min.css');
+
 html,body{
   height: 100%;
 }
@@ -274,6 +280,10 @@ html,body{
 
 
 /** dialog */
+#dialog-form {
+	background-color:rgb(252,252,252);
+}
+
 #dialog-form .form-inline{
 	line-height:33px;
 }
@@ -286,4 +296,30 @@ html,body{
 *+html #dialog-form .form-inline label{
 	width:62px;
 }
+#dialog-form .control-group{
+	margin-bottom:10px!important;
+}
+#dialog-form .control-label{
+	width:62px!important;
+}
+#dialog-form .controls{
+	margin-left:70px!important;
+}
 
+label.valid {
+  width: 24px;
+  height: 24px;
+  background: url(../img/valid.png) center center no-repeat;
+  display: inline-block;
+  text-indent: -9999px;
+}
+label.error {
+	font-weight: bold;
+	color: red;
+	padding: 2px 8px;
+	margin-top: 2px;
+}
+
+.redS{
+	color:red;font-size:16px;font-weight:700
+}
