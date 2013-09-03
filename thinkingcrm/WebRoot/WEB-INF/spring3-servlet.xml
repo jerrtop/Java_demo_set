@@ -18,7 +18,6 @@
 	<mvc:resources mapping="/css/**" location="/css/"/>
 	<mvc:resources mapping="/ad/**" location="/ad/"/>
 
-	<mvc:annotation-driven />
 	<!-- 
 	①：对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 
 	-->

@@ -323,3 +323,15 @@ label.error {
 .redS{
 	color:red;font-size:16px;font-weight:700
 }
+/** datatable **/
+table.datatable thead tr th{
+	background-color:#f5f5f5!important;
+}
+
+table.datatable tbody tr.row_selected td {
+	background-color: #B0BED9;
+}
+
+table.datatable tr.row_selected td {
+	background-color: #B0BED9;
+}

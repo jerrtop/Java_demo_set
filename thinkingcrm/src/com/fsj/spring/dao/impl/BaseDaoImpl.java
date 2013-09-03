@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.HibernateException;
@@ -332,10 +333,26 @@ public class BaseDaoImpl extends HibernateDaoSupport implements BaseDao {
 		int start = Integer.parseInt(params.get("iDisplayStart").toString());
 		int length = Integer.parseInt(params.get("iDisplayLength").toString());
 		String orderString = "";
-		if(params.get("iSortCol_0") != null){
-			orderString += " order by "  + params.get("mDataProp_" + Integer.parseInt(params.get("iSortCol_0").toString()));
-			orderString += " " + params.get("sSortDir_0").toString();
+		if(params.get("iSortCol_0") != null){//排序
+			int sortIndex = Integer.parseInt(params.get("iSortCol_0").toString());
+			if(sortIndex==0){//处理默认排序
+				for(String key : params.keySet()){
+					if(key.startsWith("bSortable")){
+						boolean bSortable = (Boolean) params.get(key);
+						if(bSortable){
+							orderString += " order by "  + params.get("mDataProp_" + Integer.parseInt(key.replace("bSortable_", "")));
+							orderString += " " + params.get("sSortDir_0").toString();
+							break;
+						}
+					}
+				}
+			}else{
+				orderString += " order by "  + params.get("mDataProp_" + sortIndex);
+				orderString += " " + params.get("sSortDir_0").toString();
+			}
 		}
+		
+		
 		Query queryTotal = getSession().createSQLQuery(countSQL);
 		Query queryList = getSession()
 				.createSQLQuery(resultSQL + orderString)

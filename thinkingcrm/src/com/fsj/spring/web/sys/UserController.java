@@ -63,10 +63,10 @@ public class UserController extends TUserAwareImpl {
 		try {
 			userService.setLoginUser(sessionUser);
 			userService.saveOrUpdate(user);
-			map.put("mes", "操作成功");
+			map.put("mes", "1");
 		} catch (Exception e) {
 			e.printStackTrace();
-			map.put("mes", "操作失败");
+			map.put("mes", "0");
 			throw e;
 		}
 		return map;
@@ -79,10 +79,10 @@ public class UserController extends TUserAwareImpl {
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			userService.deleteAllObjects(SysUser.class, uid);
-			map.put("mes", "删除成功");
+			map.put("mes", "1");
 		} catch (Exception e) {
 			e.printStackTrace();
-			map.put("mes", "删除失败");
+			map.put("mes", "0");
 			throw e;
 		}
 		return map;

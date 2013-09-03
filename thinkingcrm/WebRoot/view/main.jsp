@@ -9,20 +9,19 @@
 		<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
 		<script src="js/json2.js" type="text/javascript"></script>
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
-		
 		<!-- bootstrap datatables -->
 		<link href="css/bootstrap-datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
 		<script src="js/bootstrap-datatables/jquery.dataTables.js" type="text/javascript"></script>
 		<script src="js/bootstrap-datatables/dataTables.bootstrap.js" type="text/javascript"></script>
-		
 		<!-- jquery UI  -->
 		<link href="css/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet">
 		<script src="js/jquery-ui-1.10.3.custom.js"></script>
-		
 		<!-- jquery &bootstrap ui validate -->
 		<script src="js/jquery-validate/jquery.validate.min.js"></script>
 		<script src="js/jquery-validate/messages_cn.js"></script>
-		
+		<!-- jquery easyui form -->		
+		<script src="js/jquery.easyui.parser.js"></script>
+		<script src="js/jquery.easyui.form.js"></script>
 		
 		<script type="text/javascript">
 			var d = '${systemTime}';

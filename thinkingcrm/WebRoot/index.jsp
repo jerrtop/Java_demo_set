@@ -10,8 +10,8 @@
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
 		<script src="js/main.js" type="text/javascript"></script>
 		<script type="text/javascript">
-			if(location.href != window.parent.location.href)
-				window.parent.location.href = location.href;
+			if(self.location.href.indexOf('index.jsp') == -1)
+				location.href = "index.jsp";
 			
 			function login(){
 				var userName = document.getElementById("userName");
@@ -40,7 +40,8 @@
 			};
 			
 			$(function(){
-				$('#userName').focus();
+				$('#userName').val('admin').focus();
+				$('#password').val('12345678');
 			});
 		</script>		
 	</head>
