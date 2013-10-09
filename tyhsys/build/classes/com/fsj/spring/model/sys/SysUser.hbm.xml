@@ -13,11 +13,11 @@
         <property name="suUsername" type="java.lang.String">
             <column name="SU_USERNAME" length="30" unique="true" />
         </property>
+        <many-to-one name="person" class="com.fsj.spring.model.person.PersonInfo" cascade="all" lazy="false">
+        	<column name="SU_PERSON_ID"/>
+        </many-to-one>
         <property name="suPassword" type="java.lang.String">
-            <column name="SU_PASSWORD" length="30" />
-        </property>
-        <property name="suNameCn" type="java.lang.String">
-            <column name="SU_NAME_CN" length="20" />
+            <column name="SU_PASSWORD" length="32" />
         </property>
         <property name="suAccEna" type="java.lang.String">
             <column name="SU_ACC_ENA" length="1">
@@ -30,7 +30,7 @@
         <property name="crtC" type="java.lang.String">
             <column name="CRT_C" length="30" />
         </property>
-        <property name="crtDate" type="java.util.Date">
+        <property name="crtDate" type="java.lang.String">
             <column name="CRT_DATE" length="19" />
         </property>
     </class>

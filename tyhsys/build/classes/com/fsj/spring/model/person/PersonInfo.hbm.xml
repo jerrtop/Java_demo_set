@@ -11,7 +11,7 @@
             <generator class="native" />
         </id>
         <property name="piCode" type="java.lang.String">
-            <column name="PI_CODE" length="20" unique="true" />
+            <column name="PI_CODE" length="20"/>
         </property>
         <property name="piName" type="java.lang.String">
             <column name="PI_NAME" length="30" />
@@ -29,24 +29,24 @@
             <column name="PI_EMAIL" length="30" />
         </property>
         <property name="piIdcard" type="java.lang.String">
-            <column name="PI_IDCARD" length="20" />
+            <column name="PI_IDCARD" length="18" />
         </property>
         <property name="piSex" type="java.lang.String">
             <column name="PI_SEX" length="1">
                 <comment>M表示男性；F表示女性</comment>
             </column>
         </property>
-        <property name="piJoinDate" type="java.util.Date">
+        <property name="piJoinDate" type="java.lang.String">
             <column name="PI_JOIN_DATE" length="10" />
         </property>
-        <property name="piBirthDate" type="java.util.Date">
+        <property name="piBirthDate" type="java.lang.String">
             <column name="PI_BIRTH_DATE" length="10" />
         </property>
         <property name="piDegree" type="java.lang.String">
             <column name="PI_DEGREE" length="30" />
         </property>
-        <property name="piType" type="java.lang.Long">
-            <column name="PI_TYPE" />
+        <property name="piType" type="java.lang.String">
+            <column name="PI_TYPE" length="30"/>
         </property>
         <property name="piNation" type="java.lang.String">
             <column name="PI_NATION" length="100" />
@@ -54,22 +54,16 @@
         <property name="piAddress" type="java.lang.String">
             <column name="PI_ADDRESS" length="100" />
         </property>
-        <property name="piMemo" type="java.lang.String">
-            <column name="PI_MEMO" length="300" />
-        </property>
         <property name="piSup" type="java.lang.String">
             <column name="PI_SUP" length="36" />
         </property>
         <property name="piOrg" type="java.lang.Long">
             <column name="PI_ORG" />
         </property>
-        <property name="piUser" type="java.lang.String">
-            <column name="PI_USER" length="30" />
-        </property>
         <property name="crtC" type="java.lang.String">
             <column name="CRT_C" length="30" />
         </property>
-        <property name="crtDate" type="java.util.Date">
+        <property name="crtDate" type="java.lang.String">
             <column name="CRT_DATE" length="19" />
         </property>
     </class>

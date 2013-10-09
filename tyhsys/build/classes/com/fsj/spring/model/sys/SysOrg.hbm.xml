@@ -22,8 +22,8 @@
         <property name="crtC" type="java.lang.String">
             <column name="CRT_C" length="30" />
         </property>
-        <property name="crtTime" type="java.util.Date">
-            <column name="CRT_TIME" length="19" />
+        <property name="crtDate" type="java.lang.String">
+            <column name="CRT_DATE" length="19" />
         </property>
     </class>
 </hibernate-mapping>
