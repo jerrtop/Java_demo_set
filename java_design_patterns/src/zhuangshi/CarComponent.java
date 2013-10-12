@@ -1,8 +1,13 @@
 package zhuangshi;
+
 /**
  * 
  * Component 
-*/
+ * 【装饰模式解释】 
+ *  类型：结构模式 
+ * 
+ *  动态的对一个对象进行功能上的扩展，也可以对其子类进行功能上的扩展。
+ */
 public abstract class CarComponent {
 	private String address;
 	private int speed;
