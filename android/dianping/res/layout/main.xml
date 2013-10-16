@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_background"
+        android:gravity="center_vertical"
+        android:paddingBottom="5dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:paddingTop="5dip" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="大众点评-上海站"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="#ffffffff" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_arrow_down"
+                android:textColor="#ffffffff" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="5" >
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:background="@drawable/btn_weight"
+                android:src="@drawable/toolbar_upload_photo_normal" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_bar_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="6.0dip" >
+
+        <Button
+            android:id="@+id/eidt_search"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@android:drawable/edit_text"
+            android:drawableLeft="@drawable/ic_btn_search"
+            android:gravity="left|center"
+            android:hint="\u0020商户名,地址等.."
+            android:textAppearance="?android:textAppearanceMedium" />
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/my_grid"
+        style="@style/CustomGridView"
+        android:layout_width="fill_parent"
+        android:layout_height="0.0px"
+        android:layout_marginTop="0.0dip"
+        android:layout_weight="1.0"
+        android:columnWidth="60.0dip"
+        android:gravity="center"
+        android:horizontalSpacing="10.0dip"
+        android:numColumns="3"
+        android:paddingTop="20dip"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="20.0dip" >
+    </GridView>
+
+</LinearLayout>
