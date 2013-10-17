@@ -55,7 +55,7 @@ public class CategoryActivity extends Activity {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			Intent intent = new Intent();
-			//intent.setClass(CategoryActivity.this, ResultActivity.class);
+			intent.setClass(CategoryActivity.this, ResultActivity.class);
 			startActivity(intent);
 		}
 	};

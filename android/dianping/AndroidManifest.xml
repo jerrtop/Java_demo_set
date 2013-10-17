@@ -29,6 +29,14 @@
             android:label="@string/app_name"
             android:name=".activity.CategoryActivity" >
         </activity>
+        <activity
+            android:configChanges="orientation"
+            android:name=".activity.ResultActivity" >
+        </activity>
+        <activity
+            android:configChanges="orientation"
+            android:name=".activity.DetailActivity" >
+        </activity>
     </application>
 
 </manifest>
