@@ -7,8 +7,7 @@
 	android:layout_height="wrap_content"
 	>
 	
-	<LinearLayout 
-
+	<LinearLayout
 		android:gravity="center" android:orientation="vertical"
 		android:paddingLeft="6.0dip" android:paddingTop="6.0dip"
 		android:paddingRight="6.0dip" android:paddingBottom="6.0dip"
@@ -67,7 +66,7 @@
 		android:textSize="16.0sp" android:gravity="left|center"
 		android:paddingLeft="6.0dip" android:text="频道" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:textColor="#ffffffff"
-		style="@style/CustomChannelItem" 
+		style="@style/CustomChannelItem"
 		/>
 			
 </LinearLayout>
