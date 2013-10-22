@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">Textview显示html</string>
+    <string name="local">本地图片</string>
+    <string name="resource">项目图片</string>
+    <string name="internet">网络图片</string>
+
+</resources>
